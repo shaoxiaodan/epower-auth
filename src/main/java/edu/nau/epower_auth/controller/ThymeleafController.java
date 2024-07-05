@@ -21,16 +21,17 @@ public class ThymeleafController {
 		return "login";
 	}
 	
-	@GetMapping("/system/menu_list")
+	@GetMapping("/sys/menu_list")
 	public String menuList(ModelMap modelMap) {
 		modelMap.addAttribute("name", "menu_list");
 		return "system/menu/menu_list";
 	}
 	
-	@GetMapping("/system/user_list")
+	@GetMapping("/sys/user_list")
 	public String userList(ModelMap modelMap) {
 		
-		modelMap.addAttribute("name", "user_list");
+		modelMap.addAttribute("name", "aaa");
+		modelMap.addAttribute("age", 29);
 		return "system/user/user_list";
 	}
 	
