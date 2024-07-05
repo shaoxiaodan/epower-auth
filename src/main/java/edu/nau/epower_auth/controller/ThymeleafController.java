@@ -1,26 +1,38 @@
 package edu.nau.epower_auth.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/thymeleaf")
+@Controller
+@RequestMapping("/")
 public class ThymeleafController {
 
 	@GetMapping("index")
 	public String index() {
-		
 		System.out.println("ThymeleafController :: index");
-		//无需添加后缀，在配置文件中已经指定了页面返回后缀
 		return "index";
 	}
 	
-	@GetMapping("ok")
-	public String ok() {
-		
-		System.out.println("ThymeleafController :: ok");
-		//无需添加后缀，在配置文件中已经指定了页面返回后缀
-		return "ok";
+	@GetMapping("login")
+	public String login() {
+		System.out.println("ThymeleafController :: login");
+		return "login";
 	}
+	
+	@GetMapping("/system/menu_list")
+	public String menuList(ModelMap modelMap) {
+		modelMap.addAttribute("name", "menu_list");
+		return "system/menu/menu_list";
+	}
+	
+	@GetMapping("/system/user_list")
+	public String userList(ModelMap modelMap) {
+		
+		modelMap.addAttribute("name", "user_list");
+		return "system/user/user_list";
+	}
+	
+	
 }
