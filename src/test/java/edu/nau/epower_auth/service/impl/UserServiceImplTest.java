@@ -23,9 +23,20 @@ public class UserServiceImplTest {
 		user.setPassword("123456");
 		user.setCreateTime(new Date());
 
-		int insert = userServicel.add(user);
-		int userId = user.getId();
-		System.out.println("UserServiceImplTest::insert=" + insert + "\tuserId=" + userId);
+		try {
+			/**
+			 * 异常操作 测试事务控制是否生效
+			 */
+			int errorCode = 12 / 0;
+
+			int insert = userServicel.add(user);
+			int userId = user.getId();
+			System.out.println("UserServiceImplTest::insert=" + insert + "\tuserId=" + userId);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
