@@ -1,5 +1,6 @@
 package edu.nau.epower_auth.mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -47,4 +48,54 @@ public class UrlMapperTest {
 
 		assertNotNull(urlList);
 	}
+
+	@Test
+	public void testListUrl() {
+
+		List<Url> urlList = urlMapper.listUrl();
+		if (urlList != null && urlList.size() > 0) {
+			Url url = null;
+			for (int i = 0; i < urlList.size(); i++) {
+				url = urlList.get(i);
+				System.out.println(
+						"testListUrl::urlList=" + url.getId() + "\t" + url.getPath() + "\t" + url.getDescription());
+			}
+		}
+		assertNotNull(urlList);
+	}
+
+	@Test
+	public void testAddUrl() {
+
+		Url url = new Url();
+		url.setPath("/api/test/list");
+		url.setDescription("/api/test/list");
+		int add = urlMapper.addUrl(url);
+		System.out.println("testAddUrl::add=" + add + "\tid=" + url.getId());
+//		assertNotNull(url);
+		assertEquals(1, add);
+	}
+
+	@Test
+	public void testUpdateUrl() {
+
+		Url url = new Url();
+		url.setId(23);
+		url.setPath("/api/test/update");
+		url.setDescription("/api/test/update");
+		int update = urlMapper.updateUrl(url);
+		System.out.println("testUpdateUrl::update=" + update);
+		assertEquals(1, update);
+	}
+
+	@Test
+	public void testRemoveUrl() {
+
+		int urlId = 0;
+		urlId = 23;
+		int delete = urlMapper.removeUrl(urlId);
+		System.out.println("testRemoveUrl::delete=" + delete);
+		assertEquals(1, delete);
+	}
+
 }
