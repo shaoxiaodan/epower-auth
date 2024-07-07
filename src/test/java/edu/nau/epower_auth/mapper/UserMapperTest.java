@@ -1,4 +1,4 @@
-package edu.nau.epower_auth;
+package edu.nau.epower_auth.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import edu.nau.epower_auth.dao.User;
-import edu.nau.epower_auth.mapper.UserMapper;
 
 /**
  * 
@@ -66,11 +65,11 @@ public class UserMapperTest {
 
 	@Test
 	public void testListUser() {
-		
+
 		List<User> userList = userMapper.listUser();
 		System.out.println(userList);
 	}
-	
+
 	@Test
 	public void testInsertUser() {
 
@@ -106,13 +105,13 @@ public class UserMapperTest {
 
 		System.out.println("testUpdateUser::update=" + update);
 	}
-	
+
 	@Test
 	public void testRemoveUser() {
-		
+
 		int userId = 0;
 		userId = 7;
-		
+
 		int remove = userMapper.removeUser(userId);
 		System.out.println("testRemoveUser::remove=" + remove);
 	}

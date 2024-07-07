@@ -1,16 +1,14 @@
-package edu.nau.epower_auth;
+package edu.nau.epower_auth.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
-import org.apache.commons.collections.ListUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import edu.nau.epower_auth.dao.Menu;
-import edu.nau.epower_auth.mapper.MenuMapper;
 
 /**
  * 
@@ -28,11 +26,11 @@ public class MenuMapperTest {
 	@Test
 	public void testFindMenuByRoleId() {
 
-		int roleId = 0; 
-		roleId = 1; //role=admin
+		int roleId = 0;
+		roleId = 1; // role=admin
 //		roleId = 2; //role=root
 //		roleId = 3; //editor
-		
+
 		List<Menu> menuList = menuMapper.findMenuByRoleId(roleId);
 		if (menuList != null && menuList.size() > 0) {
 			for (int i = 0; i < menuList.size(); i++) {

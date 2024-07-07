@@ -1,4 +1,4 @@
-package edu.nau.epower_auth;
+package edu.nau.epower_auth.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import edu.nau.epower_auth.dao.Menu;
-import edu.nau.epower_auth.dao.Permission;
 import edu.nau.epower_auth.dao.Role;
-import edu.nau.epower_auth.mapper.RoleMapper;
 
 /**
  * 
