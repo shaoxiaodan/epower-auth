@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import edu.nau.epower_auth.dao.User;
 
 /**
+ * 用户映射
  * 
  * @ClassName: UserMapper
  * @Description: TODO

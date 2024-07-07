@@ -12,6 +12,7 @@ import org.apache.ibatis.mapping.FetchType;
 import edu.nau.epower_auth.dao.Role;
 
 /**
+ * 角色映射
  * 
  * @ClassName: RoleMapper
  * @Description: TODO
@@ -20,19 +21,10 @@ import edu.nau.epower_auth.dao.Role;
  */
 public interface RoleMapper {
 
-	@Select("select r.id as id, r.name as name, r.description as description"
-			+ " from user_role ur"
-			+ " left join role r on ur.role_id = r.id"
-			+ " where ur.user_id = #{userId}")
-	@Results(
-			value = {
-					@Result(id = true, property = "id", column = "id"),
-					@Result(property = "name", column = "name"),
-					@Result(property = "description", column = "description"),
-					@Result(property = "menuList", column = "id",
-					many = @Many(select = "edu.nau.epower_auth.mapper.MenuMapper.findMenuByRoleId", fetchType = FetchType.DEFAULT)
-					)
-			}
-	)
+	@Select("select r.id as id, r.name as name, r.description as description" + " from user_role ur"
+			+ " left join role r on ur.role_id = r.id" + " where ur.user_id = #{userId}")
+	@Results(value = { @Result(id = true, property = "id", column = "id"), @Result(property = "name", column = "name"),
+			@Result(property = "description", column = "description"),
+			@Result(property = "menuList", column = "id", many = @Many(select = "edu.nau.epower_auth.mapper.MenuMapper.findMenuByRoleId", fetchType = FetchType.DEFAULT)) })
 	public List<Role> findRoleByUserId(@Param("userId") int userId);
 }
