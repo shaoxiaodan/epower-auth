@@ -21,10 +21,10 @@ import edu.nau.epower_auth.dao.UserRole;
  */
 public interface UserRoleMapper {
 
-	@Insert("insert into user_role(user_id, role_id, remarks) values(#{user_id}, #{role_id}, #{remarks})")
+	@Insert("insert into user_role(user_id, role_id, remarks) values(#{userId}, #{roleId}, #{remarks})")
 	public int insertUserRole(UserRole userRole);
 
-	@Delete("delete from user_role where user_id = #{user_id} and role_id = #{role_id}")
+	@Delete("delete from user_role where user_id = #{userId} and role_id = #{roleId}")
 	public int deleteUserRole(UserRole userRole);
 
 	@InsertProvider(type = SqlProvider.class, method = "insertBatch")
