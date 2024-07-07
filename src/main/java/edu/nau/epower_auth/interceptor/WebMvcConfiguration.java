@@ -1,4 +1,4 @@
-package edu.nau.epower_auth.filter;
+package edu.nau.epower_auth.interceptor;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

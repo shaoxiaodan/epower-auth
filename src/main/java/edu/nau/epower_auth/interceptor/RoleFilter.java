@@ -1,4 +1,4 @@
-package edu.nau.epower_auth.filter;
+package edu.nau.epower_auth.interceptor;
 
 import java.io.IOException;
 

@@ -1,5 +1,12 @@
 package edu.nau.epower_auth.dao;
 
+/**
+ * 
+ * @ClassName: RolePermission
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 01:29:54
+ */
 public class RolePermission {
 
 	private int id;

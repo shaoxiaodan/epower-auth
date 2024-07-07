@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
-@ServletComponentScan //WebFilter过滤器扫描
 @MapperScan("edu.nau.epower_auth.mapper")
 public class EpowerAuthApplication {
 

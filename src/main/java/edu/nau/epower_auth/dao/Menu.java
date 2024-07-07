@@ -1,18 +1,26 @@
 package edu.nau.epower_auth.dao;
 
+/**
+ * 
+ */
 import java.util.List;
 
-public class Role {
+/**
+ * 
+ * @ClassName: Menu
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 09:01:13
+ */
+public class Menu {
 
 	private int id;
-
+	
 	private String name;
-
+	
 	private String description;
 
-	private List<Permission> permissionList;
-
-	private List<Menu> menuList;
+	private List<Url> urlList;
 
 	public int getId() {
 		return id;
@@ -38,20 +46,12 @@ public class Role {
 		this.description = description;
 	}
 
-	public List<Permission> getPermissionList() {
-		return permissionList;
+	public List<Url> getUrlList() {
+		return urlList;
 	}
 
-	public void setPermissionList(List<Permission> permissionList) {
-		this.permissionList = permissionList;
+	public void setUrlList(List<Url> urlList) {
+		this.urlList = urlList;
 	}
-
-	public List<Menu> getMenuList() {
-		return menuList;
-	}
-
-	public void setMenuList(List<Menu> menuList) {
-		this.menuList = menuList;
-	}
-
+	
 }

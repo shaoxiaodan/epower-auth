@@ -5,15 +5,22 @@ import org.apache.ibatis.annotations.Select;
 
 import edu.nau.epower_auth.dao.User;
 
+/**
+ * 
+ * @ClassName: UserMapper
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 09:04:18
+ */
 public interface UserMapper {
 
 	@Select("selectt * from user where username = #{username}")
-	User findByUserName(@Param("username") String username);
-	
+	public User findByUserName(@Param("username") String username);
+
 	@Select("select * from user where id = #{userId}")
-	User findById(@Param("userId") int id);
-	
+	public User findById(@Param("userId") int id);
+
 	@Select("select * from user where username = #{username} and password = #{pwd}")
-	User findByUsernameAndPwd(@Param("username") String username, @Param("pwd") String pwd);
-	
+	public User findByUsernameAndPwd(@Param("username") String username, @Param("pwd") String pwd);
+
 }

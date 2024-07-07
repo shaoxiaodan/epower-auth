@@ -3,7 +3,14 @@ package edu.nau.epower_auth.dao;
 import java.util.Date;
 import java.util.List;
 
-public class User {
+/**
+ * 
+ * @ClassName: Test
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 02:18:04
+ */
+public class Test {
 
 	private int id;
 
@@ -13,7 +20,9 @@ public class User {
 
 	private String salt;
 
-	private List<Role> roleList;
+	private boolean isVip;
+
+	private List<String> tags;
 
 	public int getId() {
 		return id;
@@ -47,12 +56,20 @@ public class User {
 		this.salt = salt;
 	}
 
-	public List<Role> getRoleList() {
-		return roleList;
+	public boolean isVip() {
+		return isVip;
 	}
 
-	public void setRoleList(List<Role> roleList) {
-		this.roleList = roleList;
+	public void setVip(boolean isVip) {
+		this.isVip = isVip;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 
 }

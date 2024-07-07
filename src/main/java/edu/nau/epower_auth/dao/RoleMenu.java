@@ -1,12 +1,12 @@
 package edu.nau.epower_auth.dao;
 
-public class UserRole {
+public class RoleMenu {
 
 	private int id;
 
-	private int userId;
-
 	private int roleId;
+
+	private int menuId;
 
 	public int getId() {
 		return id;
@@ -16,20 +16,20 @@ public class UserRole {
 		this.id = id;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
 	public int getRoleId() {
 		return roleId;
 	}
 
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+
+	public int getMenuId() {
+		return menuId;
+	}
+
+	public void setMenuId(int menuId) {
+		this.menuId = menuId;
 	}
 
 }

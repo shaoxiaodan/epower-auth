@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.7</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	
+
 	<groupId>edu.nau</groupId>
 	<artifactId>epower-auth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>epower-auth</name>
 	<description>Demo project for Spring Boot</description>
-	
+
 	<!-- java版本 -->
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-	
+
 	<!-- 依赖配置 -->
 	<dependencies>
 
@@ -35,7 +37,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>	
+		</dependency>
 		<!-- Junit依赖 
 		Spingboot 3版本自带新版的junit 5，无须增加该依赖配置，否则无法正常进行单元测试！
 		<dependency>
@@ -60,18 +62,18 @@
 
 		<!-- 阿里巴巴数据源 -->
 		<dependency>
-		    <groupId>com.alibaba</groupId>
-		    <artifactId>druid</artifactId>
-		    <version>1.2.23</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.2.23</version>
 		</dependency>
 
 		<!-- springboot shiro权限控制 -->
 		<dependency>
-		    <groupId>org.apache.shiro</groupId>
-		    <artifactId>shiro-spring</artifactId>
-		    <version>2.0.1</version>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>2.0.1</version>
 		</dependency>
-		
+
 		<!-- mybatis依赖-->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -84,8 +86,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
-		
+
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap 
 		<dependency>
 		    <groupId>org.webjars</groupId>
@@ -96,12 +97,32 @@
 	</dependencies>
 
 	<build>
+		<finalName>epower-auth</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- maven 打包时跳过测试 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
 		</plugins>
+		<!-- 
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/**</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>-->
 	</build>
 
 </project>
