@@ -9,6 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.mapper.UserMapper;
 
+/**
+ * 
+ * @ClassName: UserMapperTest
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 09:51:01
+ */
 @SpringBootTest
 public class UserMapperTest {
 

@@ -3,6 +3,13 @@ package edu.nau.epower_auth.dao;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 
+ * @ClassName: User
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 09:51:18
+ */
 public class User {
 
 	private int id;
