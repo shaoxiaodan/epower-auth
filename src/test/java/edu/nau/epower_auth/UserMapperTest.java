@@ -75,4 +75,38 @@ public class UserMapperTest {
 		System.out.println("testInserUser::insert=" + insert);
 	}
 
+	@Test
+	public void testUpdateUser() {
+
+		User user = new User();
+		user.setId(7);
+		user.setUsername("Xiaodan Shao");
+		user.setPassword("987654321");
+
+		int update = 0;
+
+		/*
+		 * 测试异常操作
+		 */
+		try {
+//			System.out.println(12 / 0);
+			update = userMapper.updateUser(user);
+//			System.out.println(12 / 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("testUpdateUser::update=" + update);
+	}
+	
+	@Test
+	public void testRemoveUser() {
+		
+		int userId = 0;
+		userId = 7;
+		
+		int remove = userMapper.removeUser(userId);
+		System.out.println("testRemoveUser::remove=" + remove);
+	}
+
 }

@@ -1,5 +1,6 @@
 package edu.nau.epower_auth.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -28,5 +29,11 @@ public interface UserMapper {
 
 	@Insert("insert into user(username, password, create_time) values(#{username}, #{password}, #{createTime})")
 	public int insertUser(User user);
+
+	@Update("update user set username = #{username}, password = #{password} where id = #{id}")
+	public int updateUser(User user);
+
+	@Delete("delete from user where id = #{userId}")
+	public int removeUser(@Param("userId") int id);
 
 }
