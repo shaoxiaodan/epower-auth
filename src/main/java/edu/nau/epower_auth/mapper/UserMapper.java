@@ -14,13 +14,13 @@ import edu.nau.epower_auth.dao.User;
  */
 public interface UserMapper {
 
-	@Select("selectt * from user where username = #{username}")
-	public User findByUserName(@Param("username") String username);
-
 	@Select("select * from user where id = #{userId}")
-	public User findById(@Param("userId") int id);
+	public User findByUserId(@Param("userId") int id);
 
-	@Select("select * from user where username = #{username} and password = #{pwd}")
-	public User findByUsernameAndPwd(@Param("username") String username, @Param("pwd") String pwd);
+	@Select("select * from user where username = #{userName}")
+	public User findByUserName(@Param("userName") String username);
+
+	@Select("select * from user where username = #{userName} and password = #{pwd}")
+	public User findByUserNameAndPwd(@Param("userName") String username, @Param("pwd") String password);
 
 }
