@@ -1,5 +1,7 @@
 package edu.nau.epower_auth.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,7 +26,15 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 
 	/**
-	 * 添加用户方法(带事务控制)
+	 * 用户列表
+	 */
+	@Override
+	public List<User> list() {
+		return userMapper.listUser();
+	}
+
+	/**
+	 * 添加用户(with事务控制)
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -32,6 +42,24 @@ public class UserServiceImpl implements UserService {
 		userMapper.insertUser(user);
 		int userId = user.getId();
 		return userId;
+	}
+
+	/**
+	 * 更新用户((with事务控制))
+	 */
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public int update(User user) {
+		return userMapper.updateUser(user);
+	}
+
+	/**
+	 * 删除用户(with事务控制)
+	 */
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public int remove(int userId) {
+		return userMapper.removeUser(userId);
 	}
 
 }
