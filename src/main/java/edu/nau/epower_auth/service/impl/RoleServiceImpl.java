@@ -10,7 +10,7 @@ import edu.nau.epower_auth.mapper.RoleMapper;
 import edu.nau.epower_auth.service.RoleService;
 
 /**
- * 角色服务
+ * 角色服务实现
  * 
  * @ClassName: RoleServiceImpl
  * @Description: TODO

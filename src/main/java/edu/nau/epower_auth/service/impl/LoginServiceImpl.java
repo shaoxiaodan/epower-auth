@@ -8,7 +8,7 @@ import edu.nau.epower_auth.mapper.UserMapper;
 import edu.nau.epower_auth.service.LoginService;
 
 /**
- * 登录服务
+ * 登录服务实现
  * 
  * @ClassName: LoginServiceImpl
  * @Description: TODO
