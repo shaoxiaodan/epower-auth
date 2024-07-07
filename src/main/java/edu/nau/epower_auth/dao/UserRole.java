@@ -16,6 +16,8 @@ public class UserRole {
 
 	private int roleId;
 
+	private String remarks;
+
 	public int getId() {
 		return id;
 	}
@@ -38,6 +40,14 @@ public class UserRole {
 
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 }
