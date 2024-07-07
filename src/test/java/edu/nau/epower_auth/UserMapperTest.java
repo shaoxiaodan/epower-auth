@@ -75,12 +75,12 @@ public class UserMapperTest {
 	public void testInsertUser() {
 
 		User user = new User();
-		user.setUsername("shao xiaodan");
+		user.setUsername("Java");
 		user.setPassword("123456");
 		user.setCreateTime(new Date());
 
 		int insert = userMapper.insertUser(user);
-		System.out.println("testInserUser::insert=" + insert);
+		System.out.println("testInserUser::insert=" + insert + "\tid=" + user.getId());
 	}
 
 	@Test
