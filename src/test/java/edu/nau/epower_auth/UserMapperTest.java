@@ -2,6 +2,8 @@ package edu.nau.epower_auth;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,6 +61,18 @@ public class UserMapperTest {
 
 		User user = userMapper.findUserByUserNameAndPwd(userName, pwd);
 		assertNotNull(user);
+	}
+
+	@Test
+	public void testInsertUser() {
+
+		User user = new User();
+		user.setUsername("shao xiaodan");
+		user.setPassword("123456");
+		user.setCreateTime(new Date());
+
+		int insert = userMapper.insertUser(user);
+		System.out.println("testInserUser::insert=" + insert);
 	}
 
 }
