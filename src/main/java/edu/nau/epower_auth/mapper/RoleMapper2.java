@@ -11,14 +11,7 @@ import org.apache.ibatis.mapping.FetchType;
 
 import edu.nau.epower_auth.dao.Role;
 
-/**
- * 
- * @ClassName: RoleMapper
- * @Description: TODO
- * @author Xiaodan Shao(xs94@nau.edu)
- * @date 2024-07-06 09:56:26
- */
-public interface RoleMapper {
+public interface RoleMapper2 {
 
 	@Select("select r.id as id, r.name as name, r.description as description "
 			+ "from user_role ur "
@@ -34,5 +27,6 @@ public interface RoleMapper {
 					)
 			}
 	)
-	List<Role> findRoleByUserId(@Param("userId") int userId);
+	List<Role> findRoleListByUserId(@Param("userId") int userId);
+	
 }

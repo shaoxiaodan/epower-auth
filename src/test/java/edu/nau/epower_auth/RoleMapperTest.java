@@ -10,13 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import edu.nau.epower_auth.dao.Permission;
 import edu.nau.epower_auth.dao.Role;
-import edu.nau.epower_auth.mapper.RoleMapper;
+import edu.nau.epower_auth.mapper.RoleMapper2;
 
 @SpringBootTest
 public class RoleMapperTest {
 
 	@Autowired
-	private RoleMapper roleMapper;
+	private RoleMapper2 roleMapper;
 	
 	@Test
 	public void testFindRoleListByUserId() {
