@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -31,8 +32,9 @@ public interface UserMapper {
 
 	@Select("select * from user")
 	public List<User> listUser();
-	
+
 	@Insert("insert into user(username, password, create_time) values(#{username}, #{password}, #{createTime})")
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") //返回自增id
 	public int insertUser(User user);
 
 	@Update("update user set username = #{username}, password = #{password} where id = #{id}")
