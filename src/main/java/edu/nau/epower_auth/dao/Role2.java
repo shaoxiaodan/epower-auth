@@ -7,15 +7,17 @@ import java.util.List;
  * @ClassName: Role
  * @Description: TODO
  * @author Xiaodan Shao(xs94@nau.edu)
- * @date 2024-07-06 09:53:55
+ * @date 2024-07-06 09:53:06
  */
-public class Role {
+public class Role2 {
 
 	private int id;
 
 	private String name;
 
 	private String description;
+
+	private List<Permission> permissionList;
 
 	private List<Menu> menuList;
 
@@ -41,6 +43,14 @@ public class Role {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Permission> getPermissionList() {
+		return permissionList;
+	}
+
+	public void setPermissionList(List<Permission> permissionList) {
+		this.permissionList = permissionList;
 	}
 
 	public List<Menu> getMenuList() {
