@@ -12,7 +12,7 @@ import edu.nau.epower_auth.mapper.UserMapper;
 import edu.nau.epower_auth.service.UserService;
 
 /**
- * 用户服务层
+ * 用户服务
  * 
  * @ClassName: UserServiceImpl
  * @Description: TODO
