@@ -20,19 +20,19 @@ import edu.nau.epower_auth.dao.Role;
  */
 public interface RoleMapper {
 
-	@Select("select r.id as id, r.name as name, r.description as description "
-			+ "from user_role ur "
-			+ "left join role r on ur.role_id = r.id "
-			+ "where ur.user_id = #{userId}")
+	@Select("select r.id as id, r.name as name, r.description as description"
+			+ " from user_role ur"
+			+ " left join role r on ur.role_id = r.id"
+			+ " where ur.user_id = #{userId}")
 	@Results(
 			value = {
 					@Result(id = true, property = "id", column = "id"),
 					@Result(property = "name", column = "name"),
 					@Result(property = "description", column = "description"),
-					@Result(property = "permissionList", column = "id",
-					many = @Many(select = "edu.nau.dks_epower.mapper.PermissionMapper.findPermissionByRoleId", fetchType = FetchType.DEFAULT)
+					@Result(property = "menuList", column = "id",
+					many = @Many(select = "edu.nau.epower_auth.mapper.MenuMapper.findMenuByRoleId", fetchType = FetchType.DEFAULT)
 					)
 			}
 	)
-	List<Role> findRoleByUserId(@Param("userId") int userId);
+	public List<Role> findRoleByUserId(@Param("userId") int userId);
 }

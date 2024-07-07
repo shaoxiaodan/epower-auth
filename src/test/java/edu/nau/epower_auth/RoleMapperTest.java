@@ -8,51 +8,61 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Permission;
 import edu.nau.epower_auth.dao.Role;
-import edu.nau.epower_auth.mapper.RoleMapper2;
+import edu.nau.epower_auth.mapper.RoleMapper;
 
+/**
+ * 
+ * @ClassName: RoleMapperTest
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 09:57:19
+ */
 @SpringBootTest
 public class RoleMapperTest {
 
 	@Autowired
-	private RoleMapper2 roleMapper;
-	
-	@Test
-	public void testFindRoleListByUserId() {
-		
-		List<Role> roleList = roleMapper.findRoleListByUserId(3);
-		System.out.println("testFindRoleListByUserId, roleList=" + roleList);
-		
-		if(roleList != null) {
-			
-			Role role = null;
-			List<Permission> permissionList = null;
-			
-			for(int i=0;i<roleList.size();i++) {
-				
-				role = roleList.get(i);
-				permissionList = role.getPermissionList();
-				
-				System.out.println("** roleName=" + role.getName());
+	private RoleMapper roleMapper;
 
-				if(permissionList != null) {
-					
-					Permission permission = null;
-					String pName = "";
-					String pUrl = "";
-					for(int j=0;j<permissionList.size();j++) {
-						permission = permissionList.get(j);
-						pName = permission.getName();
-						pUrl = permission.getUrl();
-						System.out.println("** pName=" + pName + "\tpUrl=" + pUrl);
+	@Test
+	public void testFindRoleByUserId() {
+
+		int userId = 0;
+//		userId = 1; // aaa = editor
+//		userId = 2; //bbb = admin
+		userId = 3; //ccc = root
+
+		List<Role> roleList = roleMapper.findRoleByUserId(userId);
+		System.out.println("testFindRoleByUserId::roleList=" + roleList);
+
+		if (roleList != null && roleList.size() > 0) {
+
+			Role role = null;
+			List<Menu> menuList = null;
+
+			for (int i = 0; i < roleList.size(); i++) {
+
+				role = roleList.get(i);
+				menuList = role.getMenuList();
+
+				System.out.println("testFindRoleByUserId::role=" + role.getId() + "\t" + role.getName());
+
+				if (menuList != null && menuList.size() > 0) {
+
+					Menu menu = null;
+
+					for (int j = 0; j < menuList.size(); j++) {
+						menu = menuList.get(j);
+						System.out.println("testFindRoleByUserId::menu=" + menu.getId() + "\t" + menu.getName()
+								+ "\t" + menu.getDescription());
 					}
 				}
 			}
 		}
-		
-		
+
 		assertNotNull(roleList);
 	}
-	
+
 }
