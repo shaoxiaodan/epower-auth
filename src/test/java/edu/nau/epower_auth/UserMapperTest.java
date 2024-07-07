@@ -23,33 +23,33 @@ public class UserMapperTest {
 	private UserMapper userMapper;
 
 	@Test
-	public void testFindByUserId() {
+	public void testFindUserByUserId() {
 
 		int userId = 0;
 		userId = 1; // user = aaa
 //		userId = 2; //user = bbb
 //		userId = 3; //user = ccc
 
-		User user = userMapper.findByUserId(userId);
+		User user = userMapper.findUserByUserId(userId);
 		System.out.println("testFindByUserId:: user=" + user);
 		assertNotNull(user);
 	}
 
 	@Test
-	public void testFindByUserName() {
+	public void testFindUserByUserName() {
 
 		String userName = "";
 		userName = "aaa";
 //		userName = "bbb";
 //		userName = "ccc";
 
-		User user = userMapper.findByUserName(userName);
+		User user = userMapper.findUserByUserName(userName);
 		System.out.println("testFindByUserName::user=" + user);
 		assertNotNull(user);
 	}
 
 	@Test
-	public void testFindByUserNameAndPwd() {
+	public void testFindUserByUserNameAndPwd() {
 
 		String userName = "";
 		String pwd = "";
@@ -57,7 +57,7 @@ public class UserMapperTest {
 		userName = "aaa";
 		pwd = "123";
 
-		User user = userMapper.findByUserNameAndPwd(userName, pwd);
+		User user = userMapper.findUserByUserNameAndPwd(userName, pwd);
 		assertNotNull(user);
 	}
 

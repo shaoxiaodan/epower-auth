@@ -28,8 +28,8 @@ public class UrlMapperTest {
 	public void testFindUrlByMenuId() {
 
 		int menuId = 0;
-		menuId = 1; //用户管理菜单
-//		menuId = 2; //角色管理菜单
+//		menuId = 1; //用户管理菜单
+		menuId = 2; //角色管理菜单
 //		menuId = 3; //菜单管理菜单
 //		menuId = 4; //URL管理菜单
 //		menuId = 5; //用户授权菜单
