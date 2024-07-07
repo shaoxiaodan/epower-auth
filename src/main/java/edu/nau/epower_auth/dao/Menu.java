@@ -6,6 +6,7 @@ package edu.nau.epower_auth.dao;
 import java.util.List;
 
 /**
+ * 菜单类
  * 
  * @ClassName: Menu
  * @Description: TODO
@@ -15,9 +16,9 @@ import java.util.List;
 public class Menu {
 
 	private int id;
-	
+
 	private String name;
-	
+
 	private String description;
 
 	private List<Url> urlList;
@@ -53,5 +54,5 @@ public class Menu {
 	public void setUrlList(List<Url> urlList) {
 		this.urlList = urlList;
 	}
-	
+
 }

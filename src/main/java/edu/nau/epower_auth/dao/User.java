@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 用户类
  * 
  * @ClassName: User
  * @Description: TODO

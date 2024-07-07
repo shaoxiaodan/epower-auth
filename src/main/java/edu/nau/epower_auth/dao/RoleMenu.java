@@ -1,5 +1,13 @@
 package edu.nau.epower_auth.dao;
 
+/**
+ * 角色-菜单关联类
+ * 
+ * @ClassName: RoleMenu
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 10:21:45
+ */
 public class RoleMenu {
 
 	private int id;

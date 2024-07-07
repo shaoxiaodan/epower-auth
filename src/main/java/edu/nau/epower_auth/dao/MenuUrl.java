@@ -1,6 +1,7 @@
 package edu.nau.epower_auth.dao;
 
 /**
+ * 菜单-资源路径关联类
  * 
  * @ClassName: MenuUrl
  * @Description: TODO
@@ -10,9 +11,9 @@ package edu.nau.epower_auth.dao;
 public class MenuUrl {
 
 	private int id;
-	
+
 	private int menuId;
-	
+
 	private int urlId;
 
 	public int getId() {
@@ -38,6 +39,5 @@ public class MenuUrl {
 	public void setUrlId(int urlId) {
 		this.urlId = urlId;
 	}
-	
-	
+
 }

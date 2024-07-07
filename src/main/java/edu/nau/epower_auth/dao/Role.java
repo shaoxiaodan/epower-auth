@@ -3,6 +3,7 @@ package edu.nau.epower_auth.dao;
 import java.util.List;
 
 /**
+ * 角色类
  * 
  * @ClassName: Role
  * @Description: TODO
