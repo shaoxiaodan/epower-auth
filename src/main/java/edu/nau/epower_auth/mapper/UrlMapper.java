@@ -7,9 +7,16 @@ import org.apache.ibatis.annotations.Select;
 
 import edu.nau.epower_auth.dao.Url;
 
+/**
+ * 
+ * @ClassName: UrlMapper
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-06 09:22:06
+ */
 public interface UrlMapper {
 
-	@Select("select ul.id as id, ul.name as name, ul.path as path"
+	@Select("select ul.id as id, ul.path as path"
 			+ " from menu_url mu"
 			+ " left join url u on mu.url_id = u.id"
 			+ " where mu.menu_id = #{menuId}")
