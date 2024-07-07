@@ -3,6 +3,7 @@ package edu.nau.epower_auth;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,13 @@ public class UserMapperTest {
 		assertNotNull(user);
 	}
 
+	@Test
+	public void testListUser() {
+		
+		List<User> userList = userMapper.listUser();
+		System.out.println(userList);
+	}
+	
 	@Test
 	public void testInsertUser() {
 

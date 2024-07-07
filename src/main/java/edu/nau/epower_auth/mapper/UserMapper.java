@@ -1,5 +1,7 @@
 package edu.nau.epower_auth.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -27,6 +29,9 @@ public interface UserMapper {
 	@Select("select * from user where username = #{userName} and password = #{pwd}")
 	public User findUserByUserNameAndPwd(@Param("userName") String username, @Param("pwd") String password);
 
+	@Select("select * from user")
+	public List<User> listUser();
+	
 	@Insert("insert into user(username, password, create_time) values(#{username}, #{password}, #{createTime})")
 	public int insertUser(User user);
 
