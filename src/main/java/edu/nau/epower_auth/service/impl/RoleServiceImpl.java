@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.mapper.RoleMapper;
@@ -35,6 +37,7 @@ public class RoleServiceImpl implements RoleService {
 	 * 添加角色
 	 */
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int addRole(Role role) {
 		return roleMapper.addRole(role);
 	}
@@ -43,6 +46,7 @@ public class RoleServiceImpl implements RoleService {
 	 * 更新角色
 	 */
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int updateRole(Role role) {
 		return roleMapper.updateRole(role);
 	}
@@ -51,6 +55,7 @@ public class RoleServiceImpl implements RoleService {
 	 * 删除角色
 	 */
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int removeRole(int roleId) {
 		return roleMapper.removeRole(roleId);
 	}

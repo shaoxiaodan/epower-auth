@@ -3,6 +3,8 @@ package edu.nau.epower_auth.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.mapper.UrlMapper;
@@ -33,6 +35,7 @@ public class UrlServiceImpl implements UrlService {
 	 * 添加资源路径
 	 */
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int addUrl(Url url) {
 		return urlMapper.insertUrl(url);
 	}
@@ -41,6 +44,7 @@ public class UrlServiceImpl implements UrlService {
 	 * 更新资源路径
 	 */
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int updateUrl(Url url) {
 		return urlMapper.updateUrl(url);
 	}
@@ -49,6 +53,7 @@ public class UrlServiceImpl implements UrlService {
 	 * 删除资源路径
 	 */
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int removeUrl(int urlId) {
 		return urlMapper.deleteUrl(urlId);
 	}
