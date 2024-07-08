@@ -34,7 +34,7 @@ public class UrlServiceImpl implements UrlService {
 	 */
 	@Override
 	public int addUrl(Url url) {
-		return urlMapper.addUrl(url);
+		return urlMapper.insertUrl(url);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class UrlServiceImpl implements UrlService {
 	 */
 	@Override
 	public int removeUrl(int urlId) {
-		return urlMapper.removeUrl(urlId);
+		return urlMapper.deleteUrl(urlId);
 	}
 
 }
