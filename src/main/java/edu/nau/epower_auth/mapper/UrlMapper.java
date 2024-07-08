@@ -32,12 +32,12 @@ public interface UrlMapper {
 	
 	@Insert("insert into url(path, description) values(#{path}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") //返回自增id
-	public int addUrl(Url url);
+	public int insertUrl(Url url);
 	
 	@Update("update url set path = #{path}, description = #{description} where id = #{id}")
 	public int updateUrl(Url url);
 	
 	@Delete("delete from url where id = #{urlId}")
-	public int removeUrl(@Param("urlId") int urlId);
+	public int deleteUrl(@Param("urlId") int urlId);
 	
 }
