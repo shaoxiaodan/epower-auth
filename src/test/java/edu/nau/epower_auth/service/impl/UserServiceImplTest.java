@@ -9,15 +9,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.service.UserService;
 
+/**
+ * 用户服务接口实现单元测试
+ * 
+ * @ClassName: UserServiceImplTest
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-07 11:29:49
+ */
 @SpringBootTest
 public class UserServiceImplTest {
 
 	@Autowired
-	private UserService userServicel;
+	private UserService userService;
 
 	@Test
-	void testAdd() {
-//		fail("Not yet implemented");
+	public void testListUser() {
+		// TODO
+//		userService.listUser();
+	}
+
+	@Test
+	public void testAddUser() {
+
 		User user = new User();
 		user.setUsername("Mybatis");
 		user.setPassword("123456");
@@ -29,7 +43,7 @@ public class UserServiceImplTest {
 			 */
 			int errorCode = 12 / 0;
 
-			int insert = userServicel.add(user);
+			int insert = userService.addUser(user);
 			int userId = user.getId();
 			System.out.println("UserServiceImplTest::insert=" + insert + "\tuserId=" + userId);
 
@@ -37,6 +51,30 @@ public class UserServiceImplTest {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Test
+	public void testUpdateUser() {
+		// TODO
+//		userService.updateUser(null);
+	}
+
+	@Test
+	public void testRemoveUser() {
+		// TODO
+//		userService.removeUser(0);
+	}
+
+	@Test
+	public void testAddUserRoleAuth() {
+		// TODO
+//		userService.addUserRoleAuth(null);
+	}
+
+	@Test
+	public void testRemoveUserRoleAuth() {
+		// TODO
+//		userService.removeUserRoleAuth(null);
 	}
 
 }
