@@ -1,5 +1,6 @@
 package edu.nau.epower_auth.dao;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author Xiaodan Shao(xs94@nau.edu)
  * @date 2024-07-06 02:18:04
  */
-public class Test {
+public class Test implements Serializable {
 
 	private int id;
 

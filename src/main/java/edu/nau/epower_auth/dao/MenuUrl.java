@@ -1,5 +1,7 @@
 package edu.nau.epower_auth.dao;
 
+import java.io.Serializable;
+
 /**
  * 菜单-资源路径关联类
  * 
@@ -8,7 +10,7 @@ package edu.nau.epower_auth.dao;
  * @author Xiaodan Shao(xs94@nau.edu)
  * @date 2024-07-06 09:01:38
  */
-public class MenuUrl {
+public class MenuUrl implements Serializable {
 
 	private int id;
 
@@ -16,6 +18,9 @@ public class MenuUrl {
 
 	private int urlId;
 
+	public MenuUrl() {
+	}
+	
 	public int getId() {
 		return id;
 	}

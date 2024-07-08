@@ -30,8 +30,8 @@ public class RoleMapperTest {
 	public void testFindRoleByUserId() {
 
 		int userId = 0;
-		userId = 1; // aaa = editor
-//		userId = 2; //bbb = admin
+//		userId = 1; // aaa = editor
+		userId = 2; //bbb = admin
 //		userId = 3; // ccc = root
 
 		List<Role> roleList = roleMapper.findRoleByUserId(userId);

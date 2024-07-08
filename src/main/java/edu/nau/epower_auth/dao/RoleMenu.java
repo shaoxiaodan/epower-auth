@@ -1,5 +1,7 @@
 package edu.nau.epower_auth.dao;
 
+import java.io.Serializable;
+
 /**
  * 角色-菜单关联类
  * 
@@ -8,13 +10,16 @@ package edu.nau.epower_auth.dao;
  * @author Xiaodan Shao(xs94@nau.edu)
  * @date 2024-07-06 10:21:45
  */
-public class RoleMenu {
+public class RoleMenu implements Serializable {
 
 	private int id;
 
 	private int roleId;
 
 	private int menuId;
+
+	public RoleMenu() {
+	}
 
 	public int getId() {
 		return id;

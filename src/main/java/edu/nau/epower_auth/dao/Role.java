@@ -1,5 +1,6 @@
 package edu.nau.epower_auth.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @author Xiaodan Shao(xs94@nau.edu)
  * @date 2024-07-06 09:53:55
  */
-public class Role {
+public class Role implements Serializable {
 
 	private int id;
 
@@ -20,6 +21,9 @@ public class Role {
 
 	private List<Menu> menuList;
 
+	public Role() {
+	}
+	
 	public int getId() {
 		return id;
 	}

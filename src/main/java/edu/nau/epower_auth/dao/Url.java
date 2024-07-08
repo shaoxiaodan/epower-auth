@@ -1,5 +1,7 @@
 package edu.nau.epower_auth.dao;
 
+import java.io.Serializable;
+
 /**
  * 资源路径类
  * 
@@ -8,7 +10,7 @@ package edu.nau.epower_auth.dao;
  * @author Xiaodan Shao(xs94@nau.edu)
  * @date 2024-07-06 10:22:20
  */
-public class Url {
+public class Url implements Serializable {
 
 	private int id;
 
@@ -16,6 +18,9 @@ public class Url {
 
 	private String description;
 
+	public Url() {
+	}
+	
 	public int getId() {
 		return id;
 	}

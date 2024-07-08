@@ -1,5 +1,7 @@
 package edu.nau.epower_auth.dao;
 
+import java.io.Serializable;
+
 /**
  * 用户-角色关联类
  * 
@@ -8,7 +10,7 @@ package edu.nau.epower_auth.dao;
  * @author Xiaodan Shao(xs94@nau.edu)
  * @date 2024-07-06 10:19:55
  */
-public class UserRole {
+public class UserRole implements Serializable {
 
 	private int id;
 
@@ -17,6 +19,9 @@ public class UserRole {
 	private int roleId;
 
 	private String remarks;
+
+	public UserRole() {
+	}
 
 	public int getId() {
 		return id;
