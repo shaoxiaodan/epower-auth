@@ -8,11 +8,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.nau.epower_auth.dao.Role;
+import edu.nau.epower_auth.dao.RoleMenu;
 import edu.nau.epower_auth.mapper.RoleMapper;
+import edu.nau.epower_auth.mapper.RoleMenuMapper;
 import edu.nau.epower_auth.service.RoleService;
 
 /**
- * 角色服务实现
+ * 角色服务接口实现
  * 
  * @ClassName: RoleServiceImpl
  * @Description: TODO
@@ -24,6 +26,9 @@ public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleMapper roleMapper;
+
+	@Autowired
+	private RoleMenuMapper roleMenuMapper;
 
 	/**
 	 * 角色列表
@@ -58,6 +63,24 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public int removeRole(int roleId) {
 		return roleMapper.removeRole(roleId);
+	}
+
+	/**
+	 * 添加角色菜单授权
+	 */
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public int addRoleMenuAuth(RoleMenu roleMenu) {
+		return roleMenuMapper.insertRoleMenu(roleMenu);
+	}
+
+	/**
+	 * 删除角色菜单授权
+	 */
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public int removeRoleMenuAuth(RoleMenu roleMenu) {
+		return roleMenuMapper.deleteRoleMenu(roleMenu);
 	}
 
 }

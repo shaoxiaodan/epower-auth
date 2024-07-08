@@ -2,9 +2,8 @@ package edu.nau.epower_auth.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import edu.nau.epower_auth.dao.Role;
+import edu.nau.epower_auth.dao.RoleMenu;
 
 /**
  * 角色服务接口
@@ -16,12 +15,22 @@ import edu.nau.epower_auth.dao.Role;
  */
 public interface RoleService {
 
+	// 角色列表
 	public List<Role> listRole();
 
+	// 添加角色
 	public int addRole(Role role);
 
+	// 更新角色
 	public int updateRole(Role role);
 
+	// 删除角色
 	public int removeRole(int roleId);
+
+	// 添加角色菜单授权
+	public int addRoleMenuAuth(RoleMenu roleMenu);
+
+	// 删除角色菜单授权
+	public int removeRoleMenuAuth(RoleMenu roleMenu);
 
 }
