@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.nau.epower_auth.dao.User;
+import edu.nau.epower_auth.dao.UserRole;
 import edu.nau.epower_auth.mapper.UserMapper;
+import edu.nau.epower_auth.mapper.UserRoleMapper;
 import edu.nau.epower_auth.service.UserService;
 
 /**
@@ -25,11 +27,14 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private UserRoleMapper userRoleMapper;
+
 	/**
 	 * 用户列表
 	 */
 	@Override
-	public List<User> list() {
+	public List<User> listUser() {
 		return userMapper.listUser();
 	}
 
@@ -38,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public int add(User user) {
+	public int addUser(User user) {
 		userMapper.insertUser(user);
 		int userId = user.getId();
 		return userId;
@@ -49,7 +54,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public int update(User user) {
+	public int updateUser(User user) {
 		return userMapper.updateUser(user);
 	}
 
@@ -58,8 +63,26 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public int remove(int userId) {
+	public int removeUser(int userId) {
 		return userMapper.deleteUser(userId);
+	}
+
+	/**
+	 * 添加用户-角色授权
+	 */
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public int addUserRoleAuth(UserRole userRole) {
+		return userRoleMapper.insertUserRole(userRole);
+	}
+
+	/**
+	 * 删除用户-角色授权
+	 */
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public int removeUserRoleAuth(UserRole userRole) {
+		return userRoleMapper.deleteUserRole(userRole);
 	}
 
 }
