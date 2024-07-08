@@ -3,6 +3,7 @@ package edu.nau.epower_auth;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * 程序入口
@@ -14,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("edu.nau.epower_auth.mapper")
+@EnableCaching
 public class EpowerAuthApplication {
 
 	public static void main(String[] args) {

@@ -25,8 +25,7 @@ public class UserServiceImplTest {
 
 	@Test
 	public void testListUser() {
-		// TODO
-//		userService.listUser();
+		userService.listUser();
 	}
 
 	@Test

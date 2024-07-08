@@ -3,6 +3,7 @@ package edu.nau.epower_auth.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
 	 * 用户列表
 	 */
 	@Override
+	@Cacheable(cacheNames = {"userCache"}, key = "#root.method.name")
 	public List<User> listUser() {
 		return userMapper.listUser();
 	}
