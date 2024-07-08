@@ -66,7 +66,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	/**
-	 * 添加角色菜单授权
+	 * 添加角色-菜单授权
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -75,7 +75,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	/**
-	 * 删除角色菜单授权
+	 * 删除角色-菜单授权
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)

@@ -66,7 +66,7 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	/**
-	 * 添加菜单资源路径授权
+	 * 添加菜单-资源路径授权
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -75,7 +75,7 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	/**
-	 * 删除菜单资源路径授权
+	 * 删除菜单-资源路径授权
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)

@@ -14,7 +14,7 @@ import edu.nau.epower_auth.mapper.UserRoleMapper;
 import edu.nau.epower_auth.service.UserService;
 
 /**
- * 用户服务实现
+ * 用户服务接口实现
  * 
  * @ClassName: UserServiceImpl
  * @Description: TODO
