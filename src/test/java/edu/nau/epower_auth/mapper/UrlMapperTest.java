@@ -71,7 +71,7 @@ public class UrlMapperTest {
 		Url url = new Url();
 		url.setPath("/api/test/list");
 		url.setDescription("/api/test/list");
-		int add = urlMapper.addUrl(url);
+		int add = urlMapper.insertUrl(url);
 		System.out.println("testAddUrl::add=" + add + "\tid=" + url.getId());
 //		assertNotNull(url);
 		assertEquals(1, add);
@@ -94,7 +94,7 @@ public class UrlMapperTest {
 
 		int urlId = 0;
 		urlId = 23;
-		int delete = urlMapper.removeUrl(urlId);
+		int delete = urlMapper.deleteUrl(urlId);
 		System.out.println("testRemoveUrl::delete=" + delete);
 		assertEquals(1, delete);
 	}
