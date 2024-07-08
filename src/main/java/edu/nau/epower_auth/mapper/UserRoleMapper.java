@@ -29,7 +29,7 @@ public interface UserRoleMapper {
 
 	@InsertProvider(type = SqlProvider.class, method = "insertBatch")
 	public int insertUserRoleBatch(List<UserRole> userRoleList);
-	
+
 	@DeleteProvider(type = SqlProvider.class, method = "deleteBatch")
 	public int deleteUserRoleBatch(List<UserRole> userRoleList);
 
