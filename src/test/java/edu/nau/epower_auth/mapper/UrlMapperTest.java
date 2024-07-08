@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import edu.nau.epower_auth.dao.Url;
 
 /**
+ * 资源路径映射单元测试
  * 
  * @ClassName: UrlMapperTest
  * @Description: TODO

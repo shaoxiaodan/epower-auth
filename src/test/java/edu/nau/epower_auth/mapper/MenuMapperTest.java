@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import edu.nau.epower_auth.dao.Menu;
 
 /**
+ * 菜单映射单元测试
  * 
  * @ClassName: MenuMapperTest
  * @Description: TODO

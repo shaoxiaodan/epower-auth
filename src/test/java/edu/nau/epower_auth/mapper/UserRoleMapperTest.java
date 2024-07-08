@@ -12,6 +12,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import edu.nau.epower_auth.dao.UserRole;
 
+/**
+ * 用户-角色映射单元测试
+ * 
+ * @ClassName: UserRoleMapperTest
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-07 11:45:10
+ */
 @SpringBootTest
 public class UserRoleMapperTest {
 
@@ -117,7 +125,7 @@ public class UserRoleMapperTest {
 			userRoleList.add(userRole);
 		}
 
-		int deleteBatch = userRoleMapper.deleteUserRoleAuthBatch(userRoleList);
+		int deleteBatch = userRoleMapper.deleteUserRoleBatch(userRoleList);
 		System.out.println("testDeleteUserRoleBatch::deleteBatch=" + deleteBatch);
 	}
 

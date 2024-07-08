@@ -31,7 +31,7 @@ public interface UserRoleMapper {
 	public int insertUserRoleBatch(List<UserRole> userRoleList);
 	
 	@DeleteProvider(type = SqlProvider.class, method = "deleteBatch")
-	public int deleteUserRoleAuthBatch(List<UserRole> userRoleList);
+	public int deleteUserRoleBatch(List<UserRole> userRoleList);
 
 	/**
 	 * 批量SQL处理提供者 - 内部类

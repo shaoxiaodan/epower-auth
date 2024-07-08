@@ -12,6 +12,7 @@ import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
 
 /**
+ * 角色映射单元测试
  * 
  * @ClassName: RoleMapperTest
  * @Description: TODO
@@ -30,7 +31,7 @@ public class RoleMapperTest {
 		int userId = 0;
 //		userId = 1; // aaa = editor
 //		userId = 2; //bbb = admin
-		userId = 3; //ccc = root
+		userId = 3; // ccc = root
 
 		List<Role> roleList = roleMapper.findRoleByUserId(userId);
 		System.out.println("testFindRoleByUserId::roleList=" + roleList);
@@ -53,8 +54,8 @@ public class RoleMapperTest {
 
 					for (int j = 0; j < menuList.size(); j++) {
 						menu = menuList.get(j);
-						System.out.println("testFindRoleByUserId::menu=" + menu.getId() + "\t" + menu.getName()
-								+ "\t" + menu.getDescription());
+						System.out.println("testFindRoleByUserId::menu=" + menu.getId() + "\t" + menu.getName() + "\t"
+								+ menu.getDescription());
 					}
 				}
 			}

@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import edu.nau.epower_auth.dao.User;
 
 /**
+ * 用户映射单元测试
  * 
  * @ClassName: UserMapperTest
  * @Description: TODO
