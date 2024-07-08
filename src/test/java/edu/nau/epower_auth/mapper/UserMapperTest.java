@@ -108,12 +108,12 @@ public class UserMapperTest {
 	}
 
 	@Test
-	public void testRemoveUser() {
+	public void testDeleteUser() {
 
 		int userId = 0;
 		userId = 7;
 
-		int remove = userMapper.removeUser(userId);
+		int remove = userMapper.deleteUser(userId);
 		System.out.println("testRemoveUser::remove=" + remove);
 	}
 

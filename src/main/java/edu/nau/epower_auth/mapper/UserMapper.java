@@ -41,6 +41,6 @@ public interface UserMapper {
 	public int updateUser(User user);
 
 	@Delete("delete from user where id = #{userId}")
-	public int removeUser(@Param("userId") int id);
+	public int deleteUser(@Param("userId") int id);
 
 }

@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public int remove(int userId) {
-		return userMapper.removeUser(userId);
+		return userMapper.deleteUser(userId);
 	}
 
 }
