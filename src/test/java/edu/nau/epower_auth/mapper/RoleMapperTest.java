@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
+import edu.nau.epower_auth.dao.Url;
 
 /**
  * 角色映射单元测试
@@ -29,9 +30,9 @@ public class RoleMapperTest {
 	public void testFindRoleByUserId() {
 
 		int userId = 0;
-//		userId = 1; // aaa = editor
+		userId = 1; // aaa = editor
 //		userId = 2; //bbb = admin
-		userId = 3; // ccc = root
+//		userId = 3; // ccc = root
 
 		List<Role> roleList = roleMapper.findRoleByUserId(userId);
 		System.out.println("testFindRoleByUserId::roleList=" + roleList);
@@ -40,6 +41,7 @@ public class RoleMapperTest {
 
 			Role role = null;
 			List<Menu> menuList = null;
+			List<Url> urlList = null;
 
 			for (int i = 0; i < roleList.size(); i++) {
 
@@ -54,14 +56,21 @@ public class RoleMapperTest {
 
 					for (int j = 0; j < menuList.size(); j++) {
 						menu = menuList.get(j);
+						urlList = menu.getUrlList();
 						System.out.println("testFindRoleByUserId::menu=" + menu.getId() + "\t" + menu.getName() + "\t"
-								+ menu.getDescription());
+								+ menu.getDescription() + "\turl=" + menu.getUrlList());
 					}
 				}
 			}
 		}
 
 		assertNotNull(roleList);
+	}
+
+	@Test
+	public void testAddRole() {
+		// TODO
+//		roleMapper.addRole(null);
 	}
 
 }

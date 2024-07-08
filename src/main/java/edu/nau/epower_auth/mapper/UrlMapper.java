@@ -21,6 +21,11 @@ import edu.nau.epower_auth.dao.Url;
  */
 public interface UrlMapper {
 
+	/**
+	 * 根据菜单id，获取所有资源路径url
+	 * @param menuId
+	 * @return
+	 */
 	@Select("select ul.id as id, ul.path as path" 
 			+ " from menu_url mu" 
 			+ " left join url ul on mu.url_id = ul.id"

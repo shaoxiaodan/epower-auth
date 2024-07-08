@@ -25,6 +25,12 @@ import edu.nau.epower_auth.dao.Role;
  */
 public interface RoleMapper {
 
+	/**
+	 * 根据用户id，查出所有角色，并装配菜单menu
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	@Select("select r.id as id, r.name as name, r.description as description" 
 			+ " from user_role ur"
 			+ " left join role r on ur.role_id = r.id" 
