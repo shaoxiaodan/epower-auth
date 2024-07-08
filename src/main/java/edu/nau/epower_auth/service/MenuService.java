@@ -25,7 +25,7 @@ public interface MenuService {
 	public int updateMenu(Menu menu);
 
 	// 删除菜单
-	public int removeMenu(Menu menu);
+	public int removeMenu(int menuId);
 
 	// 添加菜单资源路径授权
 	public int addMenuUrlAuth(MenuUrl menuUrl);
