@@ -1,5 +1,6 @@
 package edu.nau.epower_auth.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.nau.epower_auth.common.EncryptUtils;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.service.UserService;
 
@@ -40,7 +42,17 @@ public class UserController {
 	@PostMapping("adduser")
 	public String addUser(User user) {
 
-		int add = userService.addUser(user);
+		
+		if (user != null) {
+			String encryptPwd = "";
+			
+//			encryptPwd = user.getPassword();
+//			encryptPwd = EncryptUtils.getMD5(encryptPwd); // 密码md5加密
+//			user.setPassword(encryptPwd);
+			user.setCreateTime(new Date());
+			int add = userService.addUser(user);
+		}
+
 		return "redirect:list";
 	}
 
