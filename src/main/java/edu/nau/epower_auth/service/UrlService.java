@@ -2,12 +2,6 @@ package edu.nau.epower_auth.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
-
 import edu.nau.epower_auth.dao.Url;
 
 /**
@@ -21,6 +15,8 @@ import edu.nau.epower_auth.dao.Url;
 public interface UrlService {
 
 	public List<Url> listUrl();
+
+	public Url getUrl(int urlId);
 
 	public int addUrl(Url url);
 

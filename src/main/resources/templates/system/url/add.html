@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>add url page</title>
+</head>
+
+<body>
+	<h1>add url</h1>
+
+	<form th:object="${addurl}" action="/url/addurl" method="post">
+		id:<input type="text" name="id" th:value="*{id}">
+		path:<input type="text" name="path" th:value="*{path}">
+		description:<input type="text" name="description" th:value="*{description}">
+		<input type="submit" value="添加URL">
+	</form>
+</body>
+
+</html>

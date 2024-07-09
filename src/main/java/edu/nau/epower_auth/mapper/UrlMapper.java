@@ -35,6 +35,9 @@ public interface UrlMapper {
 	@Select("select * from url")
 	public List<Url> listUrl();
 	
+	@Select("select * from url where id = #{urlId}")
+	public Url findUrl(@Param("urlId") int urlId);
+	
 	@Insert("insert into url(path, description) values(#{path}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") //返回自增id
 	public int insertUrl(Url url);

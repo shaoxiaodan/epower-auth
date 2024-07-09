@@ -3,6 +3,7 @@ package edu.nau.epower_auth.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import edu.nau.epower_auth.service.UrlService;
  * @author Xiaodan Shao(xs94@nau.edu)
  * @date 2024-07-07 01:04:15
  */
+@Service
 public class UrlServiceImpl implements UrlService {
 
 	@Autowired
@@ -29,6 +31,14 @@ public class UrlServiceImpl implements UrlService {
 	@Override
 	public List<Url> listUrl() {
 		return urlMapper.listUrl();
+	}
+
+	/**
+	 * 获取资源路径
+	 */
+	@Override
+	public Url getUrl(int urlId) {
+		return urlMapper.findUrl(urlId);
 	}
 
 	/**
