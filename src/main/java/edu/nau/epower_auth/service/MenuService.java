@@ -18,6 +18,9 @@ public interface MenuService {
 	// 菜单列表
 	public List<Menu> listMenu();
 
+	// 获取菜单
+	public Menu getMenu(int menuId);
+	
 	// 添加菜单
 	public int addMenu(Menu menu);
 

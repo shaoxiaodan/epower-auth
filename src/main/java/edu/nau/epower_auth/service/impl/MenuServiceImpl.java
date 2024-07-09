@@ -39,6 +39,14 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	/**
+	 * 获取菜单
+	 */
+	@Override
+	public Menu getMenu(int menuId) {
+		return menuMapper.findMenu(menuId);
+	}
+
+	/**
 	 * 添加菜单
 	 */
 	@Override

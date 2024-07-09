@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>menu list page</title>
+</head>
+
+<body>
+	<h1>list menu</h1>
+
+	<table border="1">
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>description</th>
+			<th>操作</th>
+		</tr>
+		<tr th:each="menu:${menus}">
+			<td th:text="${menu.id}">id</td>
+			<td th:text="${menu.name}">name</td>
+			<td th:text="${menu.description}">description</td>
+			<td>
+				<a th:href="@{update(id=${menu.id})}">更新</a>
+				<a th:href="@{remove(id=${menu.id})}">删除</a>
+			</td>
+		</tr>
+	</table>
+
+	<a th:href="@{add}">添加菜单</a>
+
+</body>
+
+</html>

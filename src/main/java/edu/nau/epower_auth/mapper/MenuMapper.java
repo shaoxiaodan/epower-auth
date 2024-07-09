@@ -27,6 +27,7 @@ public interface MenuMapper {
 
 	/**
 	 * 根据角色id，获取所有菜单，并装配资源路径url
+	 * 
 	 * @param roleId
 	 * @return
 	 */
@@ -34,17 +35,16 @@ public interface MenuMapper {
 			+ "	from role_menu rm"
 			+ "	left join menu m on rm.menu_id = m.id" 
 			+ "	where rm.role_id = #{roleId}")
-	@Results(value = 
-	{
-		@Result(id = true, property = "id", column = "id"), 
-		@Result(property = "path", column = "path"),
-		@Result(property = "description", column = "description"),
-		@Result(property = "urlList", column = "id", 
-			many = @Many(select = "edu.nau.epower_auth.mapper.UrlMapper.findUrlByMenuId", fetchType = FetchType.DEFAULT)) })
+	@Results(value = { @Result(id = true, property = "id", column = "id"), @Result(property = "path", column = "path"),
+			@Result(property = "description", column = "description"),
+			@Result(property = "urlList", column = "id", many = @Many(select = "edu.nau.epower_auth.mapper.UrlMapper.findUrlByMenuId", fetchType = FetchType.DEFAULT)) })
 	public List<Menu> findMenuByRoleId(@Param("roleId") int roleId);
 
 	@Select("select * from menu")
 	public List<Menu> listMenu();
+
+	@Select("select * from menu where id = #{menuId}")
+	public Menu findMenu(@Param("menuId") int menuId);
 
 	@Insert("insert into menu(name, description) values(#{name}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
