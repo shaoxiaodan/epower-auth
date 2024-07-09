@@ -3,13 +3,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>user_list</title>
+<title>add user page</title>
 </head>
 <body>
-	<h1>user_list</h1>
+	<h1>add user</h1>
 	
-	<h1 th:text="${name}">name是什么？</h1>
-	<h1 th:text="${age}">age是什么？</h1>
 	
+	<form th:object="${adduser}" action="/user/adduser" method="post">
+		id:<input type="text" name="id" th:value="*{id}">
+		username:<input type="text" name="username" th:value="*{username}">
+		password:<input type="text" name="password" th:value="*{password}">
+		<input type="submit" value="添加用户">
+	</form>
 </body>
 </html>

@@ -41,6 +41,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * 获取用户
+	 */
+	@Override
+	public User getUser(int userId) {
+		return userMapper.findUserByUserId(userId);
+	}
+
+	/**
 	 * 添加用户(with事务控制)
 	 */
 	@Override

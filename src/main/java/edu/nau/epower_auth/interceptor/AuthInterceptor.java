@@ -22,7 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		System.out.println("preHandle...");
+		System.out.println("preHandle...鉴权");
 		return true; // 放行
 	}
 

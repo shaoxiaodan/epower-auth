@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>user_list</title>
+	<meta charset="UTF-8">
+	<title>user list page</title>
 </head>
+
 <body>
-	<h1>user_list</h1>
-	
-	<h1 th:text="${name}">name是什么？</h1>
-	<h1 th:text="${age}">age是什么？</h1>
-	
+	<h1>list user</h1>
+
+	<table border="">
+		<tr>
+			<th>id</th>
+			<th>username</th>
+			<th>password</th>
+			<th>creat_time</th>
+			<th>操作</th>
+		</tr>
+		<tr th:each="user:${users}">
+			<td th:text="${user.id}">id</td>
+			<td th:text="${user.username}">username</td>
+			<td th:text="${user.password}">password</td>
+			<td th:text="${user.createTime}">create_time</td>
+			<td>
+				<a th:href="@{update(id=${user.id})}">更新</a>
+				<a th:href="@{remove(id=${user.id})}">删除</a>
+			</td>
+		</tr>
+	</table>
+
+	<a th:href="@{add}">添加用户</a>
+
 </body>
+
 </html>
