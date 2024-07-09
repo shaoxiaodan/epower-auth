@@ -2,13 +2,17 @@ package edu.nau.epower_auth.controller;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.nau.epower_auth.dao.Test;
+import edu.nau.epower_auth.dao.User;
+import edu.nau.epower_auth.service.UserService;
 
 /**
  * 
@@ -20,6 +24,9 @@ import edu.nau.epower_auth.dao.Test;
 @Controller
 @RequestMapping("/")
 public class TestController {
+
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("test")
 	public String test(ModelMap modelMap) {
@@ -36,5 +43,14 @@ public class TestController {
 		modelMap.addAttribute("user", user);
 
 		return "test";
+	}
+
+	@GetMapping("testlogin")
+	public String testLogin(ModelMap modelMap) {
+
+		List<User> userList = userService.listUser();
+		modelMap.addAttribute("userlist", userList);
+		System.out.println("testLogin, userList=" + userList);
+		return "testlogin";
 	}
 }
