@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>add role page</title>
+</head>
+
+<body>
+	<h1>add role</h1>
+
+	<form th:object="${addrole}" action="/role/addrole" method="post">
+		id:<input type="text" name="id" th:value="*{id}">
+		name:<input type="text" name="name" th:value="*{name}">
+		description:<input type="text" name="description" th:value="*{description}">
+		<input type="submit" value="添加角色">
+	</form>
+</body>
+
+</html>

@@ -22,7 +22,7 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("list")
-	public String listAllUser(ModelMap modelMap) {
+	public String listUser(ModelMap modelMap) {
 
 		List<User> users = userService.listUser();
 		modelMap.addAttribute("users", users);

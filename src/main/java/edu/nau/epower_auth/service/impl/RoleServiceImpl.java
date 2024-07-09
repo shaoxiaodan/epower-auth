@@ -39,6 +39,14 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	/**
+	 * 获取角色
+	 */
+	@Override
+	public Role getRole(int roleId) {
+		return roleMapper.findRole(roleId);
+	}
+
+	/**
 	 * 添加角色
 	 */
 	@Override

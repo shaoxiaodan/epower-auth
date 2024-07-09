@@ -47,6 +47,9 @@ public interface RoleMapper {
 	@Select("select * from role")
 	public List<Role> listRole();
 
+	@Select("select * from role where id = #{roleId}")
+	public Role findRole(@Param("roleId") int roleId);
+	
 	@Insert("insert into role(name, description) values(#{name}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
 	public int addRole(Role role);
