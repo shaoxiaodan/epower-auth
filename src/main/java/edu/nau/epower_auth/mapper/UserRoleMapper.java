@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Select;
 
 import edu.nau.epower_auth.dao.UserRole;
 
@@ -20,6 +21,9 @@ import edu.nau.epower_auth.dao.UserRole;
  * @date 2024-07-07 10:50:18
  */
 public interface UserRoleMapper {
+
+	@Select("select * from user_role where user_id = #{userId} and role_id = #{roleId}")
+	public UserRole getUserRole(UserRole userRole);
 
 	@Insert("insert into user_role(user_id, role_id, remarks) values(#{userId}, #{roleId}, #{remarks})")
 	public int insertUserRole(UserRole userRole);

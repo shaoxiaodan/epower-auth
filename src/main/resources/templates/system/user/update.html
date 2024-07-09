@@ -9,8 +9,8 @@
 <body>
 	<h1>update user</h1>
 
-
-	<form th:object="${updateuser}" action="/user/updateuser" method="post">
+	<!-- form th:object="${updateuser}" action="/user/updateuser" method="post" -->
+	<form th:object="${updateuser}" th:action="@{updateuser}" method="post">
 		id:<input type="text" name="id" th:value="*{id}" readonly>
 		username:<input type="text" name="username" th:value="*{username}">
 		password:<input type="text" name="password" th:value="*{password}">

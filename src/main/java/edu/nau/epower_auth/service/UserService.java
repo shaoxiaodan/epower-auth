@@ -17,7 +17,7 @@ public interface UserService {
 
 	// 用户列表
 	public List<User> listUser();
-	
+
 	// 获取用户
 	public User getUser(int userId);
 
@@ -29,7 +29,10 @@ public interface UserService {
 
 	// 删除用户
 	public int removeUser(int userId);
-	
+
+	// 检查用户角色是否存在
+	public UserRole getUserRole(UserRole userRole);
+
 	// 添加用户角色授权
 	public int addUserRoleAuth(UserRole userRole);
 

@@ -21,6 +21,9 @@ public interface RoleService {
 	// 获取角色
 	public Role getRole(int roleId);
 	
+	// 获取角色by user id
+	public List<Role> findRoleByUserId(int userId);
+	
 	// 添加角色
 	public int addRole(Role role);
 

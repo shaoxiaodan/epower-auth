@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>user auth page</title>
+
+	<script type="text/javascript">
+		function testRoles() {
+			//var obj = document.getElementsByName("select_roles");
+			var obj = document.forms[0].elements["select_roles"];
+
+			for (var i = 0; i < obj.length; i++) {
+				if (obj.options[i].selected) {
+					alert(obj.options[i].value);
+				}
+			}
+		}
+	</script>
+
+</head>
+
+<body>
+	<h1>auth user</h1>
+
+	<div>
+		当前用户：
+		<h2 th:text="${user.username}">用户名称</h2>
+	</div>
+
+	<form th:object="${addrole}" th:action="@{addrole}" method="post">
+		<input type="hidden" name="userId" th:value="*{userId}">
+		<select name="select_roles" th:field="*{roleId}">
+			<option th:each="role:${roles}" th:value="${role.id}" th:text="${role.name}">
+				角色name
+			</option>
+		</select>
+		<input type="submit" value="添加角色">
+	</form>
+
+	<table border="1">
+		<tr>
+			<th>角色名称</th>
+			<th>角色说明</th>
+			<th>操作</th>
+		</tr>
+		<tr th:each="userrole:${userroles}">
+			<td th:text="${userrole.name}"></td>
+			<td th:text="${userrole.description}"></td>
+			<td>
+				<a th:href="@{remove(uid=${user.id}, rid=${userrole.id})}">删除角色</a>
+			</td>
+		</tr>
+	</table>
+	<a th:href="@{list}">返回用户列表</a>
+
+
+</body>
+
+</html>

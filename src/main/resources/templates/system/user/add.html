@@ -9,8 +9,8 @@
 <body>
 	<h1>add user</h1>
 
-
-	<form th:object="${adduser}" action="/user/adduser" method="post">
+	<!-- form th:object="${adduser}" action="/user/adduser" method="post" -->
+	<form th:object="${adduser}" th:action="@{adduser}" method="post">
 		id:<input type="text" name="id" th:value="*{id}">
 		username:<input type="text" name="username" th:value="*{username}">
 		password:<input type="text" name="password" th:value="*{password}">

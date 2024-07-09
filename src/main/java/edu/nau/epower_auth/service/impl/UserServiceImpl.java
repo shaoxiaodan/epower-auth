@@ -78,6 +78,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * 检查用户角色是否存在
+	 */
+	@Override
+	public UserRole getUserRole(UserRole userRole) {
+		return userRoleMapper.getUserRole(userRole);
+	}
+	
+	/**
 	 * 添加用户-角色授权
 	 */
 	@Override
@@ -94,5 +102,7 @@ public class UserServiceImpl implements UserService {
 	public int removeUserRoleAuth(UserRole userRole) {
 		return userRoleMapper.deleteUserRole(userRole);
 	}
+
+
 
 }

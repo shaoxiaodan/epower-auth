@@ -16,6 +16,7 @@
 			<th>password</th>
 			<th>creat_time</th>
 			<th>操作</th>
+			<th>授权</th>
 		</tr>
 		<tr th:each="user:${users}">
 			<td th:text="${user.id}">id</td>
@@ -23,8 +24,11 @@
 			<td th:text="${user.password}">password</td>
 			<td th:text="${user.createTime}">create_time</td>
 			<td>
-				<a th:href="@{update(id=${user.id})}">更新</a>
-				<a th:href="@{remove(id=${user.id})}">删除</a>
+				<a th:href="@{update(uid=${user.id})}">更新</a>
+				<a th:href="@{remove(uid=${user.id})}">删除</a>
+			</td>
+			<td>
+				<a th:href="@{auth(uid=${user.id})}">授权</a>
 			</td>
 		</tr>
 	</table>
