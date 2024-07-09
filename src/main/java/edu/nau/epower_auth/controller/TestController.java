@@ -10,6 +10,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.github.pagehelper.PageHelper;
+
 import edu.nau.epower_auth.dao.Test;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.service.UserService;
@@ -29,7 +31,9 @@ public class TestController {
 	private UserService userService;
 
 	@GetMapping("test")
-	public String test(ModelMap modelMap) {
+	public String test(ModelMap modelMap, int pageNum, int pageSize) {
+
+		PageHelper.startPage(pageNum, pageSize);
 
 		String title = "new title";
 		modelMap.addAttribute("title", title);
@@ -53,4 +57,5 @@ public class TestController {
 		System.out.println("testLogin, userList=" + userList);
 		return "testlogin";
 	}
+
 }
