@@ -17,29 +17,48 @@
 	</div>
 
 	<table border="1">
-		<tr>
-			<th>id</th>
-			<th>name</th>
-			<th>crate_time</th>
-			<th>update_time</th>
-			<th>description</th>
-			<th>记录操作</th>
-			<th>配置管理</th>
-		</tr>
-		<tr th:each="menu:${menus}">
-			<td th:text="${menu.id}">id</td>
-			<td th:text="${menu.name}">name</td>
-			<td th:text="${menu.createTime}">crate_time</td>
-			<td th:text="${menu.updateTime}">update_time</td>
-			<td th:text="${menu.description}">description</td>
-			<td>
-				<a th:href="@{update(id=${menu.id})}">更新</a>
-				<a th:href="@{remove(id=${menu.id})}">删除</a>
-			</td>
-			<td>
-				<a th:href="@{remove(id=${menu.id})}">URL配置</a>
-			</td>
-		</tr>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>crate_time</th>
+				<th>update_time</th>
+				<th>description</th>
+				<th>记录操作</th>
+				<th>配置管理</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="menu:${menus}">
+				<td th:text="${menu.id}">id</td>
+				<td th:text="${menu.name}">name</td>
+				<td th:text="${menu.createTime}">crate_time</td>
+				<td th:text="${menu.updateTime}">update_time</td>
+				<td th:text="${menu.description}">description</td>
+				<td>
+					<a th:href="@{update(id=${menu.id})}">更新</a>
+					<a th:href="@{remove(id=${menu.id})}">删除</a>
+				</td>
+				<td>
+					<a th:href="@{remove(id=${menu.id})}">URL配置</a>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="7">
+					<div align="center">
+						<a th:href="@{list(pageNum=${pages.prePage})}">上一页</a>
+						<a th:href="@{list(pageNum=${pages.nextPage})}">下一页</a>
+						<p>
+							第 <span th:text="${pages.pageNum}"></span> 页，
+							共 <span th:text="${pages.pages}"></span> 页，
+							有 <span th:text="${pages.total}"></span> 个分类
+						</p>
+					</div>
+				</th>
+			</tr>
+		</tfoot>
 	</table>
 
 	<a th:href="@{add}">添加菜单</a>

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.service.UrlService;
 
@@ -24,10 +27,16 @@ public class UrlController {
 	private UrlService urlService;
 
 	@GetMapping("list")
-	public String listUser(ModelMap modelMap) {
+	public String listUser(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
+		int pageSize = 10;
+
+		PageHelper.startPage(pageNum, pageSize);
 		List<Url> urls = urlService.listUrl();
+		PageInfo<Url> pages = new PageInfo<Url>(urls);
+
 		modelMap.addAttribute("urls", urls);
+		modelMap.addAttribute("pages", pages);
 
 		return "system/url/list";
 	}
@@ -58,13 +67,13 @@ public class UrlController {
 
 		Url url = urlService.getUrl(urlId);
 		model.addAttribute("updateurl", url);
-		
+
 		// 设置boolean值的isEntrance属性
 		Map<String, Object> optMaps = new HashMap<String, Object>();
 		optMaps.put("是", 1);
 		optMaps.put("否", 0);
 		model.addAttribute("optmaps", optMaps);
-		
+
 		return "system/url/update";
 	}
 

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import edu.nau.epower_auth.dao.Menu;
-import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.service.MenuService;
 
 @Controller
@@ -23,10 +25,16 @@ public class MenuController {
 	private MenuService menuService;
 
 	@GetMapping("list")
-	public String listMenu(ModelMap modelMap) {
+	public String listMenu(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
+		int pageSize = 10;
+
+		PageHelper.startPage(pageNum, pageSize);
 		List<Menu> menus = menuService.listMenu();
+		PageInfo<Menu> pages = new PageInfo<Menu>(menus);
+
 		modelMap.addAttribute("menus", menus);
+		modelMap.addAttribute("pages", pages);
 
 		return "system/menu/list";
 	}

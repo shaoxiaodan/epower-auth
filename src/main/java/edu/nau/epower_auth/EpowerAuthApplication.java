@@ -15,7 +15,7 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @SpringBootApplication
 @MapperScan("edu.nau.epower_auth.mapper")
-@EnableCaching
+//@EnableCaching
 public class EpowerAuthApplication {
 
 	public static void main(String[] args) {

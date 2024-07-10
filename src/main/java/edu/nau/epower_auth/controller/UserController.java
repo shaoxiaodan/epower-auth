@@ -34,7 +34,7 @@ public class UserController {
 	@GetMapping("list")
 	public String listUser(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
-		int pageSize = 15;
+		int pageSize = 10;
 		
 //		if (pageNum == null) {
 //			pageNum = 1;

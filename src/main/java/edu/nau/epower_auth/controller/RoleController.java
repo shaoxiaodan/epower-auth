@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.service.RoleService;
 
@@ -25,10 +28,16 @@ public class RoleController {
 //	private static String redirectUrl = "redirect:list";
 
 	@GetMapping("list")
-	public String listRole(ModelMap modelMap) {
+	public String listRole(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
+		int pageSize = 10;
+
+		PageHelper.startPage(pageNum, pageSize);
 		List<Role> roles = roleService.listRole();
+		PageInfo<Role> pages = new PageInfo<Role>(roles);
+
 		modelMap.addAttribute("roles", roles);
+		modelMap.addAttribute("pages", pages);
 
 		return "system/role/list";
 	}

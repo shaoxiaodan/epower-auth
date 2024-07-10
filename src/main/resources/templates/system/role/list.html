@@ -17,29 +17,48 @@
 	</div>
 
 	<table border="1">
-		<tr>
-			<th>id</th>
-			<th>name</th>
-			<th>description</th>
-			<th>create_time</th>
-			<th>update_time</th>
-			<th>数据操作</th>
-			<th>配置管理</th>
-		</tr>
-		<tr th:each="role:${roles}">
-			<td th:text="${role.id}">id</td>
-			<td th:text="${role.name}">name</td>
-			<td th:text="${role.createTime}">create_time</td>
-			<td th:text="${role.updateTime}">update_time</td>
-			<td th:text="${role.description}">description</td>
-			<td>
-				<a th:href="@{update(id=${role.id})}">更新</a>
-				<a th:href="@{remove(id=${role.id})}">删除</a>
-			</td>
-			<td>
-				<a th:href="@{remove(id=${role.id})}">菜单配置</a>
-			</td>
-		</tr>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>create_time</th>
+				<th>update_time</th>
+				<th>description</th>
+				<th>数据操作</th>
+				<th>配置管理</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="role:${roles}">
+				<td th:text="${role.id}">id</td>
+				<td th:text="${role.name}">name</td>
+				<td th:text="${role.createTime}">create_time</td>
+				<td th:text="${role.updateTime}">update_time</td>
+				<td th:text="${role.description}">description</td>
+				<td>
+					<a th:href="@{update(id=${role.id})}">更新</a>
+					<a th:href="@{remove(id=${role.id})}">删除</a>
+				</td>
+				<td>
+					<a th:href="@{remove(id=${role.id})}">菜单配置</a>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="7">
+					<div align="center">
+						<a th:href="@{list(pageNum=${pages.prePage})}">上一页</a>
+						<a th:href="@{list(pageNum=${pages.nextPage})}">下一页</a>
+						<p>
+							第 <span th:text="${pages.pageNum}"></span> 页，
+							共 <span th:text="${pages.pages}"></span> 页，
+							有 <span th:text="${pages.total}"></span> 个分类
+						</p>
+					</div>
+				</th>
+			</tr>
+		</tfoot>
 	</table>
 
 	<a th:href="@{add}">添加角色</a>
