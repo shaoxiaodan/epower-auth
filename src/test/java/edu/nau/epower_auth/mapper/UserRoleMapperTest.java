@@ -31,7 +31,7 @@ public class UserRoleMapperTest {
 
 		int userId = 0;
 		int roleId = 0;
-		String remarks = "";
+		String descriptionStr = "";
 
 //		userId = 1; // aaa
 //		userId = 2; // bbb
@@ -44,12 +44,12 @@ public class UserRoleMapperTest {
 //		roleId = 4; // tester 1
 		roleId = 5; // tester 2
 
-		remarks = new Date().toString();
+		descriptionStr = new Date().toString();
 
 		UserRole userRole = new UserRole();
 		userRole.setUserId(userId);
 		userRole.setRoleId(roleId);
-		userRole.setRemarks(remarks);
+		userRole.setDescription(descriptionStr);
 
 		int insert = userRoleMapper.insertUserRole(userRole);
 		System.out.println("testInsertUserRole::insert=" + insert);
@@ -99,7 +99,7 @@ public class UserRoleMapperTest {
 			UserRole ur = new UserRole();
 			ur.setUserId(userId);
 			ur.setRoleId(i);
-			ur.setRemarks("测试批量insert-" + i);
+			ur.setDescription("测试批量insert-" + i);
 			userRoleList.add(ur);
 		}
 

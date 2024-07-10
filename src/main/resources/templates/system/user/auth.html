@@ -35,7 +35,7 @@
 				角色name
 			</option>
 		</select>
-		<input type="text" name="remarks" th:value="*{remarks}">
+		<input type="text" name="description" th:value="*{description}">
 		<input type="submit" value="添加角色">
 	</form>
 
@@ -43,11 +43,13 @@
 		<tr>
 			<th>角色名称</th>
 			<th>角色说明</th>
+			<th>更新日期</th>
 			<th>操作</th>
 		</tr>
 		<tr th:each="userrole:${userroles}">
 			<td th:text="${userrole.name}"></td>
 			<td th:text="${userrole.description}"></td>
+			<td th:text="${userrole.createTime}"></td>
 			<td>
 				<a th:href="@{remove(uid=${user.id}, rid=${userrole.id})}">删除角色</a>
 			</td>

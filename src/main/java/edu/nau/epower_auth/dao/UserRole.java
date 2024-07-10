@@ -1,6 +1,7 @@
 package edu.nau.epower_auth.dao;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户-角色关联类
@@ -18,7 +19,9 @@ public class UserRole implements Serializable {
 
 	private int roleId;
 
-	private String remarks;
+	private Date createTime;
+
+	private String description;
 
 	public UserRole() {
 	}
@@ -47,12 +50,20 @@ public class UserRole implements Serializable {
 		this.roleId = roleId;
 	}
 
-	public String getRemarks() {
-		return remarks;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

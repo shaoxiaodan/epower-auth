@@ -34,7 +34,7 @@ public class UserController {
 	@GetMapping("list")
 	public String listUser(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
-		int pageSize = 5;
+		int pageSize = 10;
 		
 //		if (pageNum == null) {
 //			pageNum = 1;
@@ -97,16 +97,21 @@ public class UserController {
 	@GetMapping("auth")
 	public String authPage(@RequestParam("uid") int userId, Model model) {
 
+		// 根据user id获取用户
 		User user = userService.getUser(userId);
-		List<Role> userRoles = roleService.findRoleByUserId(userId);
+		model.addAttribute("user", user);
+		
+		// 获取角色列表
 		List<Role> roles = roleService.listRole();
+		model.addAttribute("roles", roles);
+		
+		// 根据user id获取用户所有角色
+		List<Role> userRoles = roleService.findRoleByUserId(userId);
+		model.addAttribute("userroles", userRoles);
 
+		// 用user id创建映射对象，返回前端并绑定表单
 		UserRole userRole = new UserRole();
 		userRole.setUserId(userId);
-
-		model.addAttribute("user", user);
-		model.addAttribute("roles", roles);
-		model.addAttribute("userroles", userRoles);
 		model.addAttribute("addrole", userRole);
 
 		return "system/user/auth";
