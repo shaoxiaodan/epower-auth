@@ -1,6 +1,8 @@
 package edu.nau.epower_auth.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +35,14 @@ public class UrlController {
 	@GetMapping("add")
 	public String addPage(Model model) {
 
+		// 设置boolean值的isEntrance属性
+		Map<String, Object> optMaps = new HashMap<String, Object>();
+		optMaps.put("是", 1);
+		optMaps.put("否", 0);
+
 		model.addAttribute("addurl", new Url());
+		model.addAttribute("optmaps", optMaps);
+
 		return "system/url/add";
 	}
 
@@ -49,6 +58,13 @@ public class UrlController {
 
 		Url url = urlService.getUrl(urlId);
 		model.addAttribute("updateurl", url);
+		
+		// 设置boolean值的isEntrance属性
+		Map<String, Object> optMaps = new HashMap<String, Object>();
+		optMaps.put("是", 1);
+		optMaps.put("否", 0);
+		model.addAttribute("optmaps", optMaps);
+		
 		return "system/url/update";
 	}
 

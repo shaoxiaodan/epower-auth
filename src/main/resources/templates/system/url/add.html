@@ -9,11 +9,18 @@
 <body>
 	<h1>add url</h1>
 
-	<form th:object="${addurl}" action="/url/addurl" method="post">
-		id:<input type="text" name="id" th:value="*{id}">
-		path:<input type="text" name="path" th:value="*{path}">
-		description:<input type="text" name="description" th:value="*{description}">
-		<input type="submit" value="添加URL">
+	<form th:object="${addurl}" th:action="@{addurl}" method="post">
+		id:<input type="text" name="id" th:value="*{id}" />
+		path:<input type="text" name="path" th:value="*{path}" />
+		static_path:<input type="text" name="staticPath" th:value="*{staticPath}" />
+
+		is_entrance:
+		<select th:field="*{entrance}">
+			<option th:each="optmap:${optmaps}" th:value="${optmap.value}" th:text="${optmap.key}">选项值</option>
+		</select>
+
+		description:<input type="text" name="description" th:value="*{description}" />
+		<input type="submit" value="添加URL" />
 	</form>
 </body>
 

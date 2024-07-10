@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<h1>list user</h1>
+	<h1>用户管理</h1>
 
 	<table border="1">
 		<thead>
@@ -17,7 +17,7 @@
 				<th>password</th>
 				<th>creat_time</th>
 				<th>操作</th>
-				<th>授权</th>
+				<th>管理</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,7 +31,7 @@
 					<a th:href="@{remove(uid=${user.id})}">删除</a>
 				</td>
 				<td>
-					<a th:href="@{auth(uid=${user.id})}">授权</a>
+					<a th:href="@{auth(uid=${user.id})}">用户授权</a>
 				</td>
 			</tr>
 		</tbody>

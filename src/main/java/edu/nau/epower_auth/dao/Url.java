@@ -1,6 +1,7 @@
 package edu.nau.epower_auth.dao;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 资源路径类
@@ -16,11 +17,19 @@ public class Url implements Serializable {
 
 	private String path;
 
+	private String staticPath;
+
+	private Date createTime;
+
+	private Date updateTime;
+
+	private boolean isEntrance;
+
 	private String description;
 
 	public Url() {
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -35,6 +44,38 @@ public class Url implements Serializable {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public String getStaticPath() {
+		return staticPath;
+	}
+
+	public void setStaticPath(String staticPath) {
+		this.staticPath = staticPath;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public boolean isEntrance() {
+		return isEntrance;
+	}
+
+	public void setEntrance(boolean isEntrance) {
+		this.isEntrance = isEntrance;
 	}
 
 	public String getDescription() {

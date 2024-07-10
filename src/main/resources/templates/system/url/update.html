@@ -12,6 +12,16 @@
 	<form th:object="${updateurl}" action="/url/updateurl" method="post">
 		id:<input type="text" name="id" th:value="*{id}" readonly>
 		path:<input type="text" name="path" th:value="*{path}">
+		static_path:<input type="text" name="staticPath" th:value="*{staticPath}">
+
+		is_entrance:
+		<select th:field="*{entrance}">
+			<option th:each="optmap:${optmaps}" 
+					th:value="${optmap.value}" 
+					th:text="${optmap.key}"
+					th:selected="${entrance == optmap.value}">选项值</option>
+		</select>
+		
 		description:<input type="text" name="description" th:value="*{description}">
 		<input type="submit" value="更新URL">
 	</form>

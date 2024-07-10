@@ -34,11 +34,7 @@ public class UserController {
 	@GetMapping("list")
 	public String listUser(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
-		
 		int pageSize = 5;
-		
-		System.out.println(">>>>> pageNum=" + pageNum);
-		System.out.println(">>>>> pageSize=" + pageSize);
 		
 //		if (pageNum == null) {
 //			pageNum = 1;

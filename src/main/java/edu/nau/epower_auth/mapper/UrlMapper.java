@@ -26,26 +26,37 @@ public interface UrlMapper {
 	 * @param menuId
 	 * @return
 	 */
-	@Select("select ul.id as id, ul.path as path" 
+	@Select("select ul.id as id, ul.path as path,"
+			+ " ul.static_path as url_static_path,"
+			+ " ul.is_entrance as url_is_entrance,"
+			+ " ul.create_time as url_create_time,"
+			+ " ul.update_time as url_update_time,"
+			+ " ul.description as url_description" 
 			+ " from menu_url mu" 
 			+ " left join url ul on mu.url_id = ul.id"
 			+ " where mu.menu_id = #{menuId}")
 	public List<Url> findUrlByMenuId(@Param("menuId") int menuId);
 
-	@Select("select * from url")
+	@Select("SELECT * FROM url")
 	public List<Url> listUrl();
 	
-	@Select("select * from url where id = #{urlId}")
+	@Select("SELECT * FROM url WHERE id = #{urlId}")
 	public Url findUrl(@Param("urlId") int urlId);
 	
-	@Insert("insert into url(path, description) values(#{path}, #{description})")
+	@Insert("INSERT INTO url(path, static_path, is_entrance, description)"
+			+ " VALUES(#{path}, #{staticPath}, #{isEntrance}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") //返回自增id
 	public int insertUrl(Url url);
 	
-	@Update("update url set path = #{path}, description = #{description} where id = #{id}")
+	@Update("UPDATE url SET path = #{path},"
+			+ " static_path = #{staticPath},"
+			+ " update_time = CURRENT_TIMESTAMP,"
+			+ " is_entrance = #{isEntrance},"
+			+ " description = #{description}"
+			+ " WHERE id = #{id}")
 	public int updateUrl(Url url);
 	
-	@Delete("delete from url where id = #{urlId}")
+	@Delete("DELETE FROM url WHERE id = #{urlId}")
 	public int deleteUrl(@Param("urlId") int urlId);
 	
 }

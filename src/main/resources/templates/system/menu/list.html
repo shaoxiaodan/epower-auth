@@ -7,14 +7,15 @@
 </head>
 
 <body>
-	<h1>list menu</h1>
+	<h1>菜单管理列表</h1>
 
 	<table border="1">
 		<tr>
 			<th>id</th>
 			<th>name</th>
 			<th>description</th>
-			<th>操作</th>
+			<th>记录操作</th>
+			<th>配置管理</th>
 		</tr>
 		<tr th:each="menu:${menus}">
 			<td th:text="${menu.id}">id</td>
@@ -23,6 +24,9 @@
 			<td>
 				<a th:href="@{update(id=${menu.id})}">更新</a>
 				<a th:href="@{remove(id=${menu.id})}">删除</a>
+			</td>
+			<td>
+				<a th:href="@{remove(id=${menu.id})}">URL配置</a>
 			</td>
 		</tr>
 	</table>

@@ -12,13 +12,21 @@
 	<table border="1">
 		<tr>
 			<th>id</th>
-			<th>path</th>
+			<th>动态path</th>
+			<th>静态path</th>
+			<th>菜单入口</th>
+			<th>创建日期</th>
+			<th>更新日期</th>
 			<th>description</th>
 			<th>操作</th>
 		</tr>
 		<tr th:each="url:${urls}">
 			<td th:text="${url.id}">id</td>
-			<td th:text="${url.path}">path</td>
+			<td th:text="${url.path}">动态path</td>
+			<td th:text="${url.staticPath}">静态path</td>
+			<td th:text="${url.isEntrance}">菜单入口</td>
+			<td th:text="${url.createTime}">创建日期</td>
+			<td th:text="${url.updateTime}">更新日期</td>
 			<td th:text="${url.description}">description</td>
 			<td>
 				<a th:href="@{update(id=${url.id})}">更新</a>
