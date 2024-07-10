@@ -10,27 +10,46 @@
 	<h1>list user</h1>
 
 	<table border="1">
-		<tr>
-			<th>id</th>
-			<th>username</th>
-			<th>password</th>
-			<th>creat_time</th>
-			<th>操作</th>
-			<th>授权</th>
-		</tr>
-		<tr th:each="user:${users}">
-			<td th:text="${user.id}">id</td>
-			<td th:text="${user.username}">username</td>
-			<td th:text="${user.password}">password</td>
-			<td th:text="${user.createTime}">create_time</td>
-			<td>
-				<a th:href="@{update(uid=${user.id})}">更新</a>
-				<a th:href="@{remove(uid=${user.id})}">删除</a>
-			</td>
-			<td>
-				<a th:href="@{auth(uid=${user.id})}">授权</a>
-			</td>
-		</tr>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>username</th>
+				<th>password</th>
+				<th>creat_time</th>
+				<th>操作</th>
+				<th>授权</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user:${users}">
+				<td th:text="${user.id}">id</td>
+				<td th:text="${user.username}">username</td>
+				<td th:text="${user.password}">password</td>
+				<td th:text="${user.createTime}">create_time</td>
+				<td>
+					<a th:href="@{update(uid=${user.id})}">更新</a>
+					<a th:href="@{remove(uid=${user.id})}">删除</a>
+				</td>
+				<td>
+					<a th:href="@{auth(uid=${user.id})}">授权</a>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="6">
+					<div align="center">
+						<a th:href="@{list(pageNum=${pages.prePage})}">上一页</a>
+						<a th:href="@{list(pageNum=${pages.nextPage})}">下一页</a>
+						<p>
+							第 <span th:text="${pages.pageNum}"></span> 页，
+							共 <span th:text="${pages.pages}"></span> 页，
+							有 <span th:text="${pages.total}"></span> 个分类
+						</p>
+					</div>
+				</th>
+			</tr>
+		</tfoot>
 	</table>
 
 	<a th:href="@{add}">添加用户</a>

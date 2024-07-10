@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.dao.UserRole;
@@ -29,10 +32,24 @@ public class UserController {
 	private RoleService roleService;
 
 	@GetMapping("list")
-	public String listUser(ModelMap modelMap) {
+	public String listUser(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
+		
+		int pageSize = 5;
+		
+		System.out.println(">>>>> pageNum=" + pageNum);
+		System.out.println(">>>>> pageSize=" + pageSize);
+		
+//		if (pageNum == null) {
+//			pageNum = 1;
+//		}
+
+		PageHelper.startPage(pageNum, pageSize);
 		List<User> users = userService.listUser();
+		PageInfo<User> pages = new PageInfo<User>(users);
+
 		modelMap.addAttribute("users", users);
+		modelMap.addAttribute("pages", pages);
 
 		return "system/user/list";
 	}
