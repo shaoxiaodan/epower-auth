@@ -33,11 +33,11 @@ public interface UserMapper {
 	@Select("select * from user")
 	public List<User> listUser();
 
-	@Insert("insert into user(username, password, create_time) values(#{username}, #{password}, #{createTime})")
+	@Insert("insert into user(username, password) values(#{username}, #{password})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") //返回自增id
 	public int insertUser(User user);
 
-	@Update("update user set username = #{username}, password = #{password} where id = #{id}")
+	@Update("update user set username = #{username}, password = #{password}, update_time = CURRENT_TIMESTAMP where id = #{id}")
 	public int updateUser(User user);
 
 	@Delete("delete from user where id = #{userId}")

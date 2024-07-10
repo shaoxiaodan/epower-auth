@@ -1,6 +1,7 @@
 package edu.nau.epower_auth.dao;
 
 import java.io.Serializable;
+import java.util.Date;
 /**
  * 
  */
@@ -21,6 +22,10 @@ public class Menu implements Serializable {
 	private String name;
 
 	private String description;
+
+	private Date createTime;
+
+	private Date updateTime;
 
 	private List<Url> urlList;
 
@@ -49,6 +54,22 @@ public class Menu implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	public List<Url> getUrlList() {

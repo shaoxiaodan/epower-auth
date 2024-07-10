@@ -21,12 +21,16 @@
 			<th>id</th>
 			<th>name</th>
 			<th>description</th>
+			<th>create_time</th>
+			<th>update_time</th>
 			<th>数据操作</th>
 			<th>配置管理</th>
 		</tr>
 		<tr th:each="role:${roles}">
 			<td th:text="${role.id}">id</td>
 			<td th:text="${role.name}">name</td>
+			<td th:text="${role.createTime}">create_time</td>
+			<td th:text="${role.updateTime}">update_time</td>
 			<td th:text="${role.description}">description</td>
 			<td>
 				<a th:href="@{update(id=${role.id})}">更新</a>

@@ -50,7 +50,7 @@ public interface MenuMapper {
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
 	public int insertMenu(Menu menu);
 
-	@Update("update menu set name = #{name}, description = #{description} where id = #{id}")
+	@Update("update menu set name = #{name}, description = #{description}, update_time = CURRENT_TIMESTAMP where id = #{id}")
 	public int updateMenu(Menu menu);
 
 	@Delete("delete from menu where id = #{menuId}")

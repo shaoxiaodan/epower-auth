@@ -31,7 +31,7 @@ public interface RoleMapper {
 	 * @param userId
 	 * @return
 	 */
-	@Select("select r.id as id, r.name as name, r.description as description, r.create_time as create_time" 
+	@Select("select r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time" 
 			+ " from user_role ur"
 			+ " left join role r on ur.role_id = r.id" 
 			+ " where ur.user_id = #{userId}")
@@ -54,7 +54,7 @@ public interface RoleMapper {
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
 	public int addRole(Role role);
 
-	@Update("update role set name = #{name}, description = #{description} where id = #{id}")
+	@Update("update role set name = #{name}, description = #{description}, update_time = CURRENT_TIMESTAMP where id = #{id}")
 	public int updateRole(Role role);
 
 	@Delete("delete from role where id = #{roleId}")

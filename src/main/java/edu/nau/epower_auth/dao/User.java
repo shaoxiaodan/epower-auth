@@ -22,7 +22,7 @@ public class User implements Serializable {
 
 	private Date createTime;
 
-	private String salt;
+	private Date updateTime;
 
 	private List<Role> roleList;
 
@@ -61,12 +61,12 @@ public class User implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public String getSalt() {
-		return salt;
+	public Date getUpdateTime() {
+		return updateTime;
 	}
 
-	public void setSalt(String salt) {
-		this.salt = salt;
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	public List<Role> getRoleList() {

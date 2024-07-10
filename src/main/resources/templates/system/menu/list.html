@@ -20,6 +20,8 @@
 		<tr>
 			<th>id</th>
 			<th>name</th>
+			<th>crate_time</th>
+			<th>update_time</th>
 			<th>description</th>
 			<th>记录操作</th>
 			<th>配置管理</th>
@@ -27,6 +29,8 @@
 		<tr th:each="menu:${menus}">
 			<td th:text="${menu.id}">id</td>
 			<td th:text="${menu.name}">name</td>
+			<td th:text="${menu.createTime}">crate_time</td>
+			<td th:text="${menu.updateTime}">update_time</td>
 			<td th:text="${menu.description}">description</td>
 			<td>
 				<a th:href="@{update(id=${menu.id})}">更新</a>
