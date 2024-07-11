@@ -114,7 +114,7 @@ public class MenuController {
 					if (urlTmp.getId() == rUrlIds.get(j)) {
 						allUrls.remove(i);
 						rUrlIds.remove(j);
-						break;
+						break; // 跳出当前rUrlIds循环
 					}
 				}
 			}
