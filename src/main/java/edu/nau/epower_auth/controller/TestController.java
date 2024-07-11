@@ -1,19 +1,25 @@
 package edu.nau.epower_auth.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.pagehelper.PageHelper;
 
 import edu.nau.epower_auth.dao.Test;
+import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.dao.User;
+import edu.nau.epower_auth.service.MenuService;
 import edu.nau.epower_auth.service.UserService;
 
 /**
@@ -29,6 +35,9 @@ public class TestController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private MenuService menuService;
 
 	@GetMapping("test")
 	public String test(ModelMap modelMap, int pageNum, int pageSize) {
@@ -56,6 +65,52 @@ public class TestController {
 		modelMap.addAttribute("userlist", userList);
 		System.out.println("testLogin, userList=" + userList);
 		return "testlogin";
+	}
+
+	@GetMapping("testurl")
+	public String addUrlPage(ModelMap modelMap) {
+
+		Map<Integer, Object> map = new HashMap<Integer, Object>();
+
+		for (int i = 0; i < 10; i++) {
+			map.put(i, "map-" + i);
+		}
+		modelMap.addAttribute("urlobjs", map);
+
+		List<Url> leftList = new ArrayList<Url>();
+		for (int i = 1; i <= 5; i++) {
+			Url url = new Url();
+			url.setId(i);
+			url.setPath("left-" + i);
+			leftList.add(url);
+		}
+		modelMap.addAttribute("leftlist", leftList);
+
+		List<Url> rightList = new ArrayList<Url>();
+		for (int i = 9; i <= 10; i++) {
+			Url url = new Url();
+			url.setId(i);
+			url.setPath("right-" + i);
+			rightList.add(url);
+		}
+		modelMap.addAttribute("rightlist", rightList);
+
+		List<Url> allUrls = new ArrayList<Url>();
+		allUrls.addAll(leftList);
+		allUrls.addAll(rightList);
+		modelMap.addAttribute("allurls", allUrls);
+
+		return "testurl";
+	}
+
+	@PostMapping("testurl2")
+	public String addUrlPage2(int[] urlhidden) {
+
+//		System.out.println("addUrlPage2, modelMap=" + modelMap);
+//		System.out.println("addUrlPage2, url=" + url);
+		System.out.println("addUrlPage2, urlhidden=" + urlhidden);
+
+		return "redirect:testurl";
 	}
 
 }
