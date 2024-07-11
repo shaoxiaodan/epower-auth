@@ -25,7 +25,7 @@ public interface RoleMenuMapper {
 	@Select("SELECT * FROM role_menu WHERE role_id = #{roleId} AND menu_id = #{menuId}")
 	public RoleMenu getRoleMenu(RoleMenu roleMenu);
 
-	@Insert("insert into role_menu(role_id, menu_id, description) values(#{roleId}, #{menuId}, #{description})")
+	@Insert("insert into role_menu(role_id, menu_id) values(#{roleId}, #{menuId})")
 	public int insertRoleMenu(RoleMenu roleMenu);
 
 	@Delete("delete from role_menu where role_id = #{roleId} and menu_id = #{menuId}")
@@ -49,11 +49,13 @@ public interface RoleMenuMapper {
 
 		// 批量添加
 		public String insertBatch(Map map) {
+			// TODO
 			return null;
 		}
 
 		// 批量删除
 		public String deleteBatch(Map map) {
+			// TODO
 			return null;
 		}
 
