@@ -1,5 +1,6 @@
 package edu.nau.epower_auth.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import edu.nau.epower_auth.dao.Menu;
-import edu.nau.epower_auth.dao.RoleMenu;
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.service.MenuService;
 import edu.nau.epower_auth.service.UrlService;
@@ -26,7 +26,7 @@ public class MenuController {
 
 	@Autowired
 	private MenuService menuService;
-	
+
 	@Autowired
 	private UrlService urlService;
 
@@ -79,28 +79,47 @@ public class MenuController {
 		int remove = menuService.removeMenu(menuId);
 		return "redirect:list";
 	}
-	
+
 	@GetMapping("auth")
 	public String authPage(@RequestParam("mid") int menuId, Model model) {
 
-		// 根据menu id获取菜单
+		// 根据menu id获取菜单 - left url
 		Menu menu = menuService.getMenu(menuId);
 		model.addAttribute("menu", menu);
 
 		// 获取URL列表
-		List<Url> urls = urlService.listUrl();
-		model.addAttribute("urls", urls);
+		List<Url> allUrls = urlService.listUrl();
+		model.addAttribute("urls", allUrls);
 
-		// 根据menu id获取菜单的所有URL
+		// 根据menu id获取菜单的所有URL - right url
 		List<Url> menuUrls = urlService.findUrlByMenuId(menuId);
 		model.addAttribute("menuurls", menuUrls);
 
-		// 如果menu下面存在有URL数据，先移除URL列表
-		if(menuUrls != null && menuUrls.size() >0) {
-				
+		// 如果menu下面存在有URL数据，先获取URL的id
+		List<Integer> rUrlIds = null;
+		if (menuUrls != null && menuUrls.size() > 0) {
+			rUrlIds = new ArrayList<Integer>();
+			for (Url menuUrl : menuUrls) {
+				rUrlIds.add(menuUrl.getId());
+			}
 		}
-		
-		
+
+		// URL列表数据去重
+		// 如果menu下面存在有URL数据，移除全面URL列表中的存在数据
+		if (rUrlIds != null && rUrlIds.size() > 0) {
+			Url urlTmp = null;
+			for (int i = 0; i < allUrls.size(); i++) {
+				urlTmp = allUrls.get(i);
+				for (int j = 0; j < rUrlIds.size(); j++) {
+					if (urlTmp.getId() == rUrlIds.get(j)) {
+						allUrls.remove(i);
+						rUrlIds.remove(j);
+						break;
+					}
+				}
+			}
+		}
+
 		// 用role id创建menu映射对象，返回前端并绑定表单
 //		RoleMenu roleMenu = new RoleMenu();
 //		roleMenu.setRoleId(roleId);

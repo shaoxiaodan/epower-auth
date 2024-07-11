@@ -6,24 +6,31 @@
 	<title>user auth page</title>
 
 	<script type="text/javascript">
-		function fnMove(fromSelectID, toSelectID) {
-
-			var from = document.getElementById(fromSelectID);
-			var to = document.getElementById(toSelectID);
-
-			for (var i = 0; i < from.options.length; i++) {
-				var op = from.options[i];
-				if (op.selected) {
-					alert(from.options[i].selectedIndex );
-					
-					to.options.add(new Option(op.text, op.value));
-					from.remove(i);
-				}
-				//alert(op.selectedIndex);
-				//return;
-			}
+		function initUrlOpts(fromSelectId, toSelectId) {
+			alert("init ...");
+			
+			var fromObj = document.getElementById(fromSelectId);
+			var toObj = document.getElementById(toSelectId);
+			
+			
 		}
 
+		function moveUrlOpts(fromSelectId, toSelectId) {
+
+			var fromObj = document.getElementById(fromSelectId);
+			var toObj = document.getElementById(toSelectId);
+
+			//for (var i = 0; i < from.options.length; i++) {
+			for (var i = fromObj.length - 1; i >= 0; i--) {
+				var op = fromObj.options[i];
+				if (op.selected) {
+					toObj.options.add(new Option(op.text, op.value));
+					fromObj.remove(i);
+				}
+			}
+		}
+		
+		//initUrlOpts();
 	</script>
 
 </head>
@@ -36,13 +43,13 @@
 		<h2 th:text="${menu.name}">角色名称</h2>
 	</div>
 
-	<form th:action="@{addmenu}" method="post">
+	<form th:action="@{addurl}" method="post">
 		<select multiple="multiple" id="fromselect" name="fromselect" style="width: 300px; height: 200px;">
 			<option th:each="left:${urls}" th:value="${left.id}" th:text="${left.path}">left path name</option>
 		</select>
 
-		<input type="button" id="" name="" value="from" onclick="fnMove('fromselect', 'toselect')">
-		<input type="button" id="" name="" value="to" onclick="fnMove('toselect', 'fromselect')">
+		<input type="button" id="" name="" value="from" onclick="moveUrlOpts('fromselect', 'toselect')">
+		<input type="button" id="" name="" value="to" onclick="moveUrlOpts('toselect', 'fromselect')">
 
 		<select multiple="multiple" id="toselect" name="toselect" style="width: 300px; height: 200px;">
 			<option th:each="right:${menuurls}" th:value="${right.id}" th:text="${right.path}">right path name</option>
