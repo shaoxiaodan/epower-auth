@@ -6,21 +6,10 @@
 	<title>user auth page</title>
 
 	<script type="text/javascript">
-		function initUrlOpts(fromSelectId, toSelectId) {
-			alert("init ...");
-			
-			var fromObj = document.getElementById(fromSelectId);
-			var toObj = document.getElementById(toSelectId);
-			
-			
-		}
-
 		function moveUrlOpts(fromSelectId, toSelectId) {
-
 			var fromObj = document.getElementById(fromSelectId);
 			var toObj = document.getElementById(toSelectId);
 
-			//for (var i = 0; i < from.options.length; i++) {
 			for (var i = fromObj.length - 1; i >= 0; i--) {
 				var op = fromObj.options[i];
 				if (op.selected) {
@@ -29,8 +18,26 @@
 				}
 			}
 		}
+
+		function getUrlOptIds(toSelectId) {
+			var toObj = document.getElementById(toSelectId);
+			var newUrlsObj = document.getElementById("newurls");
+			var newUrlsArry = [];
+
+			for (var i = 0; i < toObj.length; i++) {
+				newUrlsArry.push(toObj[i].value);
+			}
+
+			newUrlsObj.value = newUrlsArry.toString();
+		}
 		
-		//initUrlOpts();
+		function initOpts(selectId){
+			var optsObj = document.getElementById(selectId);
+			optsObj.options = 0;
+		}
+		
+		initOpts('fromselect');
+		initOpts('toselect');
 	</script>
 
 </head>
@@ -43,20 +50,20 @@
 		<h2 th:text="${menu.name}">角色名称</h2>
 	</div>
 
-	<form th:action="@{addurl}" method="post">
+	<form th:action="@{addurl(mid=${menu.id})}" method="post">
 		<select multiple="multiple" id="fromselect" name="fromselect" style="width: 300px; height: 200px;">
-			<option th:each="left:${urls}" th:value="${left.id}" th:text="${left.path}">left path name</option>
+			<option th:each="lefturl:${lefturls}" th:value="${lefturl.id}" th:text="${lefturl.path}">left path name</option>
 		</select>
 
 		<input type="button" id="" name="" value="from" onclick="moveUrlOpts('fromselect', 'toselect')">
 		<input type="button" id="" name="" value="to" onclick="moveUrlOpts('toselect', 'fromselect')">
 
 		<select multiple="multiple" id="toselect" name="toselect" style="width: 300px; height: 200px;">
-			<option th:each="right:${menuurls}" th:value="${right.id}" th:text="${right.path}">right path name</option>
+			<option th:each="righturl:${righturls}" th:value="${righturl.id}" th:text="${righturl.path}">right path name</option>
 		</select>
 		<select>
-			<input type="hidden" id="" name="urlhidden" value="">
-			<input type="submit" value="添加URL">
+			<input type="hidden" id="newurls" name="newurls" value="">
+			<input type="submit" value="添加URL" onclick="getUrlOptIds('toselect')">
 	</form>
 
 	<!--

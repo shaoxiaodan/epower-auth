@@ -3,6 +3,7 @@ package edu.nau.epower_auth.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bouncycastle.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.util.ListUtils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import edu.nau.epower_auth.dao.Menu;
+import edu.nau.epower_auth.dao.MenuUrl;
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.service.MenuService;
 import edu.nau.epower_auth.service.UrlService;
@@ -83,49 +86,88 @@ public class MenuController {
 	@GetMapping("auth")
 	public String authPage(@RequestParam("mid") int menuId, Model model) {
 
-		// 根据menu id获取菜单 - left url
+		// 根据menu id获取菜单
 		Menu menu = menuService.getMenu(menuId);
-		model.addAttribute("menu", menu);
 
-		// 获取URL列表
-		List<Url> allUrls = urlService.listUrl();
-		model.addAttribute("urls", allUrls);
+		// 获取URL列表 - left url
+		List<Url> leftUrls = urlService.listUrl();
 
 		// 根据menu id获取菜单的所有URL - right url
-		List<Url> menuUrls = urlService.findUrlByMenuId(menuId);
-		model.addAttribute("menuurls", menuUrls);
+		List<Url> rightUrls = urlService.findUrlByMenuId(menuId);
 
 		// 如果menu下面存在有URL数据，先获取URL的id
-		List<Integer> rUrlIds = null;
-		if (menuUrls != null && menuUrls.size() > 0) {
-			rUrlIds = new ArrayList<Integer>();
-			for (Url menuUrl : menuUrls) {
-				rUrlIds.add(menuUrl.getId());
+		List<Integer> dupUrlList = null;
+
+		// 转换需要去重的URL数据
+		if (!ListUtils.isEmpty(rightUrls)) {
+			dupUrlList = new ArrayList<Integer>();
+			for (Url rightUrl : rightUrls) {
+				dupUrlList.add(rightUrl.getId());
 			}
 		}
 
-		// URL列表数据去重
-		// 如果menu下面存在有URL数据，移除全面URL列表中的存在数据
-		if (rUrlIds != null && rUrlIds.size() > 0) {
+		// 开始将left url去重
+		if (!ListUtils.isEmpty(dupUrlList)) {
 			Url urlTmp = null;
-			for (int i = 0; i < allUrls.size(); i++) {
-				urlTmp = allUrls.get(i);
-				for (int j = 0; j < rUrlIds.size(); j++) {
-					if (urlTmp.getId() == rUrlIds.get(j)) {
-						allUrls.remove(i);
-						rUrlIds.remove(j);
-						break; // 跳出当前rUrlIds循环
+			for (int i = 0; i < dupUrlList.size(); i++) {
+
+				for (int j = 0; j < leftUrls.size(); j++) {
+					urlTmp = leftUrls.get(j);
+					if (dupUrlList.get(i) == urlTmp.getId()) {
+						leftUrls.remove(j);
+						break;
 					}
 				}
 			}
 		}
 
-		// 用role id创建menu映射对象，返回前端并绑定表单
-//		RoleMenu roleMenu = new RoleMenu();
-//		roleMenu.setRoleId(roleId);
-//		model.addAttribute("addmenu", roleMenu);
+		model.addAttribute("menu", menu);
+		model.addAttribute("lefturls", leftUrls);
+		model.addAttribute("righturls", rightUrls);
 
 		return "system/menu/auth";
+	}
+
+	@PostMapping("addurl")
+	public String addAuth(@RequestParam("newurls") int[] urlidsArry, @RequestParam("mid") int menuId) {
+
+		// 1，先检查菜单URL是否存在
+//		System.out.println("1，检查菜单URL是否存在。。。");
+		List<MenuUrl> muList = menuService.getMenuUrl(menuId);
+
+		// 2，已存在菜单URL，先删除该菜单URL
+		if (!ListUtils.isEmpty(muList)) {
+//			System.out.println("2，先删除该菜单已经存在的URL。。。");
+			MenuUrl rmUrl = new MenuUrl();
+			rmUrl.setMenuId(menuId);
+			int remove = menuService.removeMenuUrlAuth(rmUrl);
+		} else {
+			// 菜单不存在
+//			System.out.println("3，菜单不存在。。。");
+		}
+
+		// 3，如果URL的id数组不为空，进入逻辑处理流程；
+		if (!Arrays.isNullOrEmpty(urlidsArry)) {
+//			System.out.println("3，URL的id数组不为空。。。");
+
+			muList = new ArrayList<MenuUrl>();
+			for (int i = 0; i < urlidsArry.length; i++) {
+				MenuUrl mUrl = new MenuUrl();
+				mUrl.setMenuId(menuId);
+				mUrl.setUrlId(urlidsArry[i]);
+				muList.add(mUrl);
+			}
+			// 4，再添加新的角色菜单
+//			System.out.println("4，再添加新的角色菜单。。。");
+			int auth = menuService.addMenuUrlAuthBatch(muList);
+		} else {
+			// 5，URL的id数组为空，不做处理
+//			System.out.println("5，URL的id数组为空，不做任何东西。。。");
+		}
+
+		// 6，重定向返回auth列表
+		System.out.println("6，重定向返回。。。");
+		return "redirect:auth?mid=" + menuId;
 	}
 
 }

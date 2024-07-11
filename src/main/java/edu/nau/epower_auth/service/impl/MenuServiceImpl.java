@@ -48,13 +48,14 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 根据role id获取所有菜单
+	 * 
 	 * @param roleId
 	 * @return
 	 */
-	public List<Menu> findMenuByRoleId(int roleId){
+	public List<Menu> findMenuByRoleId(int roleId) {
 		return menuMapper.findMenuByRoleId(roleId);
 	}
-	
+
 	/**
 	 * 添加菜单
 	 */
@@ -83,7 +84,15 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	/**
-	 * 添加菜单-资源路径授权
+	 * 检查菜单-URL是否存在
+	 */
+	@Override
+	public List<MenuUrl> getMenuUrl(int menuId) {
+		return menuUrlMapper.getMenuUrl(menuId);
+	}
+
+	/**
+	 * 添加菜单-URL授权
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -98,6 +107,21 @@ public class MenuServiceImpl implements MenuService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public int removeMenuUrlAuth(MenuUrl menuUrl) {
 		return menuUrlMapper.deleteMenuUrl(menuUrl);
+	}
+
+	/**
+	 * （批量）添加菜单-URL授权
+	 */
+	@Override
+	public int addMenuUrlAuthBatch(List<MenuUrl> menuUrlList) {
+		return menuUrlMapper.insertMenuUrlBatch(menuUrlList);
+	}
+
+	/**
+	 * （批量）删除菜单-资源路径授权
+	 */
+	public int removeMenuUrlAuthBatch(List<MenuUrl> menuUrlList) {
+		return menuUrlMapper.deleteMenuUrlBatch(menuUrlList);
 	}
 
 }

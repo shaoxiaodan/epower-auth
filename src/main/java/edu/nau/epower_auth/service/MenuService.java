@@ -33,9 +33,18 @@ public interface MenuService {
 	// 删除菜单
 	public int removeMenu(int menuId);
 
+	// 检查菜单资源路径是否存在
+	public List<MenuUrl> getMenuUrl(int menuId);
+
 	// 添加菜单资源路径授权
 	public int addMenuUrlAuth(MenuUrl menuUrl);
 
+	// (批量)添加菜单资源路径授权	
+	public int addMenuUrlAuthBatch(List<MenuUrl> menuUrlList);
+	
 	// 删除菜单资源路径授权
 	public int removeMenuUrlAuth(MenuUrl menuUrl);
+
+	// (批量)删除菜单资源路径授权
+	public int removeMenuUrlAuthBatch(List<MenuUrl> menuUrlList);
 }
