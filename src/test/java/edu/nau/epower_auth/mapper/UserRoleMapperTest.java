@@ -3,7 +3,6 @@ package edu.nau.epower_auth.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,6 @@ public class UserRoleMapperTest {
 
 		int userId = 0;
 		int roleId = 0;
-		String descriptionStr = "";
 
 //		userId = 1; // aaa
 //		userId = 2; // bbb
@@ -44,12 +42,9 @@ public class UserRoleMapperTest {
 //		roleId = 4; // tester 1
 		roleId = 5; // tester 2
 
-		descriptionStr = new Date().toString();
-
 		UserRole userRole = new UserRole();
 		userRole.setUserId(userId);
 		userRole.setRoleId(roleId);
-		userRole.setDescription(descriptionStr);
 
 		int insert = userRoleMapper.insertUserRole(userRole);
 		System.out.println("testInsertUserRole::insert=" + insert);
@@ -99,7 +94,6 @@ public class UserRoleMapperTest {
 			UserRole ur = new UserRole();
 			ur.setUserId(userId);
 			ur.setRoleId(i);
-			ur.setDescription("测试批量insert-" + i);
 			userRoleList.add(ur);
 		}
 

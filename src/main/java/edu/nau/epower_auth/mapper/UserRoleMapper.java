@@ -25,7 +25,7 @@ public interface UserRoleMapper {
 	@Select("SELECT * FROM user_role WHERE user_id = #{userId} AND role_id = #{roleId}")
 	public UserRole getUserRole(UserRole userRole);
 
-	@Insert("INSERT INTO user_role(user_id, role_id, description) VALUES(#{userId}, #{roleId}, #{description})")
+	@Insert("INSERT INTO user_role(user_id, role_id) VALUES(#{userId}, #{roleId})")
 	public int insertUserRole(UserRole userRole);
 
 	@Delete("DELETE FROM user_role WHERE user_id = #{userId} AND role_id = #{roleId}")
@@ -51,9 +51,8 @@ public interface UserRoleMapper {
 
 			List<UserRole> urList = (List<UserRole>) map.get("list");
 			StringBuilder sb = new StringBuilder();
-			sb.append("insert into user_role (user_id,role_id,remarks) values ");
-			MessageFormat mf = new MessageFormat(
-					"(#'{'list[{0}].userId}, #'{'list[{0}].roleId}, #'{'list[{0}].remarks})");
+			sb.append("INSERT INTO user_role (user_id,role_id) VALUES ");
+			MessageFormat mf = new MessageFormat("(#'{'list[{0}].userId}, #'{'list[{0}].roleId})");
 
 			for (int i = 0; i < urList.size(); i++) {
 				sb.append(mf.format(new Object[] { i }));
@@ -69,7 +68,7 @@ public interface UserRoleMapper {
 			List<UserRole> urList = (List<UserRole>) map.get("list");
 			StringBuilder sb = new StringBuilder();
 
-			sb.append("delete from user_role where id in (");
+			sb.append("DELETE FROM user_role WHERE id IN (");
 			for (int i = 0; i < urList.size(); i++) {
 				sb.append("'").append(urList.get(i).getId()).append("'");
 				if (i < urList.size() - 1)
