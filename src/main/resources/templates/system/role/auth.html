@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>user auth page</title>
+
+	<script type="text/javascript">
+		function testRoles() {
+			//var obj = document.getElementsByName("select_roles");
+			var obj = document.forms[0].elements["select_roles"];
+
+			for (var i = 0; i < obj.length; i++) {
+				if (obj.options[i].selected) {
+					alert(obj.options[i].value);
+				}
+			}
+		}
+	</script>
+
+</head>
+
+<body>
+	<h1>菜单配置</h1>
+
+	<div>
+		当前角色：
+		<h2 th:text="${role.name}">角色名称</h2>
+	</div>
+
+	<form th:object="${addmenu}" th:action="@{addmenu}" method="post">
+		<input type="hidden" name="roleId" th:value="*{roleId}">
+		<select name="select_menus" th:field="*{menuId}">
+			<option th:each="menu:${menus}" th:value="${menu.id}" th:text="${menu.name}">
+				菜单名称
+			</option>
+		</select>
+		<input type="text" name="description" th:value="*{description}">
+		<input type="submit" value="添加菜单">
+	</form>
+
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<th>菜单名称</th>
+			<th>菜单说明</th>
+			<th>创建日期</th>
+			<th>更新日期</th>
+			<th>操作</th>
+		</tr>
+		<tr th:each="rolemenu:${rolemenus}">
+			<td th:text="${rolemenu.id}"></td>
+			<td th:text="${rolemenu.name}"></td>
+			<td th:text="${rolemenu.description}"></td>
+			<td th:text="${rolemenu.createTime}"></td>
+			<td th:text="${rolemenu.updateTime}"></td>
+			<td>
+				<a th:href="@{removemenu(rid=${role.id}, mid=${rolemenu.id})}">删除菜单</a>
+			</td>
+		</tr>
+	</table>
+	<a th:href="@{list}">返回角色列表</a>
+
+
+</body>
+
+</html>

@@ -51,7 +51,7 @@
 			<td th:text="${userrole.description}"></td>
 			<td th:text="${userrole.createTime}"></td>
 			<td>
-				<a th:href="@{remove(uid=${user.id}, rid=${userrole.id})}">删除角色</a>
+				<a th:href="@{removerole(uid=${user.id}, rid=${userrole.id})}">删除角色</a>
 			</td>
 		</tr>
 	</table>

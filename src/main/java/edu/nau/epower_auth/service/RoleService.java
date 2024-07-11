@@ -20,10 +20,10 @@ public interface RoleService {
 
 	// 获取角色
 	public Role getRole(int roleId);
-	
+
 	// 获取角色by user id
 	public List<Role> findRoleByUserId(int userId);
-	
+
 	// 添加角色
 	public int addRole(Role role);
 
@@ -32,6 +32,9 @@ public interface RoleService {
 
 	// 删除角色
 	public int removeRole(int roleId);
+
+	// 检查用户角色是否存在
+	public RoleMenu getRoleMenu(RoleMenu roleMenu);
 
 	// 添加角色菜单授权
 	public int addRoleMenuAuth(RoleMenu roleMenu);

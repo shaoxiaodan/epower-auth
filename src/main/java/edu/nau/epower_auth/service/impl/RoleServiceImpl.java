@@ -82,6 +82,14 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	/**
+	 * 检查角色菜单是否存在
+	 */
+	@Override
+	public RoleMenu getRoleMenu(RoleMenu roleMenu) {
+		return roleMenuMapper.getRoleMenu(roleMenu);
+	}
+
+	/**
 	 * 添加角色-菜单授权
 	 */
 	@Override

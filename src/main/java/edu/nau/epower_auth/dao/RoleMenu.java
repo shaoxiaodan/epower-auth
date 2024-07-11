@@ -1,6 +1,7 @@
 package edu.nau.epower_auth.dao;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 角色-菜单关联类
@@ -17,6 +18,10 @@ public class RoleMenu implements Serializable {
 	private int roleId;
 
 	private int menuId;
+
+	private Date createTime;
+
+	private String description;
 
 	public RoleMenu() {
 	}
@@ -43,6 +48,22 @@ public class RoleMenu implements Serializable {
 
 	public void setMenuId(int menuId) {
 		this.menuId = menuId;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

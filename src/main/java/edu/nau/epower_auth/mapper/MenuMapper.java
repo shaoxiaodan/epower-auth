@@ -31,7 +31,7 @@ public interface MenuMapper {
 	 * @param roleId
 	 * @return
 	 */
-	@Select("select m.id as id, m.name as name, m.description as description" 
+	@Select("select m.id as id, m.name as name, m.description as description, m.create_time as create_time, m.update_time as update_time" 
 			+ "	from role_menu rm"
 			+ "	left join menu m on rm.menu_id = m.id" 
 			+ "	where rm.role_id = #{roleId}")

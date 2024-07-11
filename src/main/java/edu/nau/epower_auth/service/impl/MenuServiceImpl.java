@@ -47,6 +47,15 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	/**
+	 * 根据role id获取所有菜单
+	 * @param roleId
+	 * @return
+	 */
+	public List<Menu> findMenuByRoleId(int roleId){
+		return menuMapper.findMenuByRoleId(roleId);
+	}
+	
+	/**
 	 * 添加菜单
 	 */
 	@Override

@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
+import edu.nau.epower_auth.dao.RoleMenu;
+import edu.nau.epower_auth.service.MenuService;
 import edu.nau.epower_auth.service.RoleService;
 
 @Controller
@@ -23,6 +26,9 @@ public class RoleController {
 
 	@Autowired
 	private RoleService roleService;
+
+	@Autowired
+	private MenuService menuService;
 
 //	private static String returnUrl = "system/role/";
 //	private static String redirectUrl = "redirect:list";
@@ -57,7 +63,7 @@ public class RoleController {
 	}
 
 	@GetMapping("update")
-	public String updatePage(@RequestParam("id") int roleId, Model model) {
+	public String updatePage(@RequestParam("rid") int roleId, Model model) {
 
 		Role role = roleService.getRole(roleId);
 		model.addAttribute("updaterole", role);
@@ -71,10 +77,60 @@ public class RoleController {
 	}
 
 	@GetMapping("remove")
-	public String removeRole(@RequestParam("id") int roleId) {
+	public String removeRole(@RequestParam("rid") int roleId) {
 
 		int remove = roleService.removeRole(roleId);
 		return "redirect:list";
+	}
+
+	@GetMapping("auth")
+	public String authPage(@RequestParam("rid") int roleId, Model model) {
+
+		// 根据role id获取角色
+		Role role = roleService.getRole(roleId);
+		model.addAttribute("role", role);
+
+		// 获取菜单列表
+		List<Menu> menus = menuService.listMenu();
+		model.addAttribute("menus", menus);
+
+		// 根据role id获取角色所有菜单
+		List<Menu> roleMenus = menuService.findMenuByRoleId(roleId);
+		model.addAttribute("rolemenus", roleMenus);
+
+		// 用role id创建menu映射对象，返回前端并绑定表单
+		RoleMenu roleMenu = new RoleMenu();
+		roleMenu.setRoleId(roleId);
+		model.addAttribute("addmenu", roleMenu);
+
+		return "system/role/auth";
+	}
+
+	@PostMapping("addmenu")
+	public String addAuth(RoleMenu roleMenu) {
+
+		// 1，先检查角色菜单是否存在
+		RoleMenu rm = roleService.getRoleMenu(roleMenu);
+		if (rm != null) {
+			// 2，已存在角色菜单，先删除该角色菜单
+			int remove = roleService.removeRoleMenuAuth(roleMenu);
+		}
+
+		// 3，再添加新的角色菜单
+		int auth = roleService.addRoleMenuAuth(roleMenu);
+
+		// 4，重定向返回auth列表
+		return "redirect:auth?rid=" + roleMenu.getRoleId();
+	}
+
+	@GetMapping("removemenu")
+	public String removeAuth(@RequestParam("rid") int roleId, @RequestParam("mid") int menuId) {
+
+		RoleMenu roleMenu = new RoleMenu();
+		roleMenu.setRoleId(roleId);
+		roleMenu.setMenuId(menuId);
+		int remove = roleService.removeRoleMenuAuth(roleMenu);
+		return "redirect:auth?rid=" + roleId;
 	}
 
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Select;
 
 import edu.nau.epower_auth.dao.RoleMenu;
 import edu.nau.epower_auth.dao.UserRole;
@@ -21,7 +22,10 @@ import edu.nau.epower_auth.dao.UserRole;
  */
 public interface RoleMenuMapper {
 
-	@Insert("insert into role_menu(role_id, menu_id) values(#{roleId}, #{menuId})")
+	@Select("SELECT * FROM role_menu WHERE role_id = #{roleId} AND menu_id = #{menuId}")
+	public RoleMenu getRoleMenu(RoleMenu roleMenu);
+
+	@Insert("insert into role_menu(role_id, menu_id, description) values(#{roleId}, #{menuId}, #{description})")
 	public int insertRoleMenu(RoleMenu roleMenu);
 
 	@Delete("delete from role_menu where role_id = #{roleId} and menu_id = #{menuId}")

@@ -20,7 +20,10 @@ public interface MenuService {
 
 	// 获取菜单
 	public Menu getMenu(int menuId);
-	
+
+	// 根据role id获取所有菜单
+	public List<Menu> findMenuByRoleId(int roleId);
+
 	// 添加菜单
 	public int addMenu(Menu menu);
 

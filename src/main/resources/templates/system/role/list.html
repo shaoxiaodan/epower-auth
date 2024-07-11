@@ -36,11 +36,11 @@
 				<td th:text="${role.updateTime}">update_time</td>
 				<td th:text="${role.description}">description</td>
 				<td>
-					<a th:href="@{update(id=${role.id})}">更新</a>
-					<a th:href="@{remove(id=${role.id})}">删除</a>
+					<a th:href="@{update(rid=${role.id})}">更新</a>
+					<a th:href="@{remove(rid=${role.id})}">删除</a>
 				</td>
 				<td>
-					<a th:href="@{remove(id=${role.id})}">菜单配置</a>
+					<a th:href="@{auth(rid=${role.id})}">菜单配置</a>
 				</td>
 			</tr>
 		</tbody>
