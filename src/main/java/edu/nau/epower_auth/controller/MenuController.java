@@ -15,7 +15,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import edu.nau.epower_auth.dao.Menu;
+import edu.nau.epower_auth.dao.RoleMenu;
+import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.service.MenuService;
+import edu.nau.epower_auth.service.UrlService;
 
 @Controller
 @RequestMapping("/menu")
@@ -23,6 +26,9 @@ public class MenuController {
 
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private UrlService urlService;
 
 	@GetMapping("list")
 	public String listMenu(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
@@ -54,7 +60,7 @@ public class MenuController {
 	}
 
 	@GetMapping("update")
-	public String updatePage(@RequestParam("id") int menuId, Model model) {
+	public String updatePage(@RequestParam("mid") int menuId, Model model) {
 
 		Menu menu = menuService.getMenu(menuId);
 		model.addAttribute("updatemenu", menu);
@@ -68,10 +74,39 @@ public class MenuController {
 	}
 
 	@GetMapping("remove")
-	public String removeMenu(@RequestParam("id") int menuId) {
+	public String removeMenu(@RequestParam("mid") int menuId) {
 
 		int remove = menuService.removeMenu(menuId);
 		return "redirect:list";
+	}
+	
+	@GetMapping("auth")
+	public String authPage(@RequestParam("mid") int menuId, Model model) {
+
+		// 根据menu id获取菜单
+		Menu menu = menuService.getMenu(menuId);
+		model.addAttribute("menu", menu);
+
+		// 获取URL列表
+		List<Url> urls = urlService.listUrl();
+		model.addAttribute("urls", urls);
+
+		// 根据menu id获取菜单的所有URL
+		List<Url> menuUrls = urlService.findUrlByMenuId(menuId);
+		model.addAttribute("menuurls", menuUrls);
+
+		// 如果menu下面存在有URL数据，先移除URL列表
+		if(menuUrls != null && menuUrls.size() >0) {
+				
+		}
+		
+		
+		// 用role id创建menu映射对象，返回前端并绑定表单
+//		RoleMenu roleMenu = new RoleMenu();
+//		roleMenu.setRoleId(roleId);
+//		model.addAttribute("addmenu", roleMenu);
+
+		return "system/menu/auth";
 	}
 
 }

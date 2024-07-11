@@ -36,11 +36,11 @@
 				<td th:text="${menu.updateTime}">update_time</td>
 				<td th:text="${menu.description}">description</td>
 				<td>
-					<a th:href="@{update(id=${menu.id})}">更新</a>
-					<a th:href="@{remove(id=${menu.id})}">删除</a>
+					<a th:href="@{update(mid=${menu.id})}">更新</a>
+					<a th:href="@{remove(mid=${menu.id})}">删除</a>
 				</td>
 				<td>
-					<a th:href="@{remove(id=${menu.id})}">URL配置</a>
+					<a th:href="@{auth(mid=${menu.id})}">URL配置</a>
 				</td>
 			</tr>
 		</tbody>

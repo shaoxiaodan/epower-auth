@@ -42,6 +42,14 @@ public class UrlServiceImpl implements UrlService {
 	}
 
 	/**
+	 * 获取资源路径 by menu id
+	 */
+	@Override
+	public List<Url> findUrlByMenuId(int menuId) {
+		return urlMapper.findUrlByMenuId(menuId);
+	}
+
+	/**
 	 * 添加资源路径
 	 */
 	@Override
