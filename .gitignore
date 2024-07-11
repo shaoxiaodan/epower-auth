@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+src/main/java/edu/nau/epower_auth/common/TestList.java
+src/main/java/edu/nau/epower_auth/controller/TestController.java
+src/main/resources/templates/testurl.html
+src/main/java/edu/nau/epower_auth/controller/TestController.java
+src/main/java/edu/nau/epower_auth/controller/TestController.java
