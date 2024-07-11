@@ -18,11 +18,11 @@ public class Role implements Serializable {
 
 	private String name;
 
+	private String description;
+
 	private Date createTime;
 
 	private Date updateTime;
-
-	private String description;
 
 	private List<Menu> menuList;
 

@@ -28,7 +28,6 @@ public interface MenuUrlMapper {
 	@Insert("insert into menu_url(menu_id, url_id) values(#{menuId}, #{urlId})")
 	public int insertMenuUrl(MenuUrl menuUrl);
 
-//	@Delete("delete from menu_url where menu_id = #{menuId} and url_id = #{urlId}")
 	@Delete("delete from menu_url where menu_id = #{menuId}")
 	public int deleteMenuUrl(MenuUrl menuUrl);
 

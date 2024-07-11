@@ -19,13 +19,13 @@ public class Url implements Serializable {
 
 	private String staticPath;
 
+	private String description;
+
 	private Date createTime;
 
 	private Date updateTime;
 
 	private boolean isEntrance;
-
-	private String description;
 
 	public Url() {
 	}

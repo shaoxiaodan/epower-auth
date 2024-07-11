@@ -24,6 +24,8 @@ public class User implements Serializable {
 
 	private Date updateTime;
 
+	private String description;
+
 	private List<Role> roleList;
 
 	public User() {
@@ -67,6 +69,14 @@ public class User implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public List<Role> getRoleList() {
