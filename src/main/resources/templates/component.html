@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="com1">
+	com1
+</div>
+
+<foot th:fragment="com2">
+	com2
+</foot>
+
+<foot id="com3">
+	com3
+</foot>
+
+<div id="com_menu">
+	<h1>菜单3：</h1>
+		<div>
+			<ul>
+				<li th:each="menu:${menus}">
+					<a th:each="url:${menu.urlList}" th:href="${url.path}" th:text="${menu.name}"
+						th:if="${url.isEntrance}">url path</a>
+				</li>
+			</ul>
+		</div>
+</div>
+
+</html>

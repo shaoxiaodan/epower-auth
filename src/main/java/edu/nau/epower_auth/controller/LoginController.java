@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.service.LoginService;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
@@ -30,7 +31,7 @@ public class LoginController {
 	}
 
 	@PostMapping("loginchk")
-	public String loginCheck(HttpServletResponse resp, User user, ModelMap modelMap) {
+	public String loginCheck(HttpServletRequest req, User user, ModelMap modelMap) {
 
 		String userName = user.getUsername();
 		String passWord = user.getPassword();
@@ -40,6 +41,10 @@ public class LoginController {
 		User loginUser = loginService.findUserByUserNameAndPwd(userName, passWord);
 
 		if (loginUser != null) {
+
+			HttpSession session = req.getSession();
+			session.setAttribute("user", loginUser);
+
 			pathStr = "redirect:user/list";
 		} else {
 			msgStr = "用户名或密码错误。";
@@ -48,7 +53,15 @@ public class LoginController {
 		}
 
 		return pathStr;
+	}
 
+	@GetMapping("logout")
+	public String logOut(HttpServletRequest req) {
+
+		HttpSession session = req.getSession();
+		session.invalidate();
+
+		return "redirect:login";
 	}
 
 }

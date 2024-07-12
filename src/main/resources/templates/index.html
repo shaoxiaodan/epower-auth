@@ -45,8 +45,15 @@
 		</ul>
 	</div>
 
-
-
+	<div th:replace="~{component::com1}"></div>
+	<div th:insert="~{component::com2}"></div>
+	<div th:insert="~{component::#com3}"></div><br>
+	
+	<div th:insert="~{component::#com_menu}"></div>
+	
+	<span th:text="${session.mymenus}">session value...</span>
+	
+	
 </body>
 
 </html>

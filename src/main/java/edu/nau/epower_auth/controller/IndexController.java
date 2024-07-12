@@ -14,6 +14,8 @@ import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.service.RoleService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
@@ -23,7 +25,7 @@ public class IndexController {
 	private RoleService roleService;
 
 	@GetMapping("index")
-	public String indexPage(ModelMap modelMap) {
+	public String indexPage(HttpServletRequest req, ModelMap modelMap) {
 
 		int userId = 0;
 //		userId = 1; // admin
@@ -55,6 +57,10 @@ public class IndexController {
 		modelMap.addAttribute("roles", userRoles);
 		modelMap.addAttribute("menus", userMenus);
 		modelMap.addAttribute("urls", userUrls);
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("mymenus", userMenus);
+		
 
 		return "index";
 	}
