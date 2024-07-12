@@ -22,45 +22,46 @@ public class LoginController {
 	@GetMapping("login")
 	public String loginPage(ModelMap modelMap) {
 
-		System.out.println("login...");
-
+		// 创建登录用户绑定对象
 		modelMap.put("user", new User());
-//		modelMap.put("msg", "");
-
 		return "login";
 	}
 
 	@PostMapping("loginchk")
 	public String loginCheck(HttpServletRequest req, User user, ModelMap modelMap) {
 
-		String userName = user.getUsername();
-		String passWord = user.getPassword();
 		String pathStr = "";
 		String msgStr = "";
 
-		User loginUser = loginService.findUserByUserNameAndPwd(userName, passWord);
+		// 用户输入不为空
+		if (user != null) {
+			// 查询登录用户
+			User loginUser = null;
+			loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), user.getPassword());
 
-		if (loginUser != null) {
-
-			HttpSession session = req.getSession();
-			session.setAttribute("user", loginUser);
-
-			pathStr = "redirect:user/list";
+			if (loginUser != null) {
+				// 保存登录用户信息session
+				HttpSession session = req.getSession();
+				session.setAttribute("loginuser", loginUser);
+				pathStr = "redirect:index";
+			} else {
+				msgStr = "请输入正确的用户名或密码。";
+				modelMap.put("msg", msgStr);
+				pathStr = "login";
+			}
 		} else {
-			msgStr = "用户名或密码错误。";
-			modelMap.put("msg", msgStr);
+			modelMap.put("msg", "请输入登录信息。");
 			pathStr = "login";
 		}
-
 		return pathStr;
 	}
 
 	@GetMapping("logout")
-	public String logOut(HttpServletRequest req) {
+	public String logOut(HttpServletRequest req, ModelMap modelMap) {
 
 		HttpSession session = req.getSession();
 		session.invalidate();
-
+		modelMap.put("msg", "已退出登录。");
 		return "redirect:login";
 	}
 

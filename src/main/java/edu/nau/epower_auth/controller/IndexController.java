@@ -13,6 +13,7 @@ import org.thymeleaf.util.ListUtils;
 import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.Url;
+import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.service.RoleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,44 +26,60 @@ public class IndexController {
 	private RoleService roleService;
 
 	@GetMapping("index")
-	public String indexPage(HttpServletRequest req, ModelMap modelMap) {
+	public String indexPage(HttpServletRequest req) {
 
-		int userId = 0;
-//		userId = 1; // admin
-		userId = 2; // root
-//		userId = 3; 
-		
-		List<Role> urList = roleService.findRoleByUserId(userId);
+//		int userId = 0;
+////		userId = 1; // admin
+//		userId = 2; // root
+////		userId = 3; 
 
-		List<Role> userRoles = new ArrayList<Role>();
-		List<Menu> userMenus = new ArrayList<Menu>();
-		List<Url> userUrls = new ArrayList<Url>();
+		String pathStr = "";
 
-		if (!ListUtils.isEmpty(urList)) {
-			for (Role role : urList) {
-				userRoles.add(role); // 装配role
-				if (!ListUtils.isEmpty(role.getMenuList())) {
-					for (Menu menu : role.getMenuList()) {
-						userMenus.add(menu); // 装配menu
-						if (!ListUtils.isEmpty(menu.getUrlList())) {
-							for (Url url : menu.getUrlList()) {
-								userUrls.add(url); // 装配url
+		// 获取登录用户
+		User loginUser = (User) req.getSession().getAttribute("loginuser");
+
+		// 检查用户是否已登录
+		if (loginUser != null) {
+
+			List<Role> userList = null;
+			List<Role> userRoleList = new ArrayList<Role>();
+			List<Menu> userMenuList = new ArrayList<Menu>();
+			List<Url> userUrlList = new ArrayList<Url>();
+
+			userList = roleService.findRoleByUserId(loginUser.getId());
+
+			if (!ListUtils.isEmpty(userList)) {
+				for (Role role : userList) {
+					userRoleList.add(role); // 装配role
+					if (!ListUtils.isEmpty(role.getMenuList())) {
+						for (Menu menu : role.getMenuList()) {
+							userMenuList.add(menu); // 装配menu
+							if (!ListUtils.isEmpty(menu.getUrlList())) {
+								for (Url url : menu.getUrlList()) {
+									userUrlList.add(url); // 装配url
+								}
 							}
 						}
 					}
 				}
 			}
+
+//			modelMap.addAttribute("roles", userRoleList);
+//			modelMap.addAttribute("menus", userMenuList);
+//			modelMap.addAttribute("urls", userUrlList);
+
+			HttpSession session = req.getSession();
+			session.setAttribute("roles", userRoleList);
+			session.setAttribute("menus", userMenuList);
+			session.setAttribute("urls", userUrlList);
+
+			pathStr = "system/index";
+		} else {
+			pathStr = "redirect:login";
 		}
 
-		modelMap.addAttribute("roles", userRoles);
-		modelMap.addAttribute("menus", userMenus);
-		modelMap.addAttribute("urls", userUrls);
-		
-		HttpSession session = req.getSession();
-		session.setAttribute("mymenus", userMenus);
-		
-
-		return "index";
+//		return "system/index";
+		return pathStr;
 	}
 
 }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	
+	<script type="text/javascript">
+		function geturljs(){
+			var urlFormObj = document.getElementsByName("urlform");
+			var urlCkboxObj = document.getElementsByName("urlckbox");
+			var urlHiddenObj = document.getElementsByName("urlhidden");
+			//var urlValArry = new Array();
+			var urlValArry = [];
+			
+			//alert("urlCkboxObj = " + urlCkboxObj);
+			//return;
+			
+			//for(var i = 0; i <= urlCkboxObj.length; i++) {
+			for(i in urlCkboxObj){
+				if(urlCkboxObj[i].checked){
+					//alert("urlCkboxObj = " + urlCkboxObj[i].value);
+					urlValArry.push(urlCkboxObj[i].value);
+				}
+			}
+			
+			//alert("urlValArry=" + urlValArry.toString());	
+			urlHiddenObj.value = urlValArry.toString();
+			alert("urlHiddenObj=" + urlHiddenObj.value);
+			//return;
+			
+			//urlFormObj.action = "/testurl2";
+			//urlFormObj.submit();
+		}
+	</script>
+	
+</head>
+
+<body>
+	<!-- 
+	<form th:action="@{testurl2}" method="post">
+		<input type="checkbox" 
+				th:each="urlobj : ${urlobjs}"
+				th:value="${urlobj.key}"
+				th:text="${urlobj.value}"
+				th:checked="${urlobj.key} ? true : false" >
+		<input type="submit" value="add url" />
+	</form>
+	
+	<form th:action="@{testurl2}" method="post">
+		
+		<select multiple name="left" style="width: 300px; height: 200px;">
+			<option th:each="left:${leftlist}" 
+					th:value="${left.id}" 
+					th:text="${left.path}">path</option>
+		</select>
+		
+		<select multiple name="right" style="width: 300px; height: 200px;">
+			<option th:each="right:${rightlist}" 
+					th:value="${right.id}" 
+					th:text="${right.path}">path</option>
+		</select>
+		-->
+		
+		<form id="urlform" name="urlform" th:action="@{testurl2}" method="post">
+		<table>
+			<tr th:each="url:${allurls}">
+				<td>
+					<input type="checkbox" name="urlckbox" th:value="${url.id}">
+				</td>
+				<!--<input type="checkbox" 
+						th:value="${allurl.id}" 
+						th:checked="${rightlist.contains(allurl.id)?true:false)}">
+				<td th:text="${url.id}">111</td> -->
+				<td th:text="${url.path}">222</td>
+			</tr>
+		</table>
+		<input type="hidden" id="urlhidden" name="urlhidden" value="" />
+		<input type="submit" value="add url" onclick="geturljs()"/>
+		<!-- <input type="button" onclick="geturljs()" value="gogogo"> -->
+	</form>
+	
+
+</body>
+
+</html>

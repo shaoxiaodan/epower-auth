@@ -33,20 +33,20 @@ public class AuthInterceptor implements HandlerInterceptor {
 		reqUrl = request.getRequestURI().toString(); 
 		System.out.println(">>> reqUrl=" + reqUrl);
 		
+		/*
 		String url = "/index";
 		String alert = "没有权限";
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter writer = response.getWriter();
 		writer.println("<script language='javascript'>");
-//		writer.println("window.location.href = '" + url + "';");
-		writer.println("history.go(-1)");
+//		writer.println("window.location.href = '" + url + "';"); // 直接跳转url
+		writer.println("history.go(-1)"); // 返回（历史）上一页
 		writer.println("alert('" + alert + "');");
 		writer.println("</script>");
-
+*/
 		System.out.println("preHandle...鉴权结束");
 
-//		return true; // 放行
-		return false;
+		return true; // 放行
 	}
 
 }
