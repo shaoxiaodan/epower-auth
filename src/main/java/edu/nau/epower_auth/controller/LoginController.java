@@ -94,9 +94,9 @@ public class LoginController {
 					// 保存登录用户信息session
 					HttpSession session = req.getSession();
 					session.setAttribute("loginuser", loginUser); // 保存用户登录
-					session.setAttribute("roles", userRoleList); // 保存用户角色
-					session.setAttribute("menus", userMenuList); // 保存用户菜单
-					session.setAttribute("urls", userUrlList); // 保存用户URL
+					session.setAttribute("userroles", userRoleList); // 保存用户角色
+					session.setAttribute("usermenus", userMenuList); // 保存用户菜单
+					session.setAttribute("userurls", userUrlList); // 保存用户URL
 
 					urlStr = "redirect:index"; // 重定向到index
 				} else {

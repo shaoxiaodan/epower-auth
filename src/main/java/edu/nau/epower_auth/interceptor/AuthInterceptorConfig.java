@@ -30,9 +30,10 @@ public class AuthInterceptorConfig implements WebMvcConfigurer {
 		registry.addInterceptor(authInterceptor).addPathPatterns("/**")
 //		.excludePathPatterns("/", "/index", "/login") // 放行index, login的访问
 //		.excludePathPatterns("/login", "/verify", "/logout") // 放行index, login的访问
-		.excludePathPatterns("/login", "/logout") // 放行login, logout
-		.excludePathPatterns("/index.html", "/login.html") //放行index.html, login.html
-		.excludePathPatterns("/css/**", "/js/**", "/pic/**"); //放行static下的css, js, pic等静态资源文件
+//		.excludePathPatterns("/", "/index", "/login", "/logout") // 放行login, logout
+				.excludePathPatterns("/login", "/logout") // 放行login, logout
+				.excludePathPatterns("/index.html", "/login.html") // 放行index.html, login.html
+				.excludePathPatterns("/css/**", "/js/**", "/pic/**"); // 放行static下的css, js, pic等静态资源文件
 	}
 
 	/**

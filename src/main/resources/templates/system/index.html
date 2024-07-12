@@ -18,17 +18,17 @@
 	<h1>角色:</h1>
 	<div>
 		<select>
-			<option th:each="role:${session.roles}" th:value="${role.id}" th:text="${role.name}">opt</option>
+			<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}">opt</option>
 		</select>
 	</div><br>
 
 	<h1>菜单：</h1>
-	<div th:each="menu:${session.menus}">
+	<div th:each="menu:${session.usermenus}">
 		<option th:value="${menu.id}" th:text="${menu.name}"></option>
 	</div><br>
 
 	<h1>菜单2：</h1>
-	<div th:each="menu:${session.menus}">
+	<div th:each="menu:${session.usermenus}">
 		<span>
 			<a th:each="url:${menu.urlList}" th:href="${url.path}" th:text="${menu.name}" th:if="${url.isEntrance}">url
 				path</a>
@@ -38,7 +38,7 @@
 	<h1>菜单3：</h1>
 	<div>
 		<ul>
-			<li th:each="menu:${session.menus}">
+			<li th:each="menu:${session.usermenus}">
 				<a th:each="url:${menu.urlList}" th:href="${url.path}" th:text="${menu.name}"
 					th:if="${url.isEntrance}">url path</a>
 			</li>

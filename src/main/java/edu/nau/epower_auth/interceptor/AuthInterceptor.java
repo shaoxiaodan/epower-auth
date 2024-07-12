@@ -2,11 +2,15 @@ package edu.nau.epower_auth.interceptor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.thymeleaf.util.ListUtils;
 
+import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.dao.User;
+import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -26,51 +30,70 @@ public class AuthInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 		System.out.println("preHandle...鉴权开始");
-//		response.sendError(HttpStatus.FORBIDDEN.value(), "权限不足");
-
-		String reqUrl = "";
-//		reqUrl = request.getRequestURL().toString();
-		reqUrl = request.getRequestURI().toString();
-		System.out.println(">>> reqUrl=" + reqUrl);
+		System.out.println(" >>> uri = " + request.getRequestURI());
 
 		String msgStr = "";
 		String urlStr = "";
-		boolean isPermit = false;
+		boolean isPermitted = false;
 
-		// 1，检查用户是否登录
+		// 1，读取用户登录信息 & 检查用户是否登录
 		User loginUser = (User) request.getSession().getAttribute("loginuser");
-		System.out.println("*** loginUser=" + loginUser);
 		if (loginUser == null) {
 			msgStr = "登录超时，请重新登录。";
 			urlStr = "/login";
-
 			writerPrint(response, msgStr, urlStr);
 			return false;
 		}
 
-		// 2，检查用户是否有权限
+		// 2，放行index
+		String currUri = "";
+		currUri = request.getRequestURI();
+		urlStr = "/index";
+		if (currUri.equals(urlStr)) {
+			System.out.println("index 放行...");
+			return true;
+		}
 
-		/*
-		 * String url = "/index"; String alert = "没有权限";
-		 * response.setContentType("text/html; charset=utf-8"); PrintWriter writer =
-		 * response.getWriter(); writer.println("<script language='javascript'>"); //
-		 * writer.println("window.location.href = '" + url + "';"); // 直接跳转url
-		 * writer.println("history.go(-1)"); // 返回（历史）上一页 writer.println("alert('" +
-		 * alert + "');"); writer.println("</script>");
-		 */
+		// 3，读取用户可以访问的URL & 是否有URL访问权限
+		List<Url> userRoleList = (List<Url>) request.getSession().getAttribute("userurls");
+		if (ListUtils.isEmpty(userRoleList)) {
+			msgStr = "当前角色无任何可无执行权限，请与管理员确认。";
+			writerPrint(response, msgStr, null);
+			return false;
+		} else {
+			String reqUri = request.getRequestURI().toString();
+			for (Url url : userRoleList) {
+				if (reqUri.equals(url.getPath())) {
+					isPermitted = true;
+					break;
+				}
+			}
+
+			// 4，判断用户操作权限
+			if (!isPermitted) {
+				msgStr = "当前用户无[" + reqUri + "]执行权限。";
+				writerPrint(response, msgStr, null);
+				return false;
+			}
+		}
+
 		System.out.println("preHandle...鉴权结束");
-
-		return true; // 放行
+		return true; // 默认放行
 	}
 
-	private void writerPrint(HttpServletResponse response, String alertStr, String urlStr) throws IOException {
+	private void writerPrint(HttpServletResponse response, String msgStr, String urlStr) throws IOException {
 
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter writer = response.getWriter();
 		writer.println("<script language='javascript'>");
-		writer.println("window.location.href = '" + urlStr + "';"); // 直接跳转url
-//		writer.println("history.go(-1)"); // 返回（历史）上一页
-		writer.println("alert('" + alertStr + "');");
+
+		if (StringUtils.isEmpty(urlStr)) {
+			writer.println("history.go(-1)"); // 返回（历史）上一页
+		} else {
+//			writer.println("window.location.href = '" + urlStr + "';"); // 直接跳转url
+			writer.println("window.location = '" + urlStr + "';"); // 直接跳转url
+		}
+		writer.println("alert('" + msgStr + "');");
 		writer.println("</script>");
 	}
 
