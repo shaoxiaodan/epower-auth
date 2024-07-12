@@ -9,7 +9,30 @@
 
 <body>
 
-<form th:acton="@{/login}">
+	<div align="center">
+		<form th:object="${user}" th:action="@{loginchk}" method="post">
+			<table>
+				<tr>
+					<td>
+						<input type="text" id="username" name="username" th:value="*{username}" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="password" id="password" name="password" th:value="*{password}" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="submit" value="登录">
+						<input type="reset" value="重置">
+					</td>
+				</tr>
+				</tr>
+			</table>
+		</form>
+		<span th:text="${msg}">msg here...</span>
+	</div>
 
 </body>
 

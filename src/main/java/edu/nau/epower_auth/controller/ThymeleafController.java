@@ -15,12 +15,6 @@ public class ThymeleafController {
 		return "index";
 	}
 	
-	@GetMapping("login")
-	public String login() {
-		System.out.println("ThymeleafController :: login");
-		return "login";
-	}
-	
 	@GetMapping("/sys/menu_list")
 	public String menuList(ModelMap modelMap) {
 		modelMap.addAttribute("name", "menu_list");
