@@ -9,12 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class ThymeleafController {
 
-	@GetMapping("index")
-	public String index() {
-		System.out.println("ThymeleafController :: index");
-		return "index";
-	}
-	
 	@GetMapping("/sys/menu_list")
 	public String menuList(ModelMap modelMap) {
 		modelMap.addAttribute("name", "menu_list");

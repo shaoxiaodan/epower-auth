@@ -27,11 +27,11 @@ public interface UrlMapper {
 	 * @return
 	 */
 	@Select("select ul.id as id, ul.path as path,"
-			+ " ul.static_path as url_static_path,"
-			+ " ul.is_entrance as url_is_entrance,"
-			+ " ul.create_time as url_create_time,"
-			+ " ul.update_time as url_update_time,"
-			+ " ul.description as url_description" 
+			+ " ul.static_path as static_path,"
+			+ " ul.is_entrance as is_entrance,"
+			+ " ul.create_time as create_time,"
+			+ " ul.update_time as update_time,"
+			+ " ul.description as description" 
 			+ " from menu_url mu" 
 			+ " left join url ul on mu.url_id = ul.id"
 			+ " where mu.menu_id = #{menuId}")
