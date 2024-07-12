@@ -1,11 +1,12 @@
 package edu.nau.epower_auth.interceptor;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import edu.nau.epower_auth.dao.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -25,28 +26,52 @@ public class AuthInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 		System.out.println("preHandle...鉴权开始");
-
 //		response.sendError(HttpStatus.FORBIDDEN.value(), "权限不足");
 
 		String reqUrl = "";
 //		reqUrl = request.getRequestURL().toString();
-		reqUrl = request.getRequestURI().toString(); 
+		reqUrl = request.getRequestURI().toString();
 		System.out.println(">>> reqUrl=" + reqUrl);
-		
+
+		String msgStr = "";
+		String urlStr = "";
+		boolean isPermit = false;
+
+		// 1，检查用户是否登录
+		User loginUser = (User) request.getSession().getAttribute("loginuser");
+		System.out.println("*** loginUser=" + loginUser);
+		if (loginUser == null) {
+			msgStr = "登录超时，请重新登录。";
+			urlStr = "/login";
+
+			writerPrint(response, msgStr, urlStr);
+			return false;
+		}
+
+		// 2，检查用户是否有权限
+
 		/*
-		String url = "/index";
-		String alert = "没有权限";
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter writer = response.getWriter();
-		writer.println("<script language='javascript'>");
-//		writer.println("window.location.href = '" + url + "';"); // 直接跳转url
-		writer.println("history.go(-1)"); // 返回（历史）上一页
-		writer.println("alert('" + alert + "');");
-		writer.println("</script>");
-*/
+		 * String url = "/index"; String alert = "没有权限";
+		 * response.setContentType("text/html; charset=utf-8"); PrintWriter writer =
+		 * response.getWriter(); writer.println("<script language='javascript'>"); //
+		 * writer.println("window.location.href = '" + url + "';"); // 直接跳转url
+		 * writer.println("history.go(-1)"); // 返回（历史）上一页 writer.println("alert('" +
+		 * alert + "');"); writer.println("</script>");
+		 */
 		System.out.println("preHandle...鉴权结束");
 
 		return true; // 放行
+	}
+
+	private void writerPrint(HttpServletResponse response, String alertStr, String urlStr) throws IOException {
+
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter writer = response.getWriter();
+		writer.println("<script language='javascript'>");
+		writer.println("window.location.href = '" + urlStr + "';"); // 直接跳转url
+//		writer.println("history.go(-1)"); // 返回（历史）上一页
+		writer.println("alert('" + alertStr + "');");
+		writer.println("</script>");
 	}
 
 }
