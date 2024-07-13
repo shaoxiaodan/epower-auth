@@ -7,7 +7,7 @@ import edu.nau.epower_auth.dao.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * session工具类
+ * Session工具类
  * 
  * @ClassName: SessionUtils
  * @Description: TODO
