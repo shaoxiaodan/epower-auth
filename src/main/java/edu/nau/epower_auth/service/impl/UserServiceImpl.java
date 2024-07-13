@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRoleMapper userRoleMapper;
 
-	/**
+	/*
 	 * 用户列表
 	 */
 	@Override
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 		return userMapper.listUser();
 	}
 
-	/**
+	/*
 	 * 获取用户
 	 */
 	@Override
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 		return userMapper.findUserByUserId(userId);
 	}
 
-	/**
+	/*
 	 * 添加用户(with事务控制)
 	 */
 	@Override
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		return userId;
 	}
 
-	/**
+	/*
 	 * 更新用户((with事务控制))
 	 */
 	@Override
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 		return userMapper.updateUser(user);
 	}
 
-	/**
+	/*
 	 * 删除用户(with事务控制)
 	 */
 	@Override
@@ -77,15 +77,15 @@ public class UserServiceImpl implements UserService {
 		return userMapper.deleteUser(userId);
 	}
 
-	/**
+	/*
 	 * 检查用户角色是否存在
 	 */
 	@Override
 	public UserRole getUserRole(UserRole userRole) {
 		return userRoleMapper.getUserRole(userRole);
 	}
-	
-	/**
+
+	/*
 	 * 添加用户-角色授权
 	 */
 	@Override
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 		return userRoleMapper.insertUserRole(userRole);
 	}
 
-	/**
+	/*
 	 * 删除用户-角色授权
 	 */
 	@Override
@@ -102,7 +102,5 @@ public class UserServiceImpl implements UserService {
 	public int removeUserRoleAuth(UserRole userRole) {
 		return userRoleMapper.deleteUserRole(userRole);
 	}
-
-
 
 }

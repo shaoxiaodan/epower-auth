@@ -30,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleMenuMapper roleMenuMapper;
 
-	/**
+	/*
 	 * 角色列表
 	 */
 	@Override
@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.listRole();
 	}
 
-	/**
+	/*
 	 * 获取角色
 	 */
 	@Override
@@ -46,7 +46,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.findRole(roleId);
 	}
 
-	/**
+	/*
 	 * 获取角色by user id
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.findRoleByUserId(userId);
 	}
 
-	/**
+	/*
 	 * 添加角色
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.addRole(role);
 	}
 
-	/**
+	/*
 	 * 更新角色
 	 */
 	@Override
@@ -72,7 +72,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.updateRole(role);
 	}
 
-	/**
+	/*
 	 * 删除角色
 	 */
 	@Override
@@ -81,7 +81,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.removeRole(roleId);
 	}
 
-	/**
+	/*
 	 * 检查角色菜单是否存在
 	 */
 	@Override
@@ -89,7 +89,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMenuMapper.getRoleMenu(roleMenu);
 	}
 
-	/**
+	/*
 	 * 添加角色-菜单授权
 	 */
 	@Override
@@ -98,7 +98,7 @@ public class RoleServiceImpl implements RoleService {
 		return roleMenuMapper.insertRoleMenu(roleMenu);
 	}
 
-	/**
+	/*
 	 * 删除角色-菜单授权
 	 */
 	@Override

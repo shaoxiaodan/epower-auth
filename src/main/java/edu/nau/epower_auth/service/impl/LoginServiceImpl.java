@@ -21,7 +21,7 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private UserMapper userMapper;
 
-	/**
+	/*
 	 * 根据用户名字查找用户
 	 */
 	@Override
@@ -29,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
 		return userMapper.findUserByUserName(userName);
 	}
 
-	/**
+	/*
 	 * 根据用户名字&密码查找用户
 	 */
 	@Override

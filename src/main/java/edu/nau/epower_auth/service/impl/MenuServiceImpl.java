@@ -30,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
 	@Autowired
 	private MenuUrlMapper menuUrlMapper;
 
-	/**
+	/*
 	 * 菜单列表
 	 */
 	@Override
@@ -38,7 +38,7 @@ public class MenuServiceImpl implements MenuService {
 		return menuMapper.listMenu();
 	}
 
-	/**
+	/*
 	 * 获取菜单
 	 */
 	@Override
@@ -46,17 +46,15 @@ public class MenuServiceImpl implements MenuService {
 		return menuMapper.findMenu(menuId);
 	}
 
-	/**
+	/*
 	 * 根据role id获取所有菜单
-	 * 
-	 * @param roleId
-	 * @return
 	 */
+	@Override
 	public List<Menu> findMenuByRoleId(int roleId) {
 		return menuMapper.findMenuByRoleId(roleId);
 	}
 
-	/**
+	/*
 	 * 添加菜单
 	 */
 	@Override
@@ -65,7 +63,7 @@ public class MenuServiceImpl implements MenuService {
 		return menuMapper.insertMenu(menu);
 	}
 
-	/**
+	/*
 	 * 更新菜单
 	 */
 	@Override
@@ -74,7 +72,7 @@ public class MenuServiceImpl implements MenuService {
 		return menuMapper.updateMenu(menu);
 	}
 
-	/**
+	/*
 	 * 删除菜单
 	 */
 	@Override
@@ -83,7 +81,7 @@ public class MenuServiceImpl implements MenuService {
 		return menuMapper.deleteMenu(menuId);
 	}
 
-	/**
+	/*
 	 * 检查菜单-URL是否存在
 	 */
 	@Override
@@ -91,7 +89,7 @@ public class MenuServiceImpl implements MenuService {
 		return menuUrlMapper.getMenuUrl(menuId);
 	}
 
-	/**
+	/*
 	 * 添加菜单-URL授权
 	 */
 	@Override
@@ -100,7 +98,7 @@ public class MenuServiceImpl implements MenuService {
 		return menuUrlMapper.insertMenuUrl(menuUrl);
 	}
 
-	/**
+	/*
 	 * 删除菜单-资源路径授权
 	 */
 	@Override
@@ -109,17 +107,20 @@ public class MenuServiceImpl implements MenuService {
 		return menuUrlMapper.deleteMenuUrl(menuUrl);
 	}
 
-	/**
+	/*
 	 * （批量）添加菜单-URL授权
 	 */
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int addMenuUrlAuthBatch(List<MenuUrl> menuUrlList) {
 		return menuUrlMapper.insertMenuUrlBatch(menuUrlList);
 	}
 
-	/**
+	/*
 	 * （批量）删除菜单-资源路径授权
 	 */
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int removeMenuUrlAuthBatch(List<MenuUrl> menuUrlList) {
 		return menuUrlMapper.deleteMenuUrlBatch(menuUrlList);
 	}

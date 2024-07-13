@@ -25,7 +25,7 @@ public class UrlServiceImpl implements UrlService {
 	@Autowired
 	private UrlMapper urlMapper;
 
-	/**
+	/*
 	 * 资源路径列表
 	 */
 	@Override
@@ -33,7 +33,7 @@ public class UrlServiceImpl implements UrlService {
 		return urlMapper.listUrl();
 	}
 
-	/**
+	/*
 	 * 获取资源路径
 	 */
 	@Override
@@ -41,7 +41,7 @@ public class UrlServiceImpl implements UrlService {
 		return urlMapper.findUrl(urlId);
 	}
 
-	/**
+	/*
 	 * 获取资源路径 by menu id
 	 */
 	@Override
@@ -49,7 +49,7 @@ public class UrlServiceImpl implements UrlService {
 		return urlMapper.findUrlByMenuId(menuId);
 	}
 
-	/**
+	/*
 	 * 添加资源路径
 	 */
 	@Override
@@ -58,7 +58,7 @@ public class UrlServiceImpl implements UrlService {
 		return urlMapper.insertUrl(url);
 	}
 
-	/**
+	/*
 	 * 更新资源路径
 	 */
 	@Override
@@ -67,7 +67,7 @@ public class UrlServiceImpl implements UrlService {
 		return urlMapper.updateUrl(url);
 	}
 
-	/**
+	/*
 	 * 删除资源路径
 	 */
 	@Override
