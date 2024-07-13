@@ -11,39 +11,72 @@
 	-->
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+	<script type="text/javascript">
+
+		function getDefRoleId() {
+			var defroleid = [[${session.defrole.id}]];
+			return defroleid;
+		}
+
+		function init() {
+			//lert("init, defrole.id=" + getDefRoleId());
+			//var defroleid = [[${session.defrole.id}]];
+
+			if (getDefRoleId() <= 0) {
+				alert("角色不存在，请与管理员确认。");
+				history.go(-1);
+			}
+		}
+
+		function swithDefRole(selectorId) {
+
+			var SelectObj = document.getElementById(selectorId);
+			var optObj = SelectObj.options;
+			var defVal = 0;
+
+			for (var i = 0; i < optObj.length; i++) {
+				if (optObj[i].selected) {
+					if (optObj[i].value == getDefRoleId()) {
+						alert("当前已是角色：" + optObj[i].text);
+						return false;
+					} else {
+						defVal = optObj[i].value;
+					}
+				}
+			}
+
+			//alert("defVal=" + defVal);
+			window.location.href = "/index?def=" + defVal;
+		}
+
+		init();
+	</script>
+
 </head>
 
 <body>
 
-	<h1>角色:</h1>
 	<div>
-		<select>
-			<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}">opt</option>
+		<select id="roleselector" name="roleselector">
+			<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}"
+				th:selected="${role.id} == ${session.defrole.id}"></option>
 		</select>
-	</div><br>
+		<button type='button' onclick="swithDefRole('roleselector')">切换角色</button>
+	</div>
 
-	<h1>菜单：</h1>
-	<div th:each="menu:${session.usermenus}">
-		<option th:value="${menu.id}" th:text="${menu.name}"></option>
-	</div><br>
 
-	<h1>菜单2：</h1>
-	<div th:each="menu:${session.usermenus}">
-		<span>
-			<a th:each="url:${menu.urlList}" th:href="${url.path}" th:text="${menu.name}" th:if="${url.isEntrance}">url
-				path</a>
-		</span>
-	</div><br>
-
-	<h1>菜单3：</h1>
+	<h1>用户菜单：</h1>
 	<div>
-		<ul>
-			<li th:each="menu:${session.usermenus}">
+		<ul th:object="${session.defrole}">
+			<li th:each="menu:*{menuList}">
 				<a th:each="url:${menu.urlList}" th:href="${url.path}" th:text="${menu.name}"
 					th:if="${url.isEntrance}">url path</a>
 			</li>
 		</ul>
 	</div>
+
+
 
 	<!--
 	<div th:replace="~{component::com1}"></div>

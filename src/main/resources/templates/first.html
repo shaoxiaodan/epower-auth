@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>first page</title>
+
+	<script type="text/javascript">
+		function testopt() {
+
+			var optindex = [[${defuserrole.roleId}]];
+			alert("optindex=" + optindex);
+			//return false;
+
+			if(optindex == -999){
+				alert("defuserrole is empty");
+				history.go(-1);
+			}
+			
+			//optindex = 1;
+
+			var formObj = document.getElementById('form');
+			var SelectObj = document.getElementById('selectopt');
+			var optObj = SelectObj.options;
+			//var def = document.getElementById('defvalue');
+			var def = 0;
+
+			for (var i = 0; i < optObj.length; i++) {
+				//alert(obj.options[i].value);
+				if (optObj[i].selected) {
+					if (optObj[i].value == optindex) {
+						alert("same...");
+						return false;
+					} else {
+						def = optObj[i].value;
+					}
+				}
+			}
+
+			//formObj.action = "/first?def=" + def;
+			//return true;
+			alert("def=" + def);
+			window.location.href = "/first?def=" + def;
+		}
+
+		//initopt();
+	</script>
+</head>
+
+<body>
+
+	<div>
+		<select id="selectopt">
+			<option th:each="role:${rolelist}" th:value="${role.id}" th:text="${role.name}" th:selected="${role.id} == ${defuserrole.roleId}"></option>
+		</select>
+		<button type='button' onclick="testopt()">提交2</button>
+	</div>
+	
+	<div>
+		<span th:if="${defrole}" th:text="${defrole.name}"></span>
+		<span th:unless="${defrole}">defrole是空的</span>
+	</div>
+
+
+</body>
+
+</html>

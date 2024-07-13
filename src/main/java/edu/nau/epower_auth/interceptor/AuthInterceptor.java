@@ -90,8 +90,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		if (StringUtils.isEmpty(urlStr)) {
 			writer.println("history.go(-1)"); // 返回（历史）上一页
 		} else {
-//			writer.println("window.location.href = '" + urlStr + "';"); // 直接跳转url
-			writer.println("window.location = '" + urlStr + "';"); // 直接跳转url
+			writer.println("window.location.href = '" + urlStr + "';"); // 直接跳转url
 		}
 		writer.println("alert('" + msgStr + "');");
 		writer.println("</script>");

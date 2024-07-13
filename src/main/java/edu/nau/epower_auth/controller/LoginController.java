@@ -1,6 +1,5 @@
 package edu.nau.epower_auth.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.util.ListUtils;
 
-import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
-import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.service.LoginService;
 import edu.nau.epower_auth.service.RoleService;
@@ -45,12 +42,15 @@ public class LoginController {
 		// 创建登录用户绑定对象
 		modelMap.put("user", new User());
 		modelMap.addAttribute("msg", "请开始登录。");
+		System.out.println(">>> LoginController::loginPage...");
 		return "login";
 	}
 
 	@PostMapping("login")
 	public String loginCheck(HttpServletRequest req, User user, ModelMap modelMap) {
 
+		User loginUser = null;
+		List<Role> userRoleList = null;
 		String msgStr = "";
 		String urlStr = "login"; // 登录页面
 
@@ -59,55 +59,43 @@ public class LoginController {
 			// 用户输入都不为空
 			if (StringUtils.isNotEmpty(user.getUsername()) && StringUtils.isNotEmpty(user.getPassword())) {
 				// 查询登录用户
-				User loginUser = null;
+
 				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), user.getPassword());
 
-				// 检查用户是否已登录
+				// 用户已登录
 				if (loginUser != null) {
-
-					List<Role> userList = null;
-					List<Role> userRoleList = new ArrayList<Role>();
-					List<Menu> userMenuList = new ArrayList<Menu>();
-					List<Url> userUrlList = new ArrayList<Url>();
-
 					// 获取用户所有的角色-权限-url信息
-					userList = roleService.findRoleByUserId(loginUser.getId());
+					userRoleList = roleService.findRoleByUserId(loginUser.getId());
 
-					if (!ListUtils.isEmpty(userList)) {
+					if (!ListUtils.isEmpty(userRoleList)) {
 
-						// 开始装配用户的角色-权限-url信息
-						for (Role role : userList) {
-							userRoleList.add(role); // 装配role
-							if (!ListUtils.isEmpty(role.getMenuList())) {
-								for (Menu menu : role.getMenuList()) {
-									userMenuList.add(menu); // 装配menu
-									if (!ListUtils.isEmpty(menu.getUrlList())) {
-										for (Url url : menu.getUrlList()) {
-											userUrlList.add(url); // 装配url
-										}
-									}
-								}
-							}
-						}
+						// 保存登录用户信息session
+						HttpSession session = req.getSession();
+						session.setAttribute("loginuser", loginUser); // 保存用户登录
+						session.setAttribute("userroles", userRoleList); // 保存用户角色
+
+						urlStr = "redirect:index"; // 重定向到index
+					} else {
+						user.setUsername("");
+						user.setPassword("");
+						msgStr = "当前用户无角色分配，请与管理员联系。";
 					}
 
-					// 保存登录用户信息session
-					HttpSession session = req.getSession();
-					session.setAttribute("loginuser", loginUser); // 保存用户登录
-					session.setAttribute("userroles", userRoleList); // 保存用户角色
-					session.setAttribute("usermenus", userMenuList); // 保存用户菜单
-					session.setAttribute("userurls", userUrlList); // 保存用户URL
-
-					urlStr = "redirect:index"; // 重定向到index
 				} else {
+					user.setUsername("");
+					user.setPassword("");
 					msgStr = "请输入正确的用户名或密码。";
 				}
 
 			} else {
+				user.setUsername("");
+				user.setPassword("");
 				msgStr = "请输入用户名或密码。";
 			}
 
 		} else {
+			user.setUsername("");
+			user.setPassword("");
 			msgStr = "请输入登录信息。";
 		}
 
