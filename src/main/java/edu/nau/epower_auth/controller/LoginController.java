@@ -103,11 +103,10 @@ public class LoginController {
 	}
 
 	@GetMapping("logout")
-	public String logOut(HttpServletRequest req, ModelMap modelMap) {
+	public String logOut(HttpServletRequest req) {
 
 		HttpSession session = req.getSession();
 		session.invalidate();
-		modelMap.put("msg", "已退出登录。");
 		return "redirect:login";
 	}
 
