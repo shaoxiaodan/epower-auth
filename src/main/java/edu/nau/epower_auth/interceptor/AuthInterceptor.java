@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.thymeleaf.util.ListUtils;
 
+import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.dao.User;
 import io.micrometer.common.util.StringUtils;
@@ -37,7 +38,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		boolean isPermitted = false;
 
 		// 1，读取用户登录信息 & 检查用户是否登录
-		User loginUser = (User) request.getSession().getAttribute("loginuser");
+		User loginUser = (User) request.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
 		if (loginUser == null) {
 			msgStr = "登录超时，请重新登录。";
 			urlStr = "/login";
@@ -55,7 +56,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		}
 
 		// 3，读取用户可以访问的URL & 是否有URL访问权限
-		List<Url> userRoleList = (List<Url>) request.getSession().getAttribute("userurls");
+		List<Url> userRoleList = (List<Url>) request.getSession().getAttribute(ConstantUtils.SESSION_USER_URLS);
 		if (ListUtils.isEmpty(userRoleList)) {
 			msgStr = "当前角色无任何可无执行权限，请与管理员确认。";
 			writerPrint(response, msgStr, null);
