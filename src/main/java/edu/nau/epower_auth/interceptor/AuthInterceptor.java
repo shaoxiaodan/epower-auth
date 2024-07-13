@@ -9,6 +9,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.thymeleaf.util.ListUtils;
 
 import edu.nau.epower_auth.common.ConstantUtils;
+import edu.nau.epower_auth.dao.Menu;
+import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.dao.User;
 import io.micrometer.common.util.StringUtils;
@@ -35,10 +37,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 		String msgStr = "";
 		String urlStr = "";
-		boolean isPermitted = false;
 
 		// 1，读取用户登录信息 & 检查用户是否登录
-		User loginUser = (User) request.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
+//		User loginUser = (User) request.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
+		User loginUser = (User) request.getSession().getAttribute("loginuser");
 		if (loginUser == null) {
 			msgStr = "登录超时，请重新登录。";
 			urlStr = "/login";
@@ -56,17 +58,27 @@ public class AuthInterceptor implements HandlerInterceptor {
 		}
 
 		// 3，读取用户可以访问的URL & 是否有URL访问权限
-		List<Url> userRoleList = (List<Url>) request.getSession().getAttribute(ConstantUtils.SESSION_USER_URLS);
-		if (ListUtils.isEmpty(userRoleList)) {
-			msgStr = "当前角色无任何可无执行权限，请与管理员确认。";
+		boolean isPermitted = false;
+		String reqUri = request.getRequestURI().toString();
+		List<Role> roleList = (List<Role>) request.getSession().getAttribute(ConstantUtils.SESSION_USER_ROLES);
+		if (ListUtils.isEmpty(roleList)) {
+			msgStr = "当前用户无分配任何角色，请与管理员确认。";
 			writerPrint(response, msgStr, null);
 			return false;
 		} else {
-			String reqUri = request.getRequestURI().toString();
-			for (Url url : userRoleList) {
-				if (reqUri.equals(url.getPath())) {
-					isPermitted = true;
-					break;
+			// 4，检查当前用户角色可以访问的URL权限
+			for (Role role : roleList) {
+				if (!ListUtils.isEmpty(role.getMenuList())) {
+					for (Menu menu : role.getMenuList()) {
+						if (!ListUtils.isEmpty(menu.getUrlList())) {
+							for (Url url : menu.getUrlList()) {
+								if (reqUri.equals(url.getPath())) {
+									isPermitted = true;
+									break;
+								}
+							}
+						}
+					}
 				}
 			}
 
