@@ -25,7 +25,7 @@ public interface UserRoleMapper {
 	@Select("SELECT * FROM user_role WHERE user_id = #{userId} AND role_id = #{roleId}")
 	public UserRole getUserRole(UserRole userRole);
 
-	@Insert("INSERT INTO user_role(user_id, role_id) VALUES(#{userId}, #{roleId})")
+	@Insert("INSERT INTO user_role(user_id, role_id) VALUES (#{userId}, #{roleId})")
 	public int insertUserRole(UserRole userRole);
 
 	@Delete("DELETE FROM user_role WHERE user_id = #{userId} AND role_id = #{roleId}")
@@ -37,13 +37,8 @@ public interface UserRoleMapper {
 	@DeleteProvider(type = SqlProvider.class, method = "deleteBatch")
 	public int deleteUserRoleBatch(List<UserRole> userRoleList);
 
-	/**
+	/*
 	 * 批量SQL处理提供者 - 内部类
-	 * 
-	 * @ClassName: SqlProvider
-	 * @Description: TODO
-	 * @author Xiaodan Shao(xs94@nau.edu)
-	 * @date 2024-07-07 10:58:44
 	 */
 	class SqlProvider {
 		// 批量添加

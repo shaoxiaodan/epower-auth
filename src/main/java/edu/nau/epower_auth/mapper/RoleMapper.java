@@ -25,16 +25,13 @@ import edu.nau.epower_auth.dao.Role;
  */
 public interface RoleMapper {
 
-	/**
+	/*
 	 * 根据用户id，查出所有角色，并装配菜单menu
-	 * 
-	 * @param userId
-	 * @return
 	 */
-	@Select("select r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time" 
-			+ " from user_role ur"
-			+ " left join role r on ur.role_id = r.id" 
-			+ " where ur.user_id = #{userId}")
+	@Select("SELECT r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time" 
+			+ " FROM user_role ur"
+			+ " LEFT JOIN role r on ur.role_id = r.id" 
+			+ " WHERE ur.user_id = #{userId}")
 	@Results(value = 
 			{
 					@Result(id = true, property = "id", column = "id"), 
@@ -44,20 +41,20 @@ public interface RoleMapper {
 						many = @Many(select = "edu.nau.epower_auth.mapper.MenuMapper.findMenuByRoleId", fetchType = FetchType.DEFAULT)) })
 	public List<Role> findRoleByUserId(@Param("userId") int userId);
 
-	@Select("select * from role")
+	@Select("SELECT * FROM role")
 	public List<Role> listRole();
 
-	@Select("select * from role where id = #{roleId}")
+	@Select("SELECT * FROM role where id = #{roleId}")
 	public Role findRole(@Param("roleId") int roleId);
 	
-	@Insert("insert into role(name, description) values(#{name}, #{description})")
+	@Insert("INSERT INTO role(name, description) VALUES (#{name}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
 	public int addRole(Role role);
 
-	@Update("update role set name = #{name}, description = #{description}, update_time = CURRENT_TIMESTAMP where id = #{id}")
+	@Update("UPDATE role SET name = #{name}, description = #{description}, update_time = CURRENT_TIMESTAMP WHERE id = #{id}")
 	public int updateRole(Role role);
 
-	@Delete("delete from role where id = #{roleId}")
+	@Delete("DELETE FROM role WHERE id = #{roleId}")
 	public int removeRole(@Param("roleId") int roleId);
 
 }

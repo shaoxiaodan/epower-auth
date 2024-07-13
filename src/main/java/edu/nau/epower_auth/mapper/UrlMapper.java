@@ -21,20 +21,18 @@ import edu.nau.epower_auth.dao.Url;
  */
 public interface UrlMapper {
 
-	/**
+	/*
 	 * 根据菜单id，获取所有资源路径url
-	 * @param menuId
-	 * @return
 	 */
-	@Select("select ul.id as id, ul.path as path,"
+	@Select("SELECT ul.id as id, ul.path as path,"
 			+ " ul.static_path as static_path,"
 			+ " ul.is_entrance as is_entrance,"
 			+ " ul.create_time as create_time,"
 			+ " ul.update_time as update_time,"
 			+ " ul.description as description" 
-			+ " from menu_url mu" 
-			+ " left join url ul on mu.url_id = ul.id"
-			+ " where mu.menu_id = #{menuId}")
+			+ " FROM menu_url mu" 
+			+ " LEFT JOIN url ul on mu.url_id = ul.id"
+			+ " WHERE mu.menu_id = #{menuId}")
 	public List<Url> findUrlByMenuId(@Param("menuId") int menuId);
 
 	@Select("SELECT * FROM url")
@@ -44,7 +42,7 @@ public interface UrlMapper {
 	public Url findUrl(@Param("urlId") int urlId);
 	
 	@Insert("INSERT INTO url(path, static_path, is_entrance, description)"
-			+ " VALUES(#{path}, #{staticPath}, #{isEntrance}, #{description})")
+			+ " VALUES (#{path}, #{staticPath}, #{isEntrance}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") //返回自增id
 	public int insertUrl(Url url);
 	

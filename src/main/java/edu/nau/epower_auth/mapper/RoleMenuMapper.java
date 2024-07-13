@@ -25,10 +25,10 @@ public interface RoleMenuMapper {
 	@Select("SELECT * FROM role_menu WHERE role_id = #{roleId} AND menu_id = #{menuId}")
 	public RoleMenu getRoleMenu(RoleMenu roleMenu);
 
-	@Insert("insert into role_menu(role_id, menu_id) values(#{roleId}, #{menuId})")
+	@Insert("INSERT INTO role_menu(role_id, menu_id) VALUES (#{roleId}, #{menuId})")
 	public int insertRoleMenu(RoleMenu roleMenu);
 
-	@Delete("delete from role_menu where role_id = #{roleId} and menu_id = #{menuId}")
+	@Delete("DELETE FROM role_menu WHERE role_id = #{roleId} AND menu_id = #{menuId}")
 	public int deleteRoleMenu(RoleMenu roleMenu);
 
 	@InsertProvider(type = SqlProvider.class, method = "insertBatch")
@@ -37,13 +37,8 @@ public interface RoleMenuMapper {
 	@DeleteProvider(type = SqlProvider.class, method = "deleteBatch")
 	public int deleteRoleMenuBatch(List<UserRole> userRoleList);
 
-	/**
-	 * sql提供者
-	 * 
-	 * @ClassName: SqlProvider
-	 * @Description: TODO
-	 * @author Xiaodan Shao(xs94@nau.edu)
-	 * @date 2024-07-07 11:39:00
+	/*
+	 * 批量sql提供者
 	 */
 	class SqlProvider {
 

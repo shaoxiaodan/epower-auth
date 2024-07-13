@@ -21,26 +21,26 @@ import edu.nau.epower_auth.dao.User;
  */
 public interface UserMapper {
 
-	@Select("select * from user where id = #{userId}")
+	@Select("SELECT * FROM user WHERE id = #{userId}")
 	public User findUserByUserId(@Param("userId") int id);
 
-	@Select("select * from user where username = #{userName}")
+	@Select("SELECT * FROM user WHERE username = #{userName}")
 	public User findUserByUserName(@Param("userName") String username);
 
-	@Select("select * from user where username = #{userName} and password = #{pwd}")
+	@Select("SELECT * FROM user WHERE username = #{userName} AND password = #{pwd}")
 	public User findUserByUserNameAndPwd(@Param("userName") String username, @Param("pwd") String password);
 
-	@Select("select * from user")
+	@Select("SELECT * FROM user")
 	public List<User> listUser();
 
-	@Insert("insert into user(username, password, description) values(#{username}, #{password}, #{description})")
-	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") //返回自增id
+	@Insert("INSERT INTO user(username, password, description) VALUES (#{username}, #{password}, #{description})")
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
 	public int insertUser(User user);
 
-	@Update("update user set username = #{username}, password = #{password}, description = #{description}, update_time = CURRENT_TIMESTAMP where id = #{id}")
+	@Update("UPDATE user SET username = #{username}, password = #{password}, description = #{description}, update_time = CURRENT_TIMESTAMP WHERE id = #{id}")
 	public int updateUser(User user);
 
-	@Delete("delete from user where id = #{userId}")
+	@Delete("delete FROM user WHERE id = #{userId}")
 	public int deleteUser(@Param("userId") int id);
 
 }

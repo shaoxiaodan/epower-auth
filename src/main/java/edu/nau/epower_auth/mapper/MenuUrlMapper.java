@@ -25,10 +25,10 @@ public interface MenuUrlMapper {
 	@Select("SELECT * FROM menu_url WHERE menu_id = #{menuId}")
 	public List<MenuUrl> getMenuUrl(int menuId);
 
-	@Insert("insert into menu_url(menu_id, url_id) values(#{menuId}, #{urlId})")
+	@Insert("INSERT INTO menu_url(menu_id, url_id) VALUES (#{menuId}, #{urlId})")
 	public int insertMenuUrl(MenuUrl menuUrl);
 
-	@Delete("delete from menu_url where menu_id = #{menuId}")
+	@Delete("DELETE FROM menu_url WHERE menu_id = #{menuId}")
 	public int deleteMenuUrl(MenuUrl menuUrl);
 
 	@InsertProvider(type = SqlProvider.class, method = "insertBatch")
@@ -37,13 +37,8 @@ public interface MenuUrlMapper {
 	@DeleteProvider(type = SqlProvider.class, method = "deleteBatch")
 	public int deleteMenuUrlBatch(List<MenuUrl> menuUrlList);
 
-	/**
-	 * SQL提供者
-	 * 
-	 * @ClassName: SqlProvider
-	 * @Description: TODO
-	 * @author Xiaodan Shao(xs94@nau.edu)
-	 * @date 2024-07-07 07:25:47
+	/*
+	 * 批量SQL提供者
 	 */
 	class SqlProvider {
 
@@ -51,7 +46,7 @@ public interface MenuUrlMapper {
 		public String insertBatch(Map map) {
 			List<MenuUrl> muList = (List<MenuUrl>) map.get("list");
 			StringBuilder sb = new StringBuilder();
-			sb.append("insert into menu_url (menu_id,url_id) values ");
+			sb.append("INSERT INTO menu_url (menu_id,url_id) VALUES ");
 			MessageFormat mf = new MessageFormat("(#'{'list[{0}].menuId}, #'{'list[{0}].urlId})");
 
 			for (int i = 0; i < muList.size(); i++) {
@@ -67,7 +62,7 @@ public interface MenuUrlMapper {
 			List<MenuUrl> muList = (List<MenuUrl>) map.get("list");
 			StringBuilder sb = new StringBuilder();
 
-			sb.append("delete from menu_url where menu_id in (");
+			sb.append("DELETE FROM menu_url WHERE menu_id IN (");
 			for (int i = 0; i < muList.size(); i++) {
 				sb.append("'").append(muList.get(i).getMenuId()).append("'");
 				if (i < muList.size() - 1)
