@@ -1,5 +1,13 @@
 package edu.nau.epower_auth.common;
 
+/**
+ * 常量工具类
+ * 
+ * @ClassName: ConstantUtils
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-13 03:59:32
+ */
 public class ConstantUtils {
 
 	// session中的用户登录信息
