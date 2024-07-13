@@ -15,12 +15,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.dao.UserRole;
 import edu.nau.epower_auth.service.RoleService;
 import edu.nau.epower_auth.service.UserService;
 
+/**
+ * 用户控制器
+ * 
+ * @ClassName: UserController
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-13 03:21:01
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -31,16 +40,14 @@ public class UserController {
 	@Autowired
 	private RoleService roleService;
 
+	/*
+	 * 用户列表page
+	 */
 	@GetMapping("list")
 	public String listUser(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
-		int pageSize = 10;
-		
-//		if (pageNum == null) {
-//			pageNum = 1;
-//		}
-
-		PageHelper.startPage(pageNum, pageSize);
+		// 列表 + 分页
+		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<User> users = userService.listUser();
 		PageInfo<User> pages = new PageInfo<User>(users);
 
@@ -50,6 +57,9 @@ public class UserController {
 		return "system/user/list";
 	}
 
+	/*
+	 * 用户添加page
+	 */
 	@GetMapping("add")
 	public String addPage(Model model) {
 
@@ -57,6 +67,9 @@ public class UserController {
 		return "system/user/add";
 	}
 
+	/*
+	 * 用户添加
+	 */
 	@PostMapping("adduser")
 	public String addUser(User user) {
 
@@ -73,6 +86,9 @@ public class UserController {
 		return "redirect:list";
 	}
 
+	/*
+	 * 用户更新page
+	 */
 	@GetMapping("update")
 	public String updatePage(@RequestParam("uid") int userId, Model model) {
 
@@ -81,12 +97,18 @@ public class UserController {
 		return "system/user/update";
 	}
 
+	/*
+	 * 用户更新
+	 */
 	@PostMapping("updateuser")
 	public String updateUser(User user) {
 		int update = userService.updateUser(user);
 		return "redirect:list";
 	}
 
+	/*
+	 * 用户删除
+	 */
 	@GetMapping("remove")
 	public String removeUser(@RequestParam("uid") int userId) {
 
@@ -94,17 +116,20 @@ public class UserController {
 		return "redirect:list";
 	}
 
+	/*
+	 * 用户授权page
+	 */
 	@GetMapping("auth")
 	public String authPage(@RequestParam("uid") int userId, Model model) {
 
 		// 根据user id获取用户
 		User user = userService.getUser(userId);
 		model.addAttribute("user", user);
-		
+
 		// 获取角色列表
 		List<Role> roles = roleService.listRole();
 		model.addAttribute("roles", roles);
-		
+
 		// 根据user id获取用户所有角色
 		List<Role> userRoles = roleService.findRoleByUserId(userId);
 		model.addAttribute("userroles", userRoles);
@@ -117,6 +142,9 @@ public class UserController {
 		return "system/user/auth";
 	}
 
+	/*
+	 * 用户授权添加
+	 */
 	@PostMapping("addrole")
 	public String addAuth(UserRole userRole) {
 
@@ -134,6 +162,9 @@ public class UserController {
 		return "redirect:auth?uid=" + userRole.getUserId();
 	}
 
+	/*
+	 * 用户授权删除
+	 */
 	@GetMapping("removerole")
 	public String removeAuth(@RequestParam("uid") int userId, @RequestParam("rid") int roleId) {
 

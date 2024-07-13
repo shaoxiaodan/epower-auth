@@ -37,6 +37,12 @@ public class LoginController {
 	@Autowired
 	private RoleService roleService;
 
+	/**
+	 * 登录页面
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
 	@GetMapping("login")
 	public String loginPage(ModelMap modelMap) {
 
@@ -47,6 +53,9 @@ public class LoginController {
 		return "login";
 	}
 
+	/*
+	 * 登录验证
+	 */
 	@PostMapping("login")
 	public String loginCheck(HttpServletRequest req, User user, ModelMap modelMap) {
 
@@ -102,6 +111,9 @@ public class LoginController {
 		return urlStr;
 	}
 
+	/*
+	 * 注销登录
+	 */
 	@GetMapping("logout")
 	public String logOut(HttpServletRequest req) {
 

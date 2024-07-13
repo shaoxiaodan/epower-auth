@@ -17,12 +17,21 @@ import org.thymeleaf.util.ListUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.MenuUrl;
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.service.MenuService;
 import edu.nau.epower_auth.service.UrlService;
 
+/**
+ * 菜单控制器
+ * 
+ * @ClassName: MenuController
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-13 03:05:12
+ */
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
@@ -33,12 +42,13 @@ public class MenuController {
 	@Autowired
 	private UrlService urlService;
 
+	/*
+	 * 菜单列表page
+	 */
 	@GetMapping("list")
 	public String listMenu(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
-		int pageSize = 10;
-
-		PageHelper.startPage(pageNum, pageSize);
+		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<Menu> menus = menuService.listMenu();
 		PageInfo<Menu> pages = new PageInfo<Menu>(menus);
 
@@ -48,6 +58,9 @@ public class MenuController {
 		return "system/menu/list";
 	}
 
+	/*
+	 * 添加菜单page
+	 */
 	@GetMapping("add")
 	public String addPage(Model model) {
 
@@ -55,6 +68,9 @@ public class MenuController {
 		return "system/menu/add";
 	}
 
+	/*
+	 * 添加菜单
+	 */
 	@PostMapping("addmenu")
 	public String addMenu(Menu menu) {
 
@@ -62,6 +78,9 @@ public class MenuController {
 		return "redirect:list";
 	}
 
+	/*
+	 * 更新菜单page
+	 */
 	@GetMapping("update")
 	public String updatePage(@RequestParam("mid") int menuId, Model model) {
 
@@ -70,12 +89,18 @@ public class MenuController {
 		return "system/menu/update";
 	}
 
+	/*
+	 * 更新菜单
+	 */
 	@PostMapping("updatemenu")
 	public String updateMenu(Menu menu) {
 		int update = menuService.updateMenu(menu);
 		return "redirect:list";
 	}
 
+	/*
+	 * 删除菜单
+	 */
 	@GetMapping("remove")
 	public String removeMenu(@RequestParam("mid") int menuId) {
 
@@ -83,6 +108,9 @@ public class MenuController {
 		return "redirect:list";
 	}
 
+	/*
+	 * 菜单授权page
+	 */
 	@GetMapping("auth")
 	public String authPage(@RequestParam("mid") int menuId, Model model) {
 
@@ -128,6 +156,9 @@ public class MenuController {
 		return "system/menu/auth";
 	}
 
+	/*
+	 * 菜单授权(URL配置)
+	 */
 	@PostMapping("addurl")
 	public String addAuth(@RequestParam("newurls") int[] urlidsArry, @RequestParam("mid") int menuId) {
 

@@ -20,6 +20,14 @@ import edu.nau.epower_auth.dao.RoleMenu;
 import edu.nau.epower_auth.service.MenuService;
 import edu.nau.epower_auth.service.RoleService;
 
+/**
+ * 角色控制器
+ * 
+ * @ClassName: RoleController
+ * @Description: TODO
+ * @author Xiaodan Shao(xs94@nau.edu)
+ * @date 2024-07-13 03:15:54
+ */
 @Controller
 @RequestMapping("/role")
 public class RoleController {
@@ -30,9 +38,9 @@ public class RoleController {
 	@Autowired
 	private MenuService menuService;
 
-//	private static String returnUrl = "system/role/";
-//	private static String redirectUrl = "redirect:list";
-
+	/*
+	 * 角色列表page
+	 */
 	@GetMapping("list")
 	public String listRole(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
@@ -48,6 +56,9 @@ public class RoleController {
 		return "system/role/list";
 	}
 
+	/*
+	 * 角色添加page
+	 */
 	@GetMapping("add")
 	public String addPage(Model model) {
 
@@ -55,6 +66,9 @@ public class RoleController {
 		return "system/role/add";
 	}
 
+	/*
+	 * 角色添加
+	 */
 	@PostMapping("addrole")
 	public String addRole(Role role) {
 
@@ -62,6 +76,9 @@ public class RoleController {
 		return "redirect:list";
 	}
 
+	/*
+	 * 角色更新page
+	 */
 	@GetMapping("update")
 	public String updatePage(@RequestParam("rid") int roleId, Model model) {
 
@@ -70,12 +87,18 @@ public class RoleController {
 		return "system/role/update";
 	}
 
+	/*
+	 * 角色更新
+	 */
 	@PostMapping("updaterole")
 	public String updateRole(Role role) {
 		int update = roleService.updateRole(role);
 		return "redirect:list";
 	}
 
+	/*
+	 * 角色删除
+	 */
 	@GetMapping("remove")
 	public String removeRole(@RequestParam("rid") int roleId) {
 
@@ -83,6 +106,9 @@ public class RoleController {
 		return "redirect:list";
 	}
 
+	/*
+	 * 角色授权page
+	 */
 	@GetMapping("auth")
 	public String authPage(@RequestParam("rid") int roleId, Model model) {
 
@@ -106,6 +132,9 @@ public class RoleController {
 		return "system/role/auth";
 	}
 
+	/*
+	 * 角色授权添加
+	 */
 	@PostMapping("addmenu")
 	public String addAuth(RoleMenu roleMenu) {
 
@@ -123,6 +152,9 @@ public class RoleController {
 		return "redirect:auth?rid=" + roleMenu.getRoleId();
 	}
 
+	/*
+	 * 角色授权删除
+	 */
 	@GetMapping("removemenu")
 	public String removeAuth(@RequestParam("rid") int roleId, @RequestParam("mid") int menuId) {
 
