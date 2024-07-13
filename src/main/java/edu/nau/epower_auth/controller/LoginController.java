@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.util.ListUtils;
 
+import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.service.LoginService;
@@ -70,9 +71,8 @@ public class LoginController {
 
 						// 保存登录用户信息session
 						HttpSession session = req.getSession();
-						session.setAttribute("loginuser", loginUser); // 保存用户登录
-						session.setAttribute("userroles", userRoleList); // 保存用户角色
-
+						session.setAttribute(ConstantUtils.SESSION_LOGIN_USER, loginUser); // 保存用户登录 - loginuser
+						session.setAttribute(ConstantUtils.SESSION_USER_ROLES, userRoleList); // 保存用户角色 - userroles
 						urlStr = "redirect:index"; // 重定向到index
 					} else {
 						user.setUsername("");

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.ListUtils;
 
+import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.service.RoleService;
@@ -72,15 +73,15 @@ public class IndexController {
 	}
 
 	private User getLoginUserSession(HttpServletRequest req) {
-		return (User) req.getSession().getAttribute("loginuser");
+		return (User) req.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
 	}
 
 	private List<Role> getRoleListSession(HttpServletRequest req) {
-		return (List<Role>) req.getSession().getAttribute("userroles");
+		return (List<Role>) req.getSession().getAttribute(ConstantUtils.SESSION_USER_ROLES);
 	}
 
 	private void setDefRoleSession(HttpServletRequest req, Role defRole) {
-		req.getSession().setAttribute("defrole", defRole);
+		req.getSession().setAttribute(ConstantUtils.SESSION_DEF_ROLE, defRole);
 	}
 
 }
