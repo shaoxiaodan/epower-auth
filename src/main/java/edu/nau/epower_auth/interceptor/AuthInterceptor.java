@@ -39,8 +39,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		String urlStr = "";
 
 		// 1，读取用户登录信息 & 检查用户是否登录
-//		User loginUser = (User) request.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
-		User loginUser = (User) request.getSession().getAttribute("loginuser");
+		User loginUser = (User) request.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
 		if (loginUser == null) {
 			msgStr = "登录超时，请重新登录。";
 			urlStr = "/login";
