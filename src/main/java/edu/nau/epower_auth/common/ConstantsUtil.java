@@ -1,6 +1,6 @@
 package edu.nau.epower_auth.common;
 
-public class Constants {
+public class ConstantsUtil {
 
 	private static final String SESSION_LOGIN_USER = "loginuser";
 	private static final String SESSION_USER_ROLES = "userroles";
