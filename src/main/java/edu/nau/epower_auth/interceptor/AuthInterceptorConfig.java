@@ -35,7 +35,7 @@ public class AuthInterceptorConfig implements WebMvcConfigurer {
 			.addPathPatterns("/menu/**")
 			.addPathPatterns("/url/**")
 				.excludePathPatterns("/login", "/logout", "/error") // 放行login, logout
-				.excludePathPatterns("/index.html", "/login.html") // 放行index.html, login.html
+//				.excludePathPatterns("/index.html", "/login.html") // 放行index.html, login.html
 				.excludePathPatterns("/css/**", "/js/**", "/pic/**"); // 放行static下的css, js, pic等静态资源文件
 	}
 
