@@ -59,12 +59,11 @@ public class LoginController {
 			// 用户输入都不为空
 			if (StringUtils.isNotEmpty(user.getUsername()) && StringUtils.isNotEmpty(user.getPassword())) {
 				// 查询登录用户
-
 				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), user.getPassword());
 
 				// 用户已登录
 				if (loginUser != null) {
-					// 获取用户所有的角色-权限-url信息
+					// 获取用户所有的角色
 					userRoleList = roleService.findRoleByUserId(loginUser.getId());
 
 					if (!ListUtils.isEmpty(userRoleList)) {
