@@ -2,20 +2,10 @@ package edu.nau.epower_auth.common;
 
 public class ConstantUtils {
 
-	private static final String SESSION_LOGIN_USER = "loginuser";
-	private static final String SESSION_USER_ROLES = "userroles";
-	private static final String SESSION_DEF_ROLE = "defrole";
+	public static final String SESSION_LOGIN_USER = "loginuser";
+	public static final String SESSION_USER_ROLES = "userroles";
+	public static final String SESSION_DEF_ROLE = "defrole";
 
-	public static String getSessionLoginUser() {
-		return SESSION_LOGIN_USER;
-	}
-
-	public static String getSessionUserRoles() {
-		return SESSION_USER_ROLES;
-	}
-
-	public static String getSessionDefRole() {
-		return SESSION_DEF_ROLE;
-	}
+	
 
 }
