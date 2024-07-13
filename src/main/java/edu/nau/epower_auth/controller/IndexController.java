@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.ListUtils;
 
 import edu.nau.epower_auth.common.ConstantUtils;
+import edu.nau.epower_auth.common.SessionUtils;
 import edu.nau.epower_auth.dao.Role;
-import edu.nau.epower_auth.dao.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -37,7 +37,9 @@ public class IndexController {
 		Role defRole = null;
 
 		// 1，读取session中信息
-		List<Role> roleList = this.getRoleListSession(req);
+//		List<Role> roleList = this.getRoleListSession(req);
+//		List<Role> roleList = SessionUtils.getRoleListSession(req);
+		List<Role> roleList = (List<Role>) SessionUtils.retrieveSession(req, ConstantUtils.SESSION_USER_ROLES);
 
 		// 2，检查角色列表
 		if (!ListUtils.isEmpty(roleList)) {
@@ -63,31 +65,12 @@ public class IndexController {
 		}
 
 		// 6，更新defrole的session
-		this.setDefRoleSession(req, defRole);
+//		this.setDefRoleSession(req, defRole);
+//		SessionUtils.setDefRoleSession(req, defRole);
+		SessionUtils.updateSession(req, ConstantUtils.SESSION_DEF_ROLE, defRole);
 
 		// 7，重新返回首页
 		return "system/index";
-	}
-
-	/*
-	 * 获取session中的用户登录信息
-	 */
-	private User getLoginUserSession(HttpServletRequest req) {
-		return (User) req.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
-	}
-
-	/*
-	 * 获取session中的用户所有角色
-	 */
-	private List<Role> getRoleListSession(HttpServletRequest req) {
-		return (List<Role>) req.getSession().getAttribute(ConstantUtils.SESSION_USER_ROLES);
-	}
-
-	/*
-	 * 更新session中用户的默认角色
-	 */
-	private void setDefRoleSession(HttpServletRequest req, Role defRole) {
-		req.getSession().setAttribute(ConstantUtils.SESSION_DEF_ROLE, defRole);
 	}
 
 }

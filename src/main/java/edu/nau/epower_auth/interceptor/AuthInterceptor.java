@@ -9,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.thymeleaf.util.ListUtils;
 
 import edu.nau.epower_auth.common.ConstantUtils;
+import edu.nau.epower_auth.common.SessionUtils;
 import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.Url;
@@ -33,13 +34,14 @@ public class AuthInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 		System.out.println("preHandle...鉴权开始");
-		System.out.println(" >>> uri = " + request.getRequestURI());
 
 		String msgStr = "";
 		String urlStr = "";
 
 		// 1，读取用户登录信息 & 检查用户是否登录
-		User loginUser = (User) request.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
+//		User loginUser = (User) request.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
+		User loginUser = (User) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER);
+
 		if (loginUser == null) {
 			msgStr = "登录超时，请重新登录。";
 			urlStr = "/login";
@@ -59,7 +61,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 		// 3，读取用户可以访问的URL & 是否有URL访问权限
 		boolean isPermitted = false;
 		String reqUri = request.getRequestURI().toString();
-		List<Role> roleList = (List<Role>) request.getSession().getAttribute(ConstantUtils.SESSION_USER_ROLES);
+//		List<Role> roleList = (List<Role>) request.getSession().getAttribute(ConstantUtils.SESSION_USER_ROLES);
+		List<Role> roleList = (List<Role>) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_USER_ROLES);
+
 		if (ListUtils.isEmpty(roleList)) {
 			msgStr = "当前用户无分配任何角色，请与管理员确认。";
 			writerPrint(response, msgStr, null);
