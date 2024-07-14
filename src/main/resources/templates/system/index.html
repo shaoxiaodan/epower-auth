@@ -13,16 +13,12 @@
 	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 
 	<script type="text/javascript">
-
 		function getDefRoleId() {
 			var defroleid = [[${session.defrole.id}]];
 			return defroleid;
 		}
 
 		function init() {
-			//lert("init, defrole.id=" + getDefRoleId());
-			//var defroleid = [[${session.defrole.id}]];
-
 			if (getDefRoleId() <= 0) {
 				alert("角色不存在，请与管理员确认。");
 				history.go(-1);
@@ -30,7 +26,6 @@
 		}
 
 		function swithDefRole(formId, selectorId) {
-
 			var defVal = 0;
 			var formObj = document.getElementById(formId);
 			var SelectObj = document.getElementById(selectorId);
@@ -47,13 +42,13 @@
 				}
 			}
 
-			alert("defVal=" + defVal);
-			//window.location.href = "/index?def=" + defVal;
+			// alert("defVal=" + defVal);
+			// window.location.href = "/index?def=" + defVal;
 			formObj.action = "/rolechange?def=" + defVal;
 			return true;
 		}
 
-		init();
+		init(); // 初始化调用
 	</script>
 
 </head>
