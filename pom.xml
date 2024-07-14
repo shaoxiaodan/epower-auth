@@ -25,7 +25,6 @@
 
 	<!-- 依赖配置 -->
 	<dependencies>
-
 		<!-- springboot 整合web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -134,8 +133,7 @@
 		    <artifactId>pagehelper-spring-boot-starter</artifactId>
 		    <version>2.1.0</version>
 		</dependency>
-
-
+		
 	</dependencies>
 
 	<build>
