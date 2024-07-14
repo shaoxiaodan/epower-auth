@@ -80,11 +80,8 @@ public class LoginController {
 					if (!ListUtils.isEmpty(userRoleList)) {
 
 						// 保存登录用户信息session
-						HttpSession session = req.getSession();
-//						session.setAttribute(ConstantUtils.SESSION_LOGIN_USER, loginUser); // 保存用户登录 - loginuser
-//						session.setAttribute(ConstantUtils.SESSION_USER_ROLES, userRoleList); // 保存用户角色 - userroles
-						SessionUtils.updateSession(req, ConstantUtils.SESSION_LOGIN_USER, loginUser);
-						SessionUtils.updateSession(req, ConstantUtils.SESSION_USER_ROLES, userRoleList);
+						SessionUtils.updateSession(req, ConstantUtils.SESSION_LOGIN_USER, loginUser); // 保存用户登录
+						SessionUtils.updateSession(req, ConstantUtils.SESSION_USER_ROLES, userRoleList); // 保存用户角色
 
 						urlStr = "redirect:index"; // 重定向到index
 					} else {
