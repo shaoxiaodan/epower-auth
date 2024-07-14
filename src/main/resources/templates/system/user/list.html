@@ -4,6 +4,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>user list page</title>
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	   
+	<!-- Main CSS -->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+
+	<!-- Animation CSS -->
+	<link rel="stylesheet" th:href="@{/css/aos.css}">
+
 </head>
 
 <body>
@@ -55,25 +66,8 @@
 		<tfoot>
 			<tr>
 				<td colspan="8">
-					
-					第 <span th:text="${pageinfo.pageNum}"></span> 页，
-					共 <span th:text="${pageinfo.pages}"></span> 页，
-					有 <span th:text="${pageinfo.total}"></span> 个分类
-					
-					<a th:each="pages:${pageinfo.navigatepageNums}" 
-						th:href="@{list(pageNum=${pages})}" 
-						th:text="${pages}">分页</a>
-						
-					<!--<div align="center">
-						<a th:href="@{list(pageNum=${pages.prePage})}">上一页</a>
-						<a th:href="@{list(pageNum=${pages.nextPage})}">下一页</a>
-						<p>
-							第 <span th:text="${pages.pageNum}"></span> 页，
-							共 <span th:text="${pages.pages}"></span> 页，
-							有 <span th:text="${pages.total}"></span> 个分类
-						</p>
-					</div>-->
-					
+					<!-- 分页 -->
+					<div th:insert="~{system/common/component::#mypagination}"></div>
 				</td>
 			</tr>
 		</tfoot>
@@ -82,13 +76,15 @@
 	<a th:href="@{add}">添加用户</a>
 
 	<div th:insert="~{system/common/component::#myheader}"></div>
-	
+
 	<div th:insert="~{system/common/component::#myrolechange}"></div>
-	
+
 	<div th:insert="~{system/common/component::#mymenu}"></div>
-	
+
 	<div th:insert="~{system/common/component::#myfooter}"></div>
-	
+
+	<div th:insert="~{system/common/component::#mypagination}"></div>
+
 </body>
 
 </html>

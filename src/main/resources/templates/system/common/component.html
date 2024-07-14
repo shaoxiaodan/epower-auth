@@ -17,8 +17,7 @@
 <div id="myrolechange">
 	<h1>当前角色：</h1>
 	<div>
-		<form id="defroleform" method="post"
-			onsubmit="return defRoleChange('defroleform','defroleselector')">
+		<form id="defroleform" method="post" onsubmit="return defRoleChange('defroleform','defroleselector')">
 			<select id="defroleselector">
 				<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}"
 					th:selected="${role.id} == ${session.defrole.id}"></option>
@@ -50,6 +49,39 @@
 
 		</ul>
 	</div>
+</div>
+
+
+
+
+
+<div id="mypagination">
+
+	<!-- pagination -->
+	<nav aria-label="Page navigation example">
+		<ul class="pagination">
+			<!-- 上一页 -->
+			<li class="page-item">
+				<a class="page-link" th:href="@{list(pageNum=${pageinfo.prePage})}"><i class="fas fa-angle-left"></i></a>
+			</li>
+
+			<li class="page-item" th:each="currpage:${pageinfo.navigatepageNums}"
+				th:classappend="${currpage eq pageinfo.pageNum} ? 'active'">
+				<a class="page-link" th:href="@{list(pageNum=${currpage})}" th:text="${currpage}"></a>
+			</li>
+
+			<!--
+				<li class="page-item"><a class="page-link" href="#">第[[${pageinfo.pageNum}]]页</a></li>
+				<li class="page-item"><a class="page-link" href="#">共[[${pageinfo.pages}]]页</a></li>
+				<li class="page-item"><a class="page-link" href="#">有[[${pageinfo.total}]]分类</a></li>
+			-->
+
+			<!-- 下一页 -->
+			<li class="page-item">
+				<a class="page-link" th:href="@{list(pageNum=${pageinfo.nextPage})}"><i class="fas fa-angle-right"></i></a>
+			</li>
+		</ul>
+	</nav>
 </div>
 
 

@@ -5,12 +5,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>index page</title>
-
-	<!-- Main CSS -->
-	<link rel="stylesheet" th:href="@{/css/main.css}">
-
-	<!-- Animation CSS -->
-	<link rel="stylesheet" th:href="@{/css/aos.css}">
+	<!--
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+	<script src="../static/js/bootstrap.min.js"></script>
+	-->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 
 	<script type="text/javascript" th:inline="javascript" th:src="@{/js/epower.js}"></script>
 	<script type="text/javascript" th:inline="javascript">
@@ -30,15 +30,8 @@
 	<div th:replace="~{component::com1}"></div>
 	-->
 
-	<div>
-		<a href="#" class="btn btn-primary">Default</a>
-		<a href="#" class="btn btn-outline-primary">Outline</a>
-		<a href="#" class="btn btn-primary btn-round shadow-lg">Round</a>
-		<a href="#" class="btn btn-outline-primary btn-round">Outline Round</a>
-	</div>
-
 	<div th:insert="~{system/common/component::#myheader}"></div>
-
+	
 	<div th:insert="~{system/common/component::#myrolechange}"></div>
 
 	<div th:insert="~{system/common/component::#mymenu}"></div>
