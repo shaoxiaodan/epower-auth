@@ -54,8 +54,17 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<th colspan="8">
-					<div align="center">
+				<td colspan="8">
+					
+					第 <span th:text="${pageinfo.pageNum}"></span> 页，
+					共 <span th:text="${pageinfo.pages}"></span> 页，
+					有 <span th:text="${pageinfo.total}"></span> 个分类
+					
+					<a th:each="pages:${pageinfo.navigatepageNums}" 
+						th:href="@{list(pageNum=${pages})}" 
+						th:text="${pages}">分页</a>
+						
+					<!--<div align="center">
 						<a th:href="@{list(pageNum=${pages.prePage})}">上一页</a>
 						<a th:href="@{list(pageNum=${pages.nextPage})}">下一页</a>
 						<p>
@@ -63,8 +72,9 @@
 							共 <span th:text="${pages.pages}"></span> 页，
 							有 <span th:text="${pages.total}"></span> 个分类
 						</p>
-					</div>
-				</th>
+					</div>-->
+					
+				</td>
 			</tr>
 		</tfoot>
 	</table>

@@ -2,6 +2,7 @@ package edu.nau.epower_auth.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,11 @@ import org.thymeleaf.util.ListUtils;
 
 import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.common.SessionUtils;
+import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
+import edu.nau.epower_auth.dao.Url;
+import edu.nau.epower_auth.service.MenuService;
+import edu.nau.epower_auth.service.UrlService;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -26,6 +31,12 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("/")
 public class IndexController {
 
+	@Autowired
+	private MenuService menuService;
+
+	@Autowired
+	private UrlService urlService;
+
 	/*
 	 * 首页page
 	 */
@@ -33,8 +44,8 @@ public class IndexController {
 	public String indexPage(HttpServletRequest req, @RequestParam(name = "def", defaultValue = "0") int roleId,
 			ModelMap modelMap) {
 
-		// 0，用户默认角色
-		Role defRole = null;
+		Role defRole = null; // 用户默认角色
+		boolean isRoot = false; // ROOT超级管理员
 
 		// 1，读取session中信息
 //		List<Role> roleList = this.getRoleListSession(req);
@@ -43,12 +54,11 @@ public class IndexController {
 
 		// 2，检查角色列表
 		if (!ListUtils.isEmpty(roleList)) {
-
 			if (roleId > 0) {
 				for (Role role : roleList) {
 					if (role.getId() == roleId) {
 						defRole = role; // 3，找到用户对应的角色
-						break;
+						break; // 跳出当前循环
 					}
 				}
 			} else {
@@ -62,14 +72,27 @@ public class IndexController {
 			// 设置一个非法数值，并传递到前端做处理
 			defRole = new Role();
 			defRole.setId(-999);
+		} 
+		
+		// 6，当前角色是否为ROOT超级管理员
+		if(defRole.isRoot()) {
+			// 获取所有菜单list
+			List<Menu> menuList = menuService.listMenu();
+			if(!ListUtils.isEmpty(menuList)) {
+				for(Menu menu : menuList) {
+					menu.setUrlList(urlService.findUrlByMenuId(menu.getId()));
+				}
+			}
+			// 为ROOT角色，重新装配所有menu
+			defRole.setMenuList(menuList);
 		}
 
-		// 6，更新defrole的session
+		// 7，更新defrole的session
 //		this.setDefRoleSession(req, defRole);
 //		SessionUtils.setDefRoleSession(req, defRole);
 		SessionUtils.updateSession(req, ConstantUtils.SESSION_DEF_ROLE, defRole);
 
-		// 7，重新返回首页
+		// 8，重新返回首页
 		return "system/index";
 	}
 

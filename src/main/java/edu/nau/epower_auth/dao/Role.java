@@ -24,6 +24,10 @@ public class Role implements Serializable {
 
 	private Date updateTime;
 
+	private boolean isRoot;
+
+	private int level;
+
 	private List<Menu> menuList;
 
 	public Role() {
@@ -45,6 +49,14 @@ public class Role implements Serializable {
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -61,12 +73,20 @@ public class Role implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public String getDescription() {
-		return description;
+	public boolean isRoot() {
+		return isRoot;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setRoot(boolean isRoot) {
+		this.isRoot = isRoot;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	public List<Menu> getMenuList() {

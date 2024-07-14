@@ -57,6 +57,7 @@
 
 <body>
 
+	<h1>当前角色：</h1>
 	<div>
 		<select id="roleselector" name="roleselector">
 			<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}"
@@ -64,17 +65,53 @@
 		</select>
 		<button type='button' onclick="swithDefRole('roleselector')">切换角色</button>
 	</div>
+	<br>
 
 
 	<h1>用户菜单：</h1>
 	<div>
+		<ul>
+			<li th:each="menu:${session.defrole.menuList}">
+				<th:block th:if="${not #lists.isEmpty(menu.urlList)}">
+					<div th:each="url:${menu.urlList}">
+						<a th:if="${url.isEntrance}" th:href="@{${url.path}}"
+							th:text="${menu.name}">[[${menu.name}]]</a>
+					</div>
+				</th:block>
+
+				<th:block th:if="${#lists.isEmpty(menu.urlList)}">
+					[[${menu.name}]]
+				</th:block>
+
+			</li>
+
+		</ul>
+	</div>
+
+
+
+	<!--
+	<div>
 		<ul th:object="${session.defrole}">
 			<li th:each="menu:*{menuList}">
-				<a th:each="url:${menu.urlList}" th:href="${url.path}" th:text="${menu.name}"
-					th:if="${url.isEntrance}">url path</a>
+					<span th:each="url:${menu.urlList}" >
+						<block th:if="${url.isEntrance}">
+							<a th:href="${url.path}" th:text="${menu.name}">menu name</a>
+						</block>
+						<block th:unless="${url.isEntrance}">
+							<a href="${'#'}" th:text="${menu.name}">....</a>
+						</block>
+					</span>
 			</li>
 		</ul>
 	</div>
+	-->
+
+	<!--
+		<a th:each="url:${menu.urlList}" th:href="${url.path}" th:text="${menu.name}"
+			th:if="${url.isEntrance}">url path</a>
+			-->
+
 
 
 

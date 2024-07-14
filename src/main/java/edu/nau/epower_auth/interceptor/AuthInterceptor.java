@@ -61,7 +61,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 		// 3，读取用户可以访问的URL & 是否有URL访问权限
 		boolean isPermitted = false;
 		String reqUri = request.getRequestURI().toString();
-//		List<Role> roleList = (List<Role>) request.getSession().getAttribute(ConstantUtils.SESSION_USER_ROLES);
 		List<Role> roleList = (List<Role>) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_USER_ROLES);
 
 		if (ListUtils.isEmpty(roleList)) {

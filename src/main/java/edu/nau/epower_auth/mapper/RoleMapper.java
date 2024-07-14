@@ -28,7 +28,7 @@ public interface RoleMapper {
 	/*
 	 * 根据用户id，查出所有角色，并装配菜单menu
 	 */
-	@Select("SELECT r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time" 
+	@Select("SELECT r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time, r.is_root as is_root" 
 			+ " FROM user_role ur"
 			+ " LEFT JOIN role r on ur.role_id = r.id" 
 			+ " WHERE ur.user_id = #{userId}")

@@ -49,10 +49,10 @@ public class UserController {
 		// 列表 + 分页
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<User> users = userService.listUser();
-		PageInfo<User> pages = new PageInfo<User>(users);
+		PageInfo<User> pageInfo = new PageInfo<User>(users);
 
 		modelMap.addAttribute("users", users);
-		modelMap.addAttribute("pages", pages);
+		modelMap.addAttribute("pageinfo", pageInfo);
 
 		return "system/user/list";
 	}
