@@ -1,39 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html>
 
 <head>
 	<meta charset="UTF-8">
 	<title>用户登录</title>
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+
+	<!-- Animation CSS -->
+	<link rel="stylesheet" th:href="@{/css/aos.css}">
+
+	<script type="text/javascript">
+		function login(formid){
+			alert("login...");
+			var formObj = document.getElementById(formid);
+			//formObj.action = "login";
+			
+			formObj.submit();
+			//return true;
+		}
+	</script>
+	
 </head>
 
 <body>
 
-	<div align="center">
-		<form th:object="${user}" th:action="@{login}" method="post">
-			<table>
-				<tr>
-					<td>
-						<input type="text" id="username" name="username" th:value="*{username}" />
-						<!-- <input type="text" id="username" name="username" th:value="aaa" /> -->
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="password" id="password" name="password" th:value="*{password}" />
-						<!-- <input type="password" id="password" name="password" th:value="111" /> -->
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="submit" value="登录">
-						<input type="reset" value="重置">
-					</td>
-				</tr>
-				</tr>
-			</table>
-		</form>
-		<span th:text="${msg}">msg here...</span>
+	<!-- 登录主体 -->
+	<div >
+		<div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+			<form class="border rounded p-5" id="loginform" name="loginform" th:object="${user}" th:action="@{login}" method="post">
+
+				<h3 class="mb-4 text-center">ePower授权系统</h3>
+
+				<!-- username -->
+				<div class="form-group">
+					<input type="text" class="form-control" id="username" name="username" placeholder="User Name" required="" th:value="*{username}" />
+				</div>
+
+				<!-- password -->
+				<div class="form-group">
+					<input type="password" class="form-control" id="password" name="password" placeholder="Password" required="" th:value="*{password}" />
+				</div>
+
+				<!-- 提交btn -->
+				<button type="submit" class="btn btn-success btn-round btn-block shadow-sm">登录</button>
+				<small class="d-block mt-4 text-center" th:text="${msg}">[[${msg}]]</small>
+			</form>
+		</div>
 	</div>
 
 </body>
