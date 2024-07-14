@@ -17,7 +17,7 @@
 <div id="myrolechange">
 	<h1>当前角色：</h1>
 	<div>
-		<form id="defroleform" fn:action="" method="post"
+		<form id="defroleform" method="post"
 			onsubmit="return defRoleChange('defroleform','defroleselector')">
 			<select id="defroleselector">
 				<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}"
