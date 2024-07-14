@@ -62,7 +62,8 @@
 		<ul class="pagination">
 			<!-- 上一页 -->
 			<li class="page-item">
-				<a class="page-link" th:href="@{list(pageNum=${pageinfo.prePage})}"><i class="fas fa-angle-left"></i></a>
+				<a class="page-link" th:href="@{list(pageNum=${pageinfo.prePage})}"><i
+						class="fas fa-angle-left"></i></a>
 			</li>
 
 			<li class="page-item" th:each="currpage:${pageinfo.navigatepageNums}"
@@ -78,17 +79,33 @@
 
 			<!-- 下一页 -->
 			<li class="page-item">
-				<a class="page-link" th:href="@{list(pageNum=${pageinfo.nextPage})}"><i class="fas fa-angle-right"></i></a>
+				<a class="page-link" th:href="@{list(pageNum=${pageinfo.nextPage})}"><i
+						class="fas fa-angle-right"></i></a>
 			</li>
 		</ul>
 	</nav>
 </div>
 
+<!-- minimal footer -->
+<footer class="bg-black pb-5 pt-4" id="myfooter">
 
-
-
-<footer id="myfooter">
-	&copy; 2024 ePower Authrization System | Designed By Xiaodan SHAO.
 </footer>
+
+
+
+<!-- minimal footer -->
+<footer class="bg-black pb-5 pt-4" id="myfooter">
+	<div class="container">
+		<div class="row justify-content-center text-center">
+			<div class="col-md-12">
+				<span class="d-block mt-3 text-gray">
+					&copy; 2024 ePower Authrization System | Designed By Xiaodan SHAO.
+				</span>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
 
 </html>

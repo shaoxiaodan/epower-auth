@@ -5,19 +5,17 @@
 	<meta charset="UTF-8">
 	<title>user auth page</title>
 
-	<script type="text/javascript">
-		function testRoles() {
-			//var obj = document.getElementsByName("select_roles");
-			var obj = document.forms[0].elements["select_roles"];
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-			for (var i = 0; i < obj.length; i++) {
-				if (obj.options[i].selected) {
-					alert(obj.options[i].value);
-				}
-			}
-		}
-	</script>
+	<!-- Main CSS -->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
 
+	<!-- Animation CSS -->
+	<link rel="stylesheet" th:href="@{/css/aos.css}">
+	
 </head>
 
 <body>
@@ -38,12 +36,15 @@
 		<input type="submit" value="添加角色">
 	</form>
 
-	<table border="1">
-		<tr>
-			<th>角色名称</th>
-			<th>更新日期</th>
-			<th>操作</th>
-		</tr>
+	<table class="table" border="1">
+		<thead class="thead-light">
+			<tr>
+						<th scope="col">角色名称</th>
+						<th scope="col">授权日期</th>
+						<th scope="col">操作</th>
+					</tr>
+		</thead>
+		
 		<tr th:each="userrole:${userroles}">
 			<td th:text="${userrole.name}"></td>
 			<td th:text="${userrole.createTime}"></td>
