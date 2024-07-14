@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +40,7 @@ public class IndexController {
 	 * 首页page
 	 */
 	@GetMapping("index")
-	public String indexPage(HttpServletRequest req, ModelMap modelMap) {
+	public String indexPage(HttpServletRequest req) {
 
 		Role defRole = null;
 		List<Role> roleList = null;
@@ -59,8 +58,6 @@ public class IndexController {
 			SessionUtils.updateSession(req, ConstantUtils.SESSION_DEF_ROLE, defRole);
 		}
 
-		modelMap.addAttribute("defrole", null);
-		
 		// 渲染首页
 		return "system/index";
 	}
