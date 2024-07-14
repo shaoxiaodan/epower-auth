@@ -53,7 +53,7 @@ public class MenuController {
 		PageInfo<Menu> pages = new PageInfo<Menu>(menus);
 
 		modelMap.addAttribute("menus", menus);
-		modelMap.addAttribute("pages", pages);
+		modelMap.addAttribute(ConstantUtils.PAGE_INFO, pages);
 
 		return "system/menu/list";
 	}

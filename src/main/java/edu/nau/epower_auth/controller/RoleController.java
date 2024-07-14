@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.RoleMenu;
@@ -48,10 +49,10 @@ public class RoleController {
 
 		PageHelper.startPage(pageNum, pageSize);
 		List<Role> roles = roleService.listRole();
-		PageInfo<Role> pages = new PageInfo<Role>(roles);
+		PageInfo<Role> pageInfo = new PageInfo<Role>(roles);
 
 		modelMap.addAttribute("roles", roles);
-		modelMap.addAttribute("pages", pages);
+		modelMap.addAttribute(ConstantUtils.PAGE_INFO, pageInfo);
 
 		return "system/role/list";
 	}

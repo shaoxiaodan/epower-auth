@@ -25,4 +25,7 @@ public class ConstantUtils {
 	// 每页的显示数据量
 	public static final int PAGE_SIZE = 10;
 
+	// 分页获取的名称
+	public static final String PAGE_INFO = "pageinfo";
+
 }

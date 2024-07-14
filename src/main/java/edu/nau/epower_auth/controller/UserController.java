@@ -52,7 +52,7 @@ public class UserController {
 		PageInfo<User> pageInfo = new PageInfo<User>(users);
 
 		modelMap.addAttribute("users", users);
-		modelMap.addAttribute("pageinfo", pageInfo);
+		modelMap.addAttribute(ConstantUtils.PAGE_INFO, pageInfo);
 
 		return "system/user/list";
 	}

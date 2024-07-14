@@ -44,10 +44,10 @@ public class UrlController {
 		// 列表 + 分页
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<Url> urls = urlService.listUrl();
-		PageInfo<Url> pages = new PageInfo<Url>(urls);
+		PageInfo<Url> pageInfo = new PageInfo<Url>(urls);
 
 		modelMap.addAttribute("urls", urls);
-		modelMap.addAttribute("pages", pages);
+		modelMap.addAttribute(ConstantUtils.PAGE_INFO, pageInfo);
 
 		return "system/url/list";
 	}
