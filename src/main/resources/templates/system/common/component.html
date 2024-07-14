@@ -10,11 +10,24 @@
 </foot>
 
 <div id="myheader">
-	
-	
 	<img th:src="@{/pic/google.png}">
 </div>
 
+
+<div id="myrolechange">
+	<h1>当前角色：</h1>
+	<div>
+		<form id="defroleform" fn:action="" method="post"
+			onsubmit="return defRoleChange('defroleform','defroleselector')">
+			<select id="defroleselector">
+				<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}"
+					th:selected="${role.id} == ${session.defrole.id}"></option>
+			</select>
+			<button type="submit">切换角色</button>
+		</form>
+	</div>
+	<br>
+</div>
 
 
 <div id="mymenu">
