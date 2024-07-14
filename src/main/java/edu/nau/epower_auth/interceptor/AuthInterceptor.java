@@ -58,10 +58,11 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 		// 3，读取用户可以访问的URL & 是否有URL访问权限
 		boolean isPermitted = false;
-		String reqUri = request.getRequestURI().toString();
+		String reqUri = ""; // 请求路径
+		Role defRole = null; // 用户的当前角色
 
-		// 用户的当前角色
-		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_DEF_ROLE);
+		reqUri = request.getRequestURI().toString();
+		defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_DEF_ROLE);
 
 		// 用户的当前角色，是否存在
 		if (defRole != null) {
@@ -82,7 +83,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 			// 4，判断用户操作权限
 			if (!isPermitted) {
-				msgStr = "当前用户无[" + reqUri + "]执行权限。";
+				msgStr = "当前用户无[" + reqUri + "]的访问或执行权限。";
 				writerPrint(response, msgStr, null);
 				return false;
 			}
