@@ -62,17 +62,16 @@
 
 	<h1>当前角色：</h1>
 	<div>
-		<form id="roleForm" name="roleForm" fn:action="" method="post" onsubmit="return swithDefRole('roleForm','roleselector')">
+		<form id="roleForm" name="roleForm" fn:action="" method="post"
+			onsubmit="return swithDefRole('roleForm','roleselector')">
 			<select id="roleselector" name="roleselector">
-				<option th:each="role:${session.userroles}" 
-						th:value="${role.id}" th:text="${role.name}"
-						th:selected="${role.id} == ${session.defrole.id}"></option>
+				<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}"
+					th:selected="${role.id} == ${session.defrole.id}"></option>
 			</select>
 			<button type="submit">切换角色</button>
 		</form>
 	</div>
 	<br>
-
 
 	<h1>用户菜单：</h1>
 	<div>
@@ -94,33 +93,6 @@
 		</ul>
 	</div>
 
-
-
-	<!--
-	<div>
-		<ul th:object="${session.defrole}">
-			<li th:each="menu:*{menuList}">
-					<span th:each="url:${menu.urlList}" >
-						<block th:if="${url.isEntrance}">
-							<a th:href="${url.path}" th:text="${menu.name}">menu name</a>
-						</block>
-						<block th:unless="${url.isEntrance}">
-							<a href="${'#'}" th:text="${menu.name}">....</a>
-						</block>
-					</span>
-			</li>
-		</ul>
-	</div>
-	-->
-
-	<!--
-		<a th:each="url:${menu.urlList}" th:href="${url.path}" th:text="${menu.name}"
-			th:if="${url.isEntrance}">url path</a>
-			-->
-
-
-
-
 	<!--
 	<div th:replace="~{component::com1}"></div>
 	<div th:insert="~{component::com2}"></div>
@@ -130,7 +102,7 @@
 	-->
 
 	<div th:insert="~{system/common/component::#myfooter}"></div>
-	
+
 </body>
 
 </html>
