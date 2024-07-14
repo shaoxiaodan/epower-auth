@@ -77,8 +77,9 @@ public class IndexController {
 		// 2，检查角色的roleId
 		if (roleId > 0) {
 			for (Role role : roleList) {
+				// 3，找到对应的角色
 				if (role.getId() == roleId) {
-					defRole = role; // 3，找到对应的角色
+					defRole = role;
 					break; // 跳出当前循环
 				}
 			}
