@@ -51,8 +51,9 @@
 				<th scope="row" th:text="${url.id}">ID</th>
 				<td th:text="${url.path}">path</td>
 				<td th:text="${url.staticPath}">staticPath</td>
-				<td th:text="${url.createTime}">createTime</td>
-				<td th:text="${url.updateTime}">updateTime</td>
+				<td th:text="${url.isEntrance}">isEntrance</td>
+				<td th:text="${#dates.format(url.createTime, 'yyyy-MM-dd')}">createTime</td>
+				<td th:text="${#dates.format(url.updateTime, 'yyyy-MM-dd')}">updateTime</td>
 				<td th:text="${url.description}">description</td>
 				<td>
 					<a class="btn btn-outline-primary" th:href="@{update(id=${url.id})}">更新</a>
