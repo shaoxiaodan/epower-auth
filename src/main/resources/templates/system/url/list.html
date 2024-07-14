@@ -19,7 +19,7 @@
 </head>
 
 <body>
-	<h1>资源管理</h1>
+	<h1>URL资源管理</h1>
 
 	<div>
 		<span><a th:href="@{/login}">用户登录</a></span>
@@ -37,13 +37,13 @@
 		<thead class="thead-light">
 			<tr>
 				<th scope="col">ID</th>
-				<th scope="col">动态path</th>
-				<th scope="col">静态path</th>
+				<th scope="col">动态URL</th>
+				<th scope="col">静态URL</th>
 				<th scope="col">菜单入口</th>
 				<th scope="col">创建日期</th>
 				<th scope="col">更新日期</th>
-				<th scope="col">描述与说明</th>
-				<th scope="col">资源操作</th>
+				<th scope="col">描述 / 说明</th>
+				<th scope="col">URL操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,9 +51,9 @@
 				<th scope="row" th:text="${url.id}">ID</th>
 				<td th:text="${url.path}">path</td>
 				<td th:text="${url.staticPath}">staticPath</td>
-				<td th:text="${url.isEntrance}">isEntrance</td>
-				<td th:text="${#dates.format(url.createTime, 'yyyy-MM-dd')}">createTime</td>
-				<td th:text="${#dates.format(url.updateTime, 'yyyy-MM-dd')}">updateTime</td>
+				<td th:text="${url.isEntrance} ? 是 : 否">isEntrance</td>
+				<td th:text="${#dates.format(url.createTime, 'yyyy-MM-dd HH:mm')}">createTime</td>
+				<td th:text="${#dates.format(url.updateTime, 'yyyy-MM-dd HH:mm')}">updateTime</td>
 				<td th:text="${url.description}">description</td>
 				<td>
 					<a class="btn btn-outline-primary" th:href="@{update(id=${url.id})}">更新</a>

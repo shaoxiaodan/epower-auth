@@ -4,6 +4,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>role list page</title>
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+
+	<!-- Animation CSS -->
+	<link rel="stylesheet" th:href="@{/css/aos.css}">
+
 </head>
 
 <body>
@@ -13,7 +25,7 @@
 		<span><a th:href="@{/login}">用户登录</a></span>
 		<span><a th:href="@{/logout}">退出</a></span>
 	</div>
-	
+
 	<div>
 		<span><a th:href="@{/user/list}">用户列表</a></span>
 		<span><a th:href="@{/role/list}">角色列表</a></span>
@@ -21,47 +33,40 @@
 		<span><a th:href="@{/url/list}">资源列表</a></span>
 	</div>
 
-	<table border="1">
-		<thead>
+	<table class="table" border="1">
+		<thead class="thead-light">
 			<tr>
-				<th>id</th>
-				<th>name</th>
-				<th>create_time</th>
-				<th>update_time</th>
-				<th>description</th>
-				<th>数据操作</th>
-				<th>配置管理</th>
+				<th scope="col">ID</th>
+				<th scope="col">角色名称</th>
+				<th scope="col">描述 / 说明</th>
+				<th scope="col">创建日期</th>
+				<th scope="col">更新日期</th>
+				<th scope="col">角色配置</th>
+				<th scope="col">角色操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="role:${roles}">
-				<td th:text="${role.id}">id</td>
+				<th scope="row" th:text="${role.id}">ID</th>
 				<td th:text="${role.name}">name</td>
-				<td th:text="${role.createTime}">create_time</td>
-				<td th:text="${role.updateTime}">update_time</td>
 				<td th:text="${role.description}">description</td>
+				<td th:text="${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm')}">createTime</td>
+				<td th:text="${#dates.format(role.updateTime, 'yyyy-MM-dd HH:mm')}">updateTime</td>
 				<td>
-					<a th:href="@{update(rid=${role.id})}">更新</a>
-					<a th:href="@{remove(rid=${role.id})}">删除</a>
+					<a class="btn btn-outline-primary" th:href="@{auth(rid=${role.id})}">菜单配置</a>
 				</td>
 				<td>
-					<a th:href="@{auth(rid=${role.id})}">菜单配置</a>
+					<a class="btn btn-outline-primary" th:href="@{update(rid=${role.id})}">更新</a>
+					<a class="btn btn-outline-primary" th:href="@{remove(rid=${role.id})}">删除</a>
 				</td>
 			</tr>
 		</tbody>
 		<tfoot>
 			<tr>
-				<th colspan="7">
-					<div align="center">
-						<a th:href="@{list(pageNum=${pages.prePage})}">上一页</a>
-						<a th:href="@{list(pageNum=${pages.nextPage})}">下一页</a>
-						<p>
-							第 <span th:text="${pages.pageNum}"></span> 页，
-							共 <span th:text="${pages.pages}"></span> 页，
-							有 <span th:text="${pages.total}"></span> 个分类
-						</p>
-					</div>
-				</th>
+				<td colspan="7">
+					<!-- 分页 -->
+					<div th:insert="~{system/common/component::#mypagination}"></div>
+				</td>
 			</tr>
 		</tfoot>
 	</table>
