@@ -38,7 +38,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 		String urlStr = "";
 
 		// 1，读取用户登录信息 & 检查用户是否登录
-//		User loginUser = (User) request.getSession().getAttribute(ConstantUtils.SESSION_LOGIN_USER);
 		User loginUser = (User) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER);
 
 		if (loginUser == null) {
@@ -61,24 +60,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 		boolean isPermitted = false;
 		String reqUri = request.getRequestURI().toString();
 
-		/*
-		 * List<Role> roleList = (List<Role>) SessionUtils.retrieveSession(request,
-		 * ConstantUtils.SESSION_USER_ROLES); if (ListUtils.isEmpty(roleList)) { msgStr
-		 * = "当前用户无分配任何角色，请与管理员确认。"; writerPrint(response, msgStr, null); return false;
-		 * } else { // 4，检查当前用户角色可以访问的URL权限 for (Role role : roleList) { if
-		 * (!ListUtils.isEmpty(role.getMenuList())) { for (Menu menu :
-		 * role.getMenuList()) { if (!ListUtils.isEmpty(menu.getUrlList())) { for (Url
-		 * url : menu.getUrlList()) { if (reqUri.equals(url.getPath())) { isPermitted =
-		 * true; break; } } } } } }
-		 * 
-		 * // 4，判断用户操作权限 if (!isPermitted) { msgStr = "当前用户无[" + reqUri + "]执行权限。";
-		 * writerPrint(response, msgStr, null); return false; } }
-		 */
-
-		// 根据用户的当前角色，检查该角色是否具有足够访问权限
+		// 用户的当前角色
 		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_DEF_ROLE);
 
-		// 用户有分配角色
+		// 用户的当前角色，是否存在
 		if (defRole != null) {
 			// 检查用户的当前角色，是否有可以访问的URL权限
 			if (!ListUtils.isEmpty(defRole.getMenuList())) {
