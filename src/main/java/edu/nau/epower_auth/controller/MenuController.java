@@ -50,10 +50,10 @@ public class MenuController {
 
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<Menu> menus = menuService.listMenu();
-		PageInfo<Menu> pages = new PageInfo<Menu>(menus);
+		PageInfo<Menu> pageInfo = new PageInfo<Menu>(menus);
 
 		modelMap.addAttribute("menus", menus);
-		modelMap.addAttribute(ConstantUtils.PAGE_INFO, pages);
+		modelMap.addAttribute(ConstantUtils.PAGE_INFO, pageInfo);
 
 		return "system/menu/list";
 	}
