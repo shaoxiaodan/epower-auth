@@ -123,6 +123,7 @@ public class LoginController {
 
 		HttpSession session = req.getSession();
 		session.invalidate();
+		System.out.println("退出登录");
 		return "redirect:login";
 	}
 

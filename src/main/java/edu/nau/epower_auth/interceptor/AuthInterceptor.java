@@ -2,7 +2,6 @@ package edu.nau.epower_auth.interceptor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -61,23 +60,35 @@ public class AuthInterceptor implements HandlerInterceptor {
 		// 3，读取用户可以访问的URL & 是否有URL访问权限
 		boolean isPermitted = false;
 		String reqUri = request.getRequestURI().toString();
-		List<Role> roleList = (List<Role>) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_USER_ROLES);
 
-		if (ListUtils.isEmpty(roleList)) {
-			msgStr = "当前用户无分配任何角色，请与管理员确认。";
-			writerPrint(response, msgStr, null);
-			return false;
-		} else {
-			// 4，检查当前用户角色可以访问的URL权限
-			for (Role role : roleList) {
-				if (!ListUtils.isEmpty(role.getMenuList())) {
-					for (Menu menu : role.getMenuList()) {
-						if (!ListUtils.isEmpty(menu.getUrlList())) {
-							for (Url url : menu.getUrlList()) {
-								if (reqUri.equals(url.getPath())) {
-									isPermitted = true;
-									break;
-								}
+		/*
+		 * List<Role> roleList = (List<Role>) SessionUtils.retrieveSession(request,
+		 * ConstantUtils.SESSION_USER_ROLES); if (ListUtils.isEmpty(roleList)) { msgStr
+		 * = "当前用户无分配任何角色，请与管理员确认。"; writerPrint(response, msgStr, null); return false;
+		 * } else { // 4，检查当前用户角色可以访问的URL权限 for (Role role : roleList) { if
+		 * (!ListUtils.isEmpty(role.getMenuList())) { for (Menu menu :
+		 * role.getMenuList()) { if (!ListUtils.isEmpty(menu.getUrlList())) { for (Url
+		 * url : menu.getUrlList()) { if (reqUri.equals(url.getPath())) { isPermitted =
+		 * true; break; } } } } } }
+		 * 
+		 * // 4，判断用户操作权限 if (!isPermitted) { msgStr = "当前用户无[" + reqUri + "]执行权限。";
+		 * writerPrint(response, msgStr, null); return false; } }
+		 */
+
+		// 根据用户的当前角色，检查该角色是否具有足够访问权限
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_DEF_ROLE);
+
+		// 用户有分配角色
+		if (defRole != null) {
+			// 检查用户的当前角色，是否有可以访问的URL权限
+			if (!ListUtils.isEmpty(defRole.getMenuList())) {
+				for (Menu menu : defRole.getMenuList()) {
+					if (!ListUtils.isEmpty(menu.getUrlList())) {
+						for (Url url : menu.getUrlList()) {
+							// 如果找到URL权限
+							if (reqUri.equals(url.getPath())) {
+								isPermitted = true; // 设置权限
+								break;
 							}
 						}
 					}
@@ -90,12 +101,19 @@ public class AuthInterceptor implements HandlerInterceptor {
 				writerPrint(response, msgStr, null);
 				return false;
 			}
+		} else {
+			msgStr = "当前用户无分配任何角色，请与管理员确认。";
+			writerPrint(response, msgStr, null);
+			return false;
 		}
 
 		System.out.println("preHandle...鉴权结束");
 		return true; // 默认放行
 	}
 
+	/*
+	 * 渲染提示窗口
+	 */
 	private void writerPrint(HttpServletResponse response, String msgStr, String urlStr) throws IOException {
 
 		response.setContentType("text/html; charset=utf-8");

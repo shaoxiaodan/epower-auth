@@ -29,11 +29,12 @@
 			}
 		}
 
-		function swithDefRole(selectorId) {
+		function swithDefRole(formId, selectorId) {
 
+			var defVal = 0;
+			var formObj = document.getElementById(formId);
 			var SelectObj = document.getElementById(selectorId);
 			var optObj = SelectObj.options;
-			var defVal = 0;
 
 			for (var i = 0; i < optObj.length; i++) {
 				if (optObj[i].selected) {
@@ -46,8 +47,10 @@
 				}
 			}
 
-			//alert("defVal=" + defVal);
-			window.location.href = "/index?def=" + defVal;
+			alert("defVal=" + defVal);
+			//window.location.href = "/index?def=" + defVal;
+			formObj.action = "/rolechange?def=" + defVal;
+			return true;
 		}
 
 		init();
@@ -59,11 +62,14 @@
 
 	<h1>当前角色：</h1>
 	<div>
-		<select id="roleselector" name="roleselector">
-			<option th:each="role:${session.userroles}" th:value="${role.id}" th:text="${role.name}"
-				th:selected="${role.id} == ${session.defrole.id}"></option>
-		</select>
-		<button type='button' onclick="swithDefRole('roleselector')">切换角色</button>
+		<form id="roleForm" name="roleForm" fn:action="" method="post" onsubmit="return swithDefRole('roleForm','roleselector')">
+			<select id="roleselector" name="roleselector">
+				<option th:each="role:${session.userroles}" 
+						th:value="${role.id}" th:text="${role.name}"
+						th:selected="${role.id} == ${session.defrole.id}"></option>
+			</select>
+			<button type="submit">切换角色</button>
+		</form>
 	</div>
 	<br>
 
@@ -120,8 +126,11 @@
 	<div th:insert="~{component::com2}"></div>
 	<div th:insert="~{component::#com3}"></div><br>
 	<div th:insert="~{component::#com_menu}"></div>
+	<div th:replace="~{component::com1}"></div>
 	-->
 
+	<div th:insert="~{system/common/component::#myfooter}"></div>
+	
 </body>
 
 </html>
