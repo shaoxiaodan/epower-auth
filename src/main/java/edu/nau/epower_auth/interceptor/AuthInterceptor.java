@@ -83,7 +83,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 			// 4，判断用户操作权限
 			if (!isPermitted) {
-				msgStr = "当前用户无[" + reqUri + "]的访问或执行权限。";
+				msgStr = "当前用户角色无[" + reqUri + "]的访问或执行权限。";
 				writerPrint(response, msgStr, null);
 				return false;
 			}
