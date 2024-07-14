@@ -9,6 +9,38 @@
 	com2
 </foot>
 
+<div id="myheader">
+	
+	
+	<img th:src="@{/pic/google.png}">
+</div>
+
+
+
+<div id="mymenu">
+	<h1>用户菜单：</h1>
+	<div>
+		<ul>
+			<li th:each="menu:${session.defrole.menuList}">
+				<th:block th:if="${not #lists.isEmpty(menu.urlList)}">
+					<div th:each="url:${menu.urlList}">
+						<a th:if="${url.isEntrance}" th:href="@{${url.path}}"
+							th:text="${menu.name}">[[${menu.name}]]</a>
+					</div>
+				</th:block>
+
+				<th:block th:if="${#lists.isEmpty(menu.urlList)}">
+					[[${menu.name}]]
+				</th:block>
+
+			</li>
+
+		</ul>
+	</div>
+</div>
+
+
+
 
 <footer id="myfooter">
 	&copy; 2024 ePower Authrization System | Designed By Xiaodan SHAO.
