@@ -87,6 +87,9 @@ public class UserController {
 	@GetMapping("update")
 	public String updatePage(@RequestParam("uid") int userId, Model model) {
 		User user = userService.getUser(userId);
+		if (user != null) {
+			user.setPassword(null);
+		}
 		model.addAttribute("updateuser", user);
 		return "system/user/update";
 	}
