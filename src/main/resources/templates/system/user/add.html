@@ -30,12 +30,8 @@
 	
 	<!-- 顶部菜单组件 -->
 	<div th:insert="~{system/common/component::#mymenu}"></div>
-	
-	<div>
-		<h1>添加用户页面</h1>
-	</div>
-	
 
+	
 	<div>
 		<div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
 			<form class="border rounded p-5" th:object="${adduser}" th:action="@{adduser}" method="post">
