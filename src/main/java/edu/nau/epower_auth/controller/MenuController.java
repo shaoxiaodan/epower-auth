@@ -159,7 +159,7 @@ public class MenuController {
 	/*
 	 * 菜单授权(URL配置)
 	 */
-	@PostMapping("addurl")
+	@PostMapping("saveurl")
 	public String addAuth(@RequestParam("newurls") int[] urlidsArry, @RequestParam("mid") int menuId) {
 
 		// 1，先检查菜单URL是否存在

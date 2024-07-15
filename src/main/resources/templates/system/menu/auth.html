@@ -50,7 +50,7 @@
 		<h2 th:text="${menu.name}">角色名称</h2>
 	</div>
 
-	<form th:action="@{addurl(mid=${menu.id})}" method="post">
+	<form th:action="@{saveurl(mid=${menu.id})}" method="post">
 		<select multiple="multiple" id="fromselect" name="fromselect" style="width: 300px; height: 200px;">
 			<option th:each="lefturl:${lefturls}" th:value="${lefturl.id}" th:text="${lefturl.path}">left path name</option>
 		</select>
