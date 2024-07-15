@@ -5,16 +5,21 @@
 	<meta charset="UTF-8">
 	<title>menu list page</title>
 
-	<!-- Fonts -->
+	<!-- for Anchor -->
 	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,700" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-	<!-- Main CSS -->
 	<link rel="stylesheet" th:href="@{/css/main.css}">
-
-	<!-- Animation CSS -->
 	<link rel="stylesheet" th:href="@{/css/aos.css}">
+
+	<!-- for boomerang 
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/theme.css}">
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/fontawesome-all.min.js}"></script>
+	-->
 
 </head>
 
@@ -33,7 +38,14 @@
 		<span><a th:href="@{/url/list}">资源列表</a></span>
 	</div>
 
-	<table class="table" border="1">
+	<div align="left">
+		<button type="button" class="btn btn-primary btn-icon-only" onclick="window.location.href='/index'">
+			<span class="btn-inner--icon"><i class="fas fa-home"></i></span>
+		</button>
+		<button type="button" class="btn btn-primary" onclick="window.location.href='add'">添加菜单</button>
+	</div>
+
+	<table class="table table-hover align-items-center">
 		<thead class="thead-light">
 			<tr>
 				<th scope="col">ID</th>
@@ -72,7 +84,7 @@
 		</tfoot>
 	</table>
 
-	<a th:href="@{add}">添加菜单</a>
+	<div th:insert="~{system/common/component::#myfooter}"></div>
 
 </body>
 
