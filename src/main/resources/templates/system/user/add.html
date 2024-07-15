@@ -7,7 +7,8 @@
 
 	<!-- for Anchor -->
 	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,800" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<link rel="stylesheet" th:href="@{/css/all.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
@@ -27,35 +28,26 @@
 </head>
 
 <body>
-	
+
 	<!-- 顶部菜单组件 -->
 	<div th:insert="~{system/common/component::#mymenu}"></div>
 
-	
 	<div>
 		<div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
-			
 			<form class="border rounded p-5" th:object="${adduser}" th:action="@{adduser}" method="post">
-				
 				<h3 class="mb-4 text-center">添加新用户</h3>
-				
 				<div class="form-group">
-					<div class="input-group input-group-transparent mb-4">
-						<input type="text" name="username" th:value="*{username}" class="form-control form-control-lg"
-							placeholder="新用户名称" required="">
-					</div>
+					<input type="text" name="username" th:value="*{username}" class="form-control form-control-lg"
+						placeholder="新用户名称" required="">
 				</div>
-				
 				<div class="form-group">
 					<input type="password" name="password" th:value="*{password}" class="form-control form-control-lg"
 						placeholder="新用户密码" required="">
 				</div>
-				
 				<div class="form-group">
 					<input type="text" name="description" th:value="*{description}" class="form-control form-control-lg"
 						placeholder="添加用户描述 / 说明">
 				</div>
-				
 				<div class="form-group">
 					<a class="btn btn-outline-primary" th:href="@{list}"> &lt;&lt; 返回</a>
 					<button type="submit" class="btn btn-primary">确认添加</button>

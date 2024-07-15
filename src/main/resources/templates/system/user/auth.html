@@ -56,7 +56,7 @@
 
 
 	<div>
-		<h5 class="mb-4 text-left">授权用户：[[${user.username}]]</h5>
+		<h5 class="mb-4 text-left">当前授权用户：[[${user.username}]]</h5>
 	</div>
 	<div>
 		<h5 class="mb-4 text-left">
@@ -64,7 +64,7 @@
 				onsubmit="return chkRoleSelect('roleselector');">
 				<input type="hidden" name="userId" th:value="*{userId}">
 				<!-- 添加角色列表 -->
-				<select id="roleselector" class="selectpicker" name="select_roles" th:field="*{roleId}">
+				<select class="selectpicker" id="roleselector" name="roleselector" th:field="*{roleId}">
 					<option value="0">---- 请选择授权角色 ----</option>
 					<option th:each="role:${roles}" th:value="${role.id}">[[${role.name}]]</option>
 				</select>

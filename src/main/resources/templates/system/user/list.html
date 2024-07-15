@@ -7,7 +7,8 @@
 
 	<!-- for Anchor -->
 	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,800" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<link rel="stylesheet" th:href="@{/css/all.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
@@ -31,11 +32,9 @@
 	<!-- 顶部菜单组件 -->
 	<div th:insert="~{system/common/component::#mymenu}"></div>
 
-
 	<div align="center">
 		<h1>用户管理</h1>
 	</div>
-
 
 	<div align="left">
 		<button type="button" class="btn btn-primary btn-icon-only" onclick="window.location.href='/index'">
@@ -85,13 +84,8 @@
 			</tfoot>
 		</table>
 	</div>
-	<!--	
-	<div th:insert="~{system/common/component::#myheader}"></div>
-	<div th:insert="~{system/common/component::#myrolechange}"></div>
-	<div th:insert="~{system/common/component::#mymenu}"></div>
-	<div th:insert="~{system/common/component::#mypagination}"></div>
-	-->
 
+	<!-- Footer组件 -->
 	<div th:insert="~{system/common/component::#myfooter}"></div>
 
 </body>

@@ -32,7 +32,6 @@
 	<!-- 顶部菜单组件 -->
 	<div th:insert="~{system/common/component::#mymenu}"></div>
 
-
 	<div>
 		<div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
 			<form class="border rounded p-5" th:object="${updateuser}" th:action="@{updateuser}" method="post">
@@ -40,24 +39,18 @@
 				<input type="hidden" name="id" th:value="*{id}">
 
 				<div class="form-group">
-					<div class="input-group input-group-transparent mb-4">
-						<input type="text" name="username" th:value="*{username}" class="form-control form-control-lg"
-							required="" placeholder="更新用户名称">
-					</div>
+					<input type="text" name="username" th:value="*{username}" class="form-control form-control-lg"
+						required="" placeholder="更新用户名称">
 				</div>
 
 				<div class="form-group">
-					<div class="input-group input-group-transparent mb-4">
-						<input type="password" name="password" th:value="*{password}"
-							class="form-control form-control-lg" required="" placeholder="更新用户密码">
-					</div>
+					<input type="password" name="password" th:value="*{password}" class="form-control form-control-lg"
+						required="" placeholder="更新用户密码">
 				</div>
 
 				<div class="form-group">
-					<div class="input-group input-group-transparent mb-4">
-						<input type="text" name="description" th:value="*{description}"
-							class="form-control form-control-lg" placeholder="更新用户描述 / 说明">
-					</div>
+					<input type="text" name="description" th:value="*{description}" class="form-control form-control-lg"
+						placeholder="更新用户描述 / 说明">
 				</div>
 
 				<div class="form-group">
