@@ -44,17 +44,17 @@ function defRoleChange(defroleformid, defroleselectorid) {
  * 检查下拉列表的值是否正确
  */
 function checkOptValue(selectorid, msg) {
-	var optVal = 0;
+	var optVal = true;
 	var selectorObj = document.getElementById(selectorid);
 	var optionsObj = selectorObj.options;
 
 	for (var i = 0; i < optionsObj.length; i++) {
 		if (optionsObj[i].selected && optionsObj[i].value <= 0) {
 			alert("请选择" + msg + "。");
+			optVal = false;
 			break;
 		}
 	}
-
-	return (optVal <= 0) ? false : true;
+	return optVal;
 }
 

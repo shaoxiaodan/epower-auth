@@ -13,7 +13,6 @@
 	<!-- 工具栏组件 -->
 	<div th:insert="~{system/common/component::mytoolbar('角色')}"></div>
 
-
 	<!-- 数据列表 -->
 	<div>
 		<table class="table table-hover align-items-center">
@@ -36,7 +35,7 @@
 					<td th:text="${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm')}">createTime</td>
 					<td th:text="${#dates.format(role.updateTime, 'yyyy-MM-dd HH:mm')}">updateTime</td>
 					<td>
-						<a class="btn btn-outline-primary" th:href="@{auth(rid=${role.id})}">菜单配置</a>
+						<a class="btn btn-outline-primary" th:href="@{auth(rid=${role.id})}">角色配置</a>
 					</td>
 					<td>
 						<a class="btn btn-outline-primary" th:href="@{update(rid=${role.id})}">更新</a>
