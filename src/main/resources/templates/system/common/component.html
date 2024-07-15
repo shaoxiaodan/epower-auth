@@ -60,7 +60,7 @@
 					class="navbar-toggler-icon"></span></button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown-1">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" th:href="@{index}">首页<span
+					<li class="nav-item active"><a class="nav-link" th:href="@{/index}">首页<span
 								class="sr-only">(current)</span></a></li>
 
 					<li class="nav-item dropdown">
@@ -68,7 +68,7 @@
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">切换角色</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<div th:each="role:${session.userroles}">
-								<a class="dropdown-item" th:href="@{rolechange(def=${role.id})}">[[${role.name}]]</a>
+								<a class="dropdown-item" th:href="@{/rolechange(def=${role.id})}">[[${role.name}]]</a>
 							</div>
 						</div>
 					</li>
