@@ -66,7 +66,8 @@ public class IndexController {
 	/*
 	 * 切换用户角色
 	 */
-	@PostMapping("rolechange")
+//	@PostMapping("rolechange")  // 原始的用户角色切换
+	@GetMapping("rolechange")
 	public String userRoleChg(HttpServletRequest req, @RequestParam(name = "def", defaultValue = "0") int roleId) {
 
 		Role defRole = null; // 用户的默认角色

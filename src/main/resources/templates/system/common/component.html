@@ -14,7 +14,8 @@
 </div>
 
 
-<div id="myrolechange">
+<!-- 原始用户角色切换功能 -->
+<div id="myrolechange_bk">
 	<h1>当前角色：</h1>
 	<div>
 		<form id="defroleform" method="post" onsubmit="return defRoleChange('defroleform','defroleselector')">
@@ -29,7 +30,8 @@
 </div>
 
 
-<div id="mymenu">
+<!-- 原始系统菜单列表 -->
+<div id="mymenu_bk">
 	<h1>用户菜单：</h1>
 	<div>
 		<ul>
@@ -40,16 +42,64 @@
 							th:text="${menu.name}">[[${menu.name}]]</a>
 					</div>
 				</th:block>
-
 				<th:block th:if="${#lists.isEmpty(menu.urlList)}">
 					[[${menu.name}]]
 				</th:block>
-
 			</li>
-
 		</ul>
 	</div>
 </div>
+
+
+<div id="mymenu">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+		<div class="container">
+			<a class="navbar-brand" href="#"></i><strong>ePower System</strong></a><button class="navbar-toggler"
+				type="button" data-toggle="collapse" data-target="#navbarNavDropdown-1"
+				aria-controls="navbarNavDropdown-1" aria-expanded="false" aria-label="Toggle navigation" style=""><span
+					class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown-1">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#">首页<span
+								class="sr-only">(current)</span></a></li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="https://wowthemes.net" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">切换角色</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<div th:each="role:${session.userroles}" >
+								<a class="dropdown-item" th:href="@{rolechange(def=${role.id})}">[[${role.name}]]</a>
+							</div>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="https://wowthemes.net" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">系统菜单</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<div th:each="menu:${session.defrole.menuList}">
+								<th:block th:if="${not #lists.isEmpty(menu.urlList)}">
+									<div th:each="url:${menu.urlList}">
+										<a class="dropdown-item" th:if="${url.isEntrance}" th:href="@{${url.path}}"
+											th:text="${menu.name}">[[${menu.name}]]</a>
+									</div>
+								</th:block>
+								<th:block th:if="${#lists.isEmpty(menu.urlList)}">
+									<a class="dropdown-item disabled" href="#">[[${menu.name}]]</a>
+								</th:block>
+							</div>
+
+						</div>
+					</li>
+				</ul>
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{logout}">注销登录
+							<i class="fab fa-twitter"></i>
+						</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</div>
+
 
 
 
