@@ -53,6 +53,7 @@ public class IndexController {
 		if (defRole == null) {
 			// 拿role list中的第一个，作为用户的默认role
 			defRole = roleList.get(0);
+			defRole = verifyDefRolet4Root(defRole);
 
 			// 保存默认role
 			SessionUtils.updateSession(req, ConstantUtils.SESSION_DEF_ROLE, defRole);
@@ -96,11 +97,26 @@ public class IndexController {
 		}
 
 		// 6，当前角色是否为ROOT超级管理员
+		defRole = verifyDefRolet4Root(defRole);
+
+		// 7，更新defrole的session
+		SessionUtils.updateSession(req, ConstantUtils.SESSION_DEF_ROLE, defRole);
+
+		return "redirect:index";
+	}
+
+	/*
+	 * 重新处理当前默认defrole的菜单配置， 如果当前角色为超级管理员Root，重新配置菜单； 否则，不做任何原有菜单的改变
+	 */
+	private Role verifyDefRolet4Root(Role defRole) {
+
+		// 如果当前默认role为Root超级管理员
 		if (defRole.isRoot()) {
-			// 获取所有菜单list
+			// 获取所有的菜单list
 			List<Menu> menuList = menuService.listMenu();
 			if (!ListUtils.isEmpty(menuList)) {
 				for (Menu menu : menuList) {
+					// 重新为Root超级管理员装配菜单
 					menu.setUrlList(urlService.findUrlByMenuId(menu.getId()));
 				}
 			}
@@ -108,10 +124,7 @@ public class IndexController {
 			defRole.setMenuList(menuList);
 		}
 
-		// 7，更新defrole的session
-		SessionUtils.updateSession(req, ConstantUtils.SESSION_DEF_ROLE, defRole);
-
-		return "redirect:index";
+		return defRole;
 	}
 
 }
