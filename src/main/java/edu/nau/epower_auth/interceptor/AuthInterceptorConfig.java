@@ -27,14 +27,14 @@ public class AuthInterceptorConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 
 		// 注册鉴权过滤器
-//		registry.addInterceptor(authInterceptor).addPathPatterns("/**")
+//		registry.addInterceptor(authInterceptor).addPathPatterns("/**") // 拦截所有请求
 		registry.addInterceptor(authInterceptor)
 			.addPathPatterns("/index")
 			.addPathPatterns("/user/**")
 			.addPathPatterns("/role/**")
 			.addPathPatterns("/menu/**")
 			.addPathPatterns("/url/**")
-				.excludePathPatterns("/login", "/logout", "/error") // 放行login, logout
+				.excludePathPatterns("/login", "/rolechange", "/logout", "/error") // 放行login, logout
 //				.excludePathPatterns("/index.html", "/login.html") // 放行index.html, login.html
 				.excludePathPatterns("/css/**", "/js/**", "/pic/**"); // 放行static下的css, js, pic等静态资源文件
 	}
