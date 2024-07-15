@@ -8,7 +8,8 @@
 
 	<!-- for Anchor -->
 	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,800" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<link rel="stylesheet" th:href="@{/css/all.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
@@ -35,24 +36,21 @@
 
 <body>
 
-	<!--
-	<div th:replace="~{component::com1}"></div>
-	<div th:insert="~{component::com2}"></div>
-	<div th:insert="~{component::#com3}"></div><br>
-	<div th:insert="~{component::#com_menu}"></div>
-	<div th:replace="~{component::com1}"></div>
-	-->
-
 	<div th:insert="~{system/common/component::#mymenu}"></div>
 
-	<!--
-	<div th:insert="~{system/common/component::#myheader}"></div>
-
-	<div th:insert="~{system/common/component::#myrolechange}"></div>
+	<!-- 首页登录欢迎语 -->
+	<div class="jumbotron jumbotron-lg jumbotron-fluid mb-3 bg-white position-relative">
+		<div class="container h-100 tofront">
+			<div class="row align-items-center justify-content-center text-center">
+				<div class="col-md-10">
+					<h1 class="ext-black">您好，<strong>[[${session.loginuser.username}]]！</strong></h1>
+					<h3 class="text-black">欢迎您的登录，现在请开始使用ePower授权管理系统。</h3>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div th:insert="~{system/common/component::#myfooter}"></div>
-	-->
-
 
 </body>
 
