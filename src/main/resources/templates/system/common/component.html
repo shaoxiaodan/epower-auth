@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<div th:fragment="com1">
-	com1
-</div>
 
-<foot th:fragment="com2">
-	com2
-</foot>
-
-<div id="myheader">
-	<img th:src="@{/pic/google.png}">
-</div>
-
-
-<!-- 原始用户角色切换功能 -->
+<!-- 原始用户角色切换功能（备份） -->
 <div id="myrolechange_bk">
 	<h1>当前角色：</h1>
 	<div>
@@ -30,7 +18,7 @@
 </div>
 
 
-<!-- 原始系统菜单列表 -->
+<!-- 原始系统菜单列表（备份） -->
 <div id="mymenu_bk">
 	<h1>用户菜单：</h1>
 	<div>
@@ -50,7 +38,7 @@
 	</div>
 </div>
 
-
+<!-- 菜单组件 -->
 <div id="mymenu">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
 		<div class="container">
@@ -64,8 +52,8 @@
 								class="sr-only">(current)</span></a></li>
 
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="https://wowthemes.net" id="navbarDropdownMenuLink"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">切换角色</a>
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">切换角色</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<div th:each="role:${session.userroles}">
 								<a class="dropdown-item" th:href="@{/rolechange(def=${role.id})}">[[${role.name}]]</a>
@@ -73,8 +61,8 @@
 						</div>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="https://wowthemes.net" id="navbarDropdownMenuLink"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">系统菜单</a>
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">系统菜单</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<div th:each="menu:${session.defrole.menuList}">
 								<th:block th:if="${not #lists.isEmpty(menu.urlList)}">
@@ -105,9 +93,8 @@
 </div>
 
 
-
+<!-- 分页组件 -->
 <div id="mypagination">
-
 	<!-- pagination -->
 	<nav aria-label="Page navigation example">
 		<ul class="pagination">
@@ -121,13 +108,6 @@
 				th:classappend="${currpage eq pageinfo.pageNum} ? 'active'">
 				<a class="page-link" th:href="@{list(pageNum=${currpage})}" th:text="${currpage}"></a>
 			</li>
-
-			<!--
-				<li class="page-item"><a class="page-link" href="#">第[[${pageinfo.pageNum}]]页</a></li>
-				<li class="page-item"><a class="page-link" href="#">共[[${pageinfo.pages}]]页</a></li>
-				<li class="page-item"><a class="page-link" href="#">有[[${pageinfo.total}]]分类</a></li>
-			-->
-
 			<!-- 下一页 -->
 			<li class="page-item">
 				<a class="page-link" th:href="@{list(pageNum=${pageinfo.nextPage})}"><i
@@ -138,16 +118,14 @@
 </div>
 
 
-<!-- minimal footer -->
-
+<!-- Footer组件 -->
 <div id="myfooter">
 	<footer class="bg-primary pb-5 pt-4">
 		<div class="container">
 			<div class="row justify-content-center text-center">
 				<div class="col-md-12">
 					<span class="d-block mt-3 text-gray">
-						<small class="d-block mt-3 mb-3 text-muted">© 2024 ePower System & Designed By Xiaodan
-							SHAO.</small>
+						<small class="d-block mt-3 mb-3 text-muted">© 2024 ePower System & Designed By Xiaodan SHAO.</small>
 					</span>
 				</div>
 			</div>
