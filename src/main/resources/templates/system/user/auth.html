@@ -38,6 +38,8 @@
 					<h5 class="mb-4 text-left">[[${user.username}]]</h5>
 				</div>
 			</td>
+		</tr>
+		<tr>
 			<td>
 				<div>
 					<h5 class="mb-4 text-left">授权角色：</h5>
@@ -53,7 +55,7 @@
 							<option th:each="role:${roles}" th:value="${role.id}">[[${role.name}]]</option>
 						</select>
 						<!-- 添加角色btn -->
-						<button type="submit" class="btn btn-primary">添加角色</button>
+						<button type="submit" class="btn btn-primary">添加授权</button>
 					</form>
 				</h5>
 			</td>
