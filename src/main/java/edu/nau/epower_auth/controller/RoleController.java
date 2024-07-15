@@ -45,9 +45,7 @@ public class RoleController {
 	@GetMapping("list")
 	public String listRole(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
-		int pageSize = 10;
-
-		PageHelper.startPage(pageNum, pageSize);
+		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<Role> roles = roleService.listRole();
 		PageInfo<Role> pageInfo = new PageInfo<Role>(roles);
 
