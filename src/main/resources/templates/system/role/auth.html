@@ -25,19 +25,7 @@
 		<script type="text/javascript" th:src="@{/js/fontawesome-all.min.js}"></script>
 		-->
 
-
-	<script type="text/javascript">
-		function testRoles() {
-			//var obj = document.getElementsByName("select_roles");
-			var obj = document.forms[0].elements["select_roles"];
-
-			for (var i = 0; i < obj.length; i++) {
-				if (obj.options[i].selected) {
-					alert(obj.options[i].value);
-				}
-			}
-		}
-	</script>
+	<script type="text/javascript" th:inline="javascript" th:src="@{/js/epower.js}"></script>
 
 </head>
 
@@ -57,9 +45,9 @@
 	<div>
 		<h5 class="mb-4 text-left">
 			<form th:object="${addmenu}" th:action="@{addmenu}" method="post"
-				onsubmit="return chkRoleSelect('menuselector');">
+				onsubmit="return checkOptValue('menuselector','菜单');">
 				<input type="hidden" name="roleId" th:value="*{roleId}">
-				<select class="selectpicker" id="menuselector" name="menuselector" th:field="*{menuId}">
+				<select class="selectpicker" id="menuselector" name="menuId" th:field="*{menuId}">
 					<option value="0">---- 请选择配置菜单 ----</option>
 					<option th:each="menu:${menus}" th:value="${menu.id}" th:text="${menu.name}">
 						菜单名称

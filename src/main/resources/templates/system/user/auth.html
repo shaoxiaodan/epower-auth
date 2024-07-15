@@ -25,22 +25,7 @@
 	<script type="text/javascript" th:src="@{/js/fontawesome-all.min.js}"></script>
 	-->
 
-	<script type="text/javascript">
-		function chkRoleSelect(selectorid) {
-			var defRoleId = 0;
-			var selectorObj = document.getElementById(selectorid);
-			var optionsObj = selectorObj.options;
-
-			for (var i = 0; i < optionsObj.length; i++) {
-				if (optionsObj[i].selected && optionsObj[i].value == 0) {
-					alert("请选择需要授权的角色。");
-					return false;
-				} else {
-					return true;
-				}
-			}
-		}
-	</script>
+	<script type="text/javascript" th:inline="javascript" th:src="@{/js/epower.js}"></script>
 
 </head>
 
@@ -61,7 +46,7 @@
 	<div>
 		<h5 class="mb-4 text-left">
 			<form th:object="${addrole}" th:action="@{addrole}" method="post"
-				onsubmit="return chkRoleSelect('roleselector');">
+				onsubmit="return checkOptValue('roleselector', '角色');">
 				<input type="hidden" name="userId" th:value="*{userId}">
 				<!-- 添加角色列表 -->
 				<select class="selectpicker" id="roleselector" name="roleselector" th:field="*{roleId}">

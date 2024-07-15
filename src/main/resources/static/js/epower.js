@@ -39,3 +39,22 @@ function defRoleChange(defroleformid, defroleselectorid) {
 	defRoleFormObj.action = "/rolechange?def=" + defVal;
 	return true;
 }
+
+/**
+ * 检查下拉列表的值是否正确
+ */
+function checkOptValue(selectorid, msg) {
+	var optVal = 0;
+	var selectorObj = document.getElementById(selectorid);
+	var optionsObj = selectorObj.options;
+
+	for (var i = 0; i < optionsObj.length; i++) {
+		if (optionsObj[i].selected && optionsObj[i].value <= 0) {
+			alert("请选择" + msg + "。");
+			break;
+		}
+	}
+
+	return (optVal <= 0) ? false : true;
+}
+
