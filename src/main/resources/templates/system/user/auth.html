@@ -5,58 +5,94 @@
 	<meta charset="UTF-8">
 	<title>user auth page</title>
 
-	<!-- Fonts -->
+	<!-- for Anchor -->
 	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,700" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-	<!-- Main CSS -->
 	<link rel="stylesheet" th:href="@{/css/main.css}">
-
-	<!-- Animation CSS -->
 	<link rel="stylesheet" th:href="@{/css/aos.css}">
-	
+
+	<!-- for boomerang 
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/theme.css}">
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/fontawesome-all.min.js}"></script>
+	-->
+
 </head>
 
 <body>
-	<h1>用户授权</h1>
+	<h1>用户授权页面</h1>
 
-	<div>
-		当前用户：
-		<h2 th:text="${user.username}">用户名称</h2>
-	</div>
-
-	<form th:object="${addrole}" th:action="@{addrole}" method="post">
-		<input type="hidden" name="userId" th:value="*{userId}">
-		<select name="select_roles" th:field="*{roleId}">
-			<option th:each="role:${roles}" th:value="${role.id}" th:text="${role.name}">
-				角色name
-			</option>
-		</select>
-		<input type="submit" value="添加角色">
-	</form>
-
-	<table class="table" border="1">
-		<thead class="thead-light">
-			<tr>
-						<th scope="col">角色名称</th>
-						<th scope="col">授权日期</th>
-						<th scope="col">操作</th>
-					</tr>
-		</thead>
-		
-		<tr th:each="userrole:${userroles}">
-			<td th:text="${userrole.name}"></td>
-			<td th:text="${userrole.createTime}"></td>
+	<table width="50%" border="0">
+		<tr>
 			<td>
-				<a th:href="@{removerole(uid=${user.id}, rid=${userrole.id})}">删除角色</a>
+				<div>
+					<h5 class="mb-4 text-left">授权用户：</h5>
+				</div>
+			</td>
+			<td>
+				<div>
+					<h5 class="mb-4 text-left">[[${user.username}]]</h5>
+				</div>
+			</td>
+			<td>
+				<div>
+					<h5 class="mb-4 text-left">授权角色：</h5>
+				</div>
+			</td>
+			<td>
+				<h5 class="mb-4 text-left">
+					<form th:object="${addrole}" th:action="@{addrole}" method="post">
+						<input type="hidden" name="userId" th:value="*{userId}">
+						<!-- 添加角色列表 -->
+						<select class="selectpicker" name="select_roles" th:field="*{roleId}">
+							<option value="0">---- 请选择授权角色 ----</option>
+							<option th:each="role:${roles}" th:value="${role.id}">[[${role.name}]]</option>
+						</select>
+						<!-- 添加角色btn -->
+						<button type="submit" class="btn btn-primary">添加角色</button>
+					</form>
+				</h5>
 			</td>
 		</tr>
 	</table>
-	<a th:href="@{list}">返回用户列表</a>
+
+
+	<table class="table table-hover align-items-center">
+		<thead class="thead-light">
+			<tr>
+				<th scope="col">授权名称</th>
+				<th scope="col">授权说明</th>
+				<th scope="col">授权日期</th>
+				<th scope="col">授权操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="userrole:${userroles}">
+				<td th:text="${userrole.name}"></td>
+				<td th:text="${userrole.description}"></td>
+				<td th:text="${userrole.createTime}"></td>
+				<td>
+					<a class="btn btn-outline-primary"
+						th:href="@{removerole(uid=${user.id}, rid=${userrole.id})}">移除授权角色</a>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">
+					<a class="btn btn-outline-primary" th:href="@{list}">返回用户列表</a>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+
 
 	<div th:insert="~{system/common/component::#myfooter}"></div>
-	
+
 </body>
 
 </html>

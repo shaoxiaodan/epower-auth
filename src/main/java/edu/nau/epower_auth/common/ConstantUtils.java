@@ -23,7 +23,7 @@ public class ConstantUtils {
 	public static final String SESSION_USER_URLS = "userurls";
 
 	// 每页的显示数据量
-	public static final int PAGE_SIZE = 10;
+	public static final int PAGE_SIZE = 5;
 
 	// 分页获取的名称
 	public static final String PAGE_INFO = "pageinfo";
