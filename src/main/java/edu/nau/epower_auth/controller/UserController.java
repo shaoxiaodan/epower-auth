@@ -16,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import edu.nau.epower_auth.common.ConstantUtils;
+import edu.nau.epower_auth.common.EncryptUtils;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.dao.UserRole;
@@ -62,7 +63,6 @@ public class UserController {
 	 */
 	@GetMapping("add")
 	public String addPage(Model model) {
-
 		model.addAttribute("adduser", new User());
 		return "system/user/add";
 	}
@@ -72,13 +72,8 @@ public class UserController {
 	 */
 	@PostMapping("adduser")
 	public String addUser(User user) {
-
 		if (user != null) {
-			String encryptPwd = "";
-
-//			encryptPwd = user.getPassword();
-//			encryptPwd = EncryptUtils.getMD5(encryptPwd); // 密码md5加密
-//			user.setPassword(encryptPwd);
+			user.setPassword(getMd5UserPwd(user));
 			user.setCreateTime(new Date());
 			int add = userService.addUser(user);
 		}
@@ -91,7 +86,6 @@ public class UserController {
 	 */
 	@GetMapping("update")
 	public String updatePage(@RequestParam("uid") int userId, Model model) {
-
 		User user = userService.getUser(userId);
 		model.addAttribute("updateuser", user);
 		return "system/user/update";
@@ -102,7 +96,11 @@ public class UserController {
 	 */
 	@PostMapping("updateuser")
 	public String updateUser(User user) {
-		int update = userService.updateUser(user);
+		if (user != null) {
+			user.setPassword(getMd5UserPwd(user));
+			int update = userService.updateUser(user);
+		}
+
 		return "redirect:list";
 	}
 
@@ -111,7 +109,6 @@ public class UserController {
 	 */
 	@GetMapping("remove")
 	public String removeUser(@RequestParam("uid") int userId) {
-
 		int remove = userService.removeUser(userId);
 		return "redirect:list";
 	}
@@ -167,11 +164,18 @@ public class UserController {
 	 */
 	@GetMapping("removerole")
 	public String removeAuth(@RequestParam("uid") int userId, @RequestParam("rid") int roleId) {
-
 		UserRole userRole = new UserRole();
 		userRole.setUserId(userId);
 		userRole.setRoleId(roleId);
 		int remove = userService.removeUserRoleAuth(userRole);
 		return "redirect:auth?uid=" + userId;
 	}
+
+	/*
+	 * MD5加密用户密码
+	 */
+	private String getMd5UserPwd(User user) {
+		return EncryptUtils.getMD5(user.getPassword());
+	}
+
 }

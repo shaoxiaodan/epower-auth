@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.util.ListUtils;
 
 import edu.nau.epower_auth.common.ConstantUtils;
+import edu.nau.epower_auth.common.EncryptUtils;
 import edu.nau.epower_auth.common.SessionUtils;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
@@ -69,8 +70,13 @@ public class LoginController {
 		if (user != null) {
 			// 用户输入都不为空
 			if (StringUtils.isNotEmpty(user.getUsername()) && StringUtils.isNotEmpty(user.getPassword())) {
+				
+				// MD5加密转换
+				String md5Pwd = EncryptUtils.getMD5(user.getPassword());
+				
 				// 查询登录用户
-				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), user.getPassword());
+//				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), user.getPassword());
+				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), md5Pwd);
 
 				// 用户已登录
 				if (loginUser != null) {
