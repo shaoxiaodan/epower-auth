@@ -50,6 +50,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		// 2，放行index
 		String currUri = "";
 		currUri = request.getRequestURI();
+		System.out.println("preHandle...当前请求=" + currUri);
 		urlStr = "/index";
 		if (currUri.equals(urlStr)) {
 			System.out.println("index 放行...");
