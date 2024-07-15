@@ -48,6 +48,7 @@ public class MenuController {
 	@GetMapping("list")
 	public String listMenu(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
+		// 列表 + 分页
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<Menu> menus = menuService.listMenu();
 		PageInfo<Menu> pageInfo = new PageInfo<Menu>(menus);

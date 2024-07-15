@@ -45,6 +45,7 @@ public class RoleController {
 	@GetMapping("list")
 	public String listRole(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
+		// 列表 + 分页
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<Role> roles = roleService.listRole();
 		PageInfo<Role> pageInfo = new PageInfo<Role>(roles);
