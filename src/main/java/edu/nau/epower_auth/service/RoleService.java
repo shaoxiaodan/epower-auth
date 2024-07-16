@@ -17,6 +17,9 @@ public interface RoleService {
 
 	// 角色列表
 	public List<Role> listRole();
+	
+	// 角色列表 (排除提供excludeRoleList之外的role列表数据)
+	public List<Role> listRole4ExcludeRole(List<Role> excludeRoleList);
 
 	// 获取角色
 	public Role getRole(int roleId);

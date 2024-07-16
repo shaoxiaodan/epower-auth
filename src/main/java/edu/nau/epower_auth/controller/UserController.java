@@ -47,11 +47,12 @@ public class UserController {
 	 * 用户列表page
 	 */
 	@GetMapping("list")
-	public String listUser(HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
+	public String listUser(HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum,
+			ModelMap modelMap) {
 
 		// 获取当前登录用户
-		User loginUser = SessionUtils.getLoginUserSession(request);
-		
+		User loginUser = SessionUtils.getLoginUser(request);
+
 		// 列表 + 分页，过滤当前登录用户的数据显示
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
 		List<User> users = userService.listUser(loginUser.getId());
@@ -125,14 +126,26 @@ public class UserController {
 	 * 用户授权page
 	 */
 	@GetMapping("auth")
-	public String authPage(@RequestParam("uid") int userId, Model model) {
+	public String authPage(HttpServletRequest request, @RequestParam("uid") int userId, Model model) {
+
+		List<Role> roles = null;
 
 		// 根据user id获取用户
 		User user = userService.getUser(userId);
 		model.addAttribute("user", user);
 
-		// 获取角色列表
-		List<Role> roles = roleService.listRole();
+		// 判断当前登录用户的默认角色，是否为root
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+		if (defRole.isRoot()) {
+			// 获取所有的角色列表
+			roles = roleService.listRole();
+		} else {
+			// 获取角色列表 (排除当前用户角色以外的其他角色列表)
+			List<Role> excludingRoleList = SessionUtils.getLoginUserRoleList(request);
+			roles = roleService.listRole4ExcludeRole(excludingRoleList);
+		}
+
+		// 返回页面前端的role list
 		model.addAttribute("roles", roles);
 
 		// 根据user id获取用户所有角色

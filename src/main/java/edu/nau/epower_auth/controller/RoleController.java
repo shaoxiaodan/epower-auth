@@ -15,11 +15,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import edu.nau.epower_auth.common.ConstantUtils;
+import edu.nau.epower_auth.common.SessionUtils;
 import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.RoleMenu;
 import edu.nau.epower_auth.service.MenuService;
 import edu.nau.epower_auth.service.RoleService;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 角色控制器
@@ -43,11 +45,16 @@ public class RoleController {
 	 * 角色列表page
 	 */
 	@GetMapping("list")
-	public String listRole(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
+	public String listRole(HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum,
+			ModelMap modelMap) {
+
+		// 获取当前登录用户的角色列表 (role的排除列表)
+		List<Role> excluldingRoleList = SessionUtils.getLoginUserRoleList(request);
 
 		// 列表 + 分页
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
-		List<Role> roles = roleService.listRole();
+//		List<Role> roles = roleService.listRole();
+		List<Role> roles = roleService.listRole4ExcludeRole(excluldingRoleList); // 查询被排除的role list列表
 		PageInfo<Role> pageInfo = new PageInfo<Role>(roles);
 
 		modelMap.addAttribute("roles", roles);

@@ -63,7 +63,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		Role defRole = null; // 用户的当前角色
 
 		reqUri = request.getRequestURI().toString();
-		defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_DEF_ROLE);
+		defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
 
 		// 用户的当前角色，是否存在
 		if (defRole != null) {

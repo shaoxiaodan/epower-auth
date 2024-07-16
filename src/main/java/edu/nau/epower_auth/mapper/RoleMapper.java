@@ -1,6 +1,7 @@
 package edu.nau.epower_auth.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.mapping.FetchType;
 
@@ -28,17 +30,15 @@ public interface RoleMapper {
 	/*
 	 * 根据用户id，查出所有角色，并装配菜单menu
 	 */
-	@Select("SELECT r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time, r.is_root as is_root" 
-			+ " FROM user_role ur"
-			+ " LEFT JOIN role r on ur.role_id = r.id" 
+	@Select("SELECT r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time, r.is_root as is_root"
+			+ " FROM user_role ur" + " LEFT JOIN role r on ur.role_id = r.id" 
 			+ " WHERE ur.user_id = #{userId}")
-	@Results(value = 
-			{
-					@Result(id = true, property = "id", column = "id"), 
-					@Result(property = "name", column = "name"),
-					@Result(property = "description", column = "description"),
-					@Result(property = "menuList", column = "id", 
-						many = @Many(select = "edu.nau.epower_auth.mapper.MenuMapper.findMenuByRoleId", fetchType = FetchType.DEFAULT)) })
+	@Results(value = { 
+			@Result(id = true, property = "id", column = "id"), 
+			@Result(property = "name", column = "name"),
+			@Result(property = "description", column = "description"),
+			@Result(property = "menuList", column = "id", 
+			many = @Many(select = "edu.nau.epower_auth.mapper.MenuMapper.findMenuByRoleId", fetchType = FetchType.DEFAULT)) })
 	public List<Role> findRoleByUserId(@Param("userId") int userId);
 
 	@Select("SELECT * FROM role")
@@ -46,7 +46,7 @@ public interface RoleMapper {
 
 	@Select("SELECT * FROM role where id = #{roleId}")
 	public Role findRole(@Param("roleId") int roleId);
-	
+
 	@Insert("INSERT INTO role(name, description) VALUES (#{name}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
 	public int addRole(Role role);
@@ -57,4 +57,25 @@ public interface RoleMapper {
 	@Delete("DELETE FROM role WHERE id = #{roleId}")
 	public int removeRole(@Param("roleId") int roleId);
 
+	@SelectProvider(type = SqlProvider.class, method = "selectNotInBatch")
+	public List<Role> listRoleListByExcludingBatch(List<Role> excludeRoleList);
+
+	/*
+	 * 批量SQL提供者
+	 */
+	class SqlProvider {
+		// 批量查询
+		public String selectNotInBatch(Map map) {
+			List<Role> roleList = (List<Role>) map.get("list");
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT * FROM role WHERE id NOT IN (");
+			for (int i = 0; i < roleList.size(); i++) {
+				sb.append("'").append(roleList.get(i).getId()).append("'");
+				if (i < roleList.size() - 1)
+					sb.append(",");
+			}
+			sb.append(")");
+			return sb.toString();
+		}
+	}
 }

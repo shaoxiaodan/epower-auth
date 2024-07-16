@@ -46,8 +46,8 @@ public class IndexController {
 		List<Role> roleList = null;
 
 		// 读取session中的默认角色 & role list
-		defRole = (Role) SessionUtils.retrieveSession(req, ConstantUtils.SESSION_DEF_ROLE);
-		roleList = (List<Role>) SessionUtils.retrieveSession(req, ConstantUtils.SESSION_USER_ROLES);
+		defRole = (Role) SessionUtils.retrieveSession(req, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+		roleList = (List<Role>) SessionUtils.retrieveSession(req, ConstantUtils.SESSION_LOGIN_USER_ROLES);
 
 		// 当前用户没有默认角色
 		if (defRole == null) {
@@ -56,7 +56,7 @@ public class IndexController {
 			defRole = verifyDefRolet4Root(defRole);
 
 			// 保存默认role
-			SessionUtils.updateSession(req, ConstantUtils.SESSION_DEF_ROLE, defRole);
+			SessionUtils.updateSession(req, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE, defRole);
 		}
 
 		// 渲染首页
@@ -74,7 +74,7 @@ public class IndexController {
 		List<Role> roleList = null; // 用户的role list
 
 		// 1，读取session中的role list
-		roleList = (List<Role>) SessionUtils.retrieveSession(req, ConstantUtils.SESSION_USER_ROLES);
+		roleList = (List<Role>) SessionUtils.retrieveSession(req, ConstantUtils.SESSION_LOGIN_USER_ROLES);
 
 		// 2，检查角色的roleId
 		if (roleId > 0) {
@@ -101,7 +101,7 @@ public class IndexController {
 		defRole = verifyDefRolet4Root(defRole);
 
 		// 7，更新defrole的session
-		SessionUtils.updateSession(req, ConstantUtils.SESSION_DEF_ROLE, defRole);
+		SessionUtils.updateSession(req, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE, defRole);
 
 		return "redirect:index";
 	}
