@@ -86,8 +86,8 @@ public class LoginController {
 					if (!ListUtils.isEmpty(userRoleList)) {
 
 						// 保存登录用户信息session
-						SessionUtils.updateSession(req, ConstantUtils.SESSION_LOGIN_USER, loginUser); // 保存用户登录
-						SessionUtils.updateSession(req, ConstantUtils.SESSION_USER_ROLES, userRoleList); // 保存用户角色
+						SessionUtils.updateSession(req, ConstantUtils.SESSION_LOGIN_USER, loginUser); // 保存用户的登录信息
+						SessionUtils.updateSession(req, ConstantUtils.SESSION_USER_ROLES, userRoleList); // 保存用户所有的角色
 
 						urlStr = "redirect:index"; // 重定向到index
 					} else {
