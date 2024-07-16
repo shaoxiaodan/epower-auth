@@ -89,7 +89,7 @@
 							</div>
 							<!-- 没有分配任何菜单，显示提示信息 -->
 							<div th:if="${#lists.isEmpty(session.defrole.menuList)}">
-							<div>
+								<div>
 									<a class="dropdown-item disabled" href="#">暂无分配任何菜单</a>
 								</div>
 							</div>
@@ -98,11 +98,12 @@
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link disabled text-light btn-round"
-							href="#">当前角色：<strong>[[${session.defrole.name}]]</strong></a>
+						<a class="nav-link disabled text-light btn-round" href="#">
+							欢迎回来！[[${session.loginuser.username}]] ([[${session.defrole.name}]])
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link bg-danger btn-round" th:href="@{/logout}">退出系统</a>
+						<a class="nav-link bg-danger btn-round" th:href="@{/logout}"><strong>退出登录</strong></a>
 					</li>
 				</ul>
 			</div>
