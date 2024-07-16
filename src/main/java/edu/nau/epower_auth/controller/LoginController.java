@@ -76,7 +76,7 @@ public class LoginController {
 				
 				// 查询登录用户
 //				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), user.getPassword());
-				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), md5Pwd);
+				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), md5Pwd); // MD5加密
 
 				// 用户已登录
 				if (loginUser != null) {
