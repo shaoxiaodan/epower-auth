@@ -3,7 +3,6 @@ package edu.nau.epower_auth.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bouncycastle.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -179,9 +178,8 @@ public class MenuController {
 		}
 
 		// 3，如果URL的id数组不为空，进入逻辑处理流程；
-		if (!Arrays.isNullOrEmpty(urlidsArry)) {
+		if (urlidsArry != null && urlidsArry.length > 0) {
 //			System.out.println("3，URL的id数组不为空。。。");
-
 			muList = new ArrayList<MenuUrl>();
 			for (int i = 0; i < urlidsArry.length; i++) {
 				MenuUrl mUrl = new MenuUrl();
