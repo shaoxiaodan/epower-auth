@@ -47,10 +47,10 @@ public class UserController {
 	 * 用户列表page
 	 */
 	@GetMapping("list")
-	public String listUser(HttpServletRequest req, @RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
+	public String listUser(HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
 		// 获取当前登录用户
-		User loginUser = SessionUtils.getLoginUserSession(req);
+		User loginUser = SessionUtils.getLoginUserSession(request);
 		
 		// 列表 + 分页，过滤当前登录用户的数据显示
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
