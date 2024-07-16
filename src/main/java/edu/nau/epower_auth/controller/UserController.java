@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.util.ListUtils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -140,9 +141,21 @@ public class UserController {
 			// 获取所有的角色列表
 			roles = roleService.listRole();
 		} else {
-			// 获取角色列表 (排除当前用户角色以外的其他角色列表)
+			/*
+			// 获取角色列表 (排除当前用户角色以外的其他角色列表&同等level级别的数据)
 			List<Role> excludingRoleList = SessionUtils.getLoginUserRoleList(request);
 			roles = roleService.listRole4ExcludeRole(excludingRoleList);
+			if (!ListUtils.isEmpty(roles)) {
+				for (int i = 0; i < roles.size(); i++) {
+					if (roles.get(i).getLevel() >= defRole.getLevel()) {
+						break;
+					} else {
+						roles.remove(i);
+					}
+				}
+			}
+			*/
+			roles = roleService.listRoleNotRoot(defRole);
 		}
 
 		// 返回页面前端的role list

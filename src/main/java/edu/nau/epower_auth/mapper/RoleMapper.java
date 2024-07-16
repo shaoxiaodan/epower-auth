@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.mapping.FetchType;
 
 import edu.nau.epower_auth.dao.Role;
@@ -31,7 +32,8 @@ public interface RoleMapper {
 	 * 根据用户id，查出所有角色，并装配菜单menu
 	 */
 	@Select("SELECT r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time, r.is_root as is_root, r.level as level"
-			+ " FROM user_role ur" + " LEFT JOIN role r on ur.role_id = r.id" 
+			+ " FROM user_role ur" 
+			+ " LEFT JOIN role r on ur.role_id = r.id" 
 			+ " WHERE ur.user_id = #{userId}")
 	@Results(value = { 
 			@Result(id = true, property = "id", column = "id"), 
@@ -43,6 +45,9 @@ public interface RoleMapper {
 
 	@Select("SELECT * FROM role")
 	public List<Role> listRole();
+
+	@Select("select * from role where id != #{id} and level >= #{level}")
+	public List<Role> listRoleNotRoot(Role defRole);
 
 	@Select("SELECT * FROM role where id = #{roleId}")
 	public Role findRole(@Param("roleId") int roleId);
@@ -57,8 +62,8 @@ public interface RoleMapper {
 	@Delete("DELETE FROM role WHERE id = #{roleId}")
 	public int removeRole(@Param("roleId") int roleId);
 
-	@SelectProvider(type = SqlProvider.class, method = "selectNotInBatch")
-	public List<Role> listRoleListByExcludingBatch(List<Role> excludeRoleList);
+//	@SelectProvider(type = SqlProvider.class, method = "selectNotInBatch")
+//	public List<Role> listRoleListByExcludingBatch(List<Role> excludeRoleList);
 
 	/*
 	 * 批量SQL提供者
@@ -77,5 +82,6 @@ public interface RoleMapper {
 			sb.append(")");
 			return sb.toString();
 		}
+
 	}
 }

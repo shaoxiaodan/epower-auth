@@ -48,13 +48,22 @@ public class RoleController {
 	public String listRole(HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum,
 			ModelMap modelMap) {
 
-		// 获取当前登录用户的角色列表 (role的排除列表)
-		List<Role> excluldingRoleList = SessionUtils.getLoginUserRoleList(request);
+		// 列表结果集
+		List<Role> roles = null;
+
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
 
 		// 列表 + 分页
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
-//		List<Role> roles = roleService.listRole();
-		List<Role> roles = roleService.listRole4ExcludeRole(excluldingRoleList); // 查询被排除的role list列表
+
+		if (defRole.isRoot()) {
+			// 如果是root，显示所有角色
+			roles = roleService.listRole();
+		} else {
+			// 如果非root，只能看到相同级别和以下的角色
+			roles = roleService.listRoleNotRoot(defRole);
+		}
 		PageInfo<Role> pageInfo = new PageInfo<Role>(roles);
 
 		modelMap.addAttribute("roles", roles);
@@ -68,7 +77,6 @@ public class RoleController {
 	 */
 	@GetMapping("add")
 	public String addPage(Model model) {
-
 		model.addAttribute("addrole", new Role());
 		return "system/role/add";
 	}
@@ -77,9 +85,14 @@ public class RoleController {
 	 * 角色添加
 	 */
 	@PostMapping("addrole")
-	public String addRole(Role role) {
+	public String addRole(HttpServletRequest request, Role role) {
 
-		int add = roleService.addRole(role);
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+		if (defRole != null) {
+			role.setLevel(defRole.getLevel() + 1); // 角色级别 +1
+			int add = roleService.addRole(role);
+		}
+
 		return "redirect:list";
 	}
 
@@ -88,7 +101,6 @@ public class RoleController {
 	 */
 	@GetMapping("update")
 	public String updatePage(@RequestParam("rid") int roleId, Model model) {
-
 		Role role = roleService.getRole(roleId);
 		model.addAttribute("updaterole", role);
 		return "system/role/update";

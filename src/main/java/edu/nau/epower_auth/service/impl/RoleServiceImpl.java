@@ -39,11 +39,10 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	/*
-	 * 角色列表 (排除提供excludeRoleList之外的role列表数据)
+	 * 角色列表 (非Root角色，只能显示自己当前和以下级别的role数据)
 	 */
-	@Override
-	public List<Role> listRole4ExcludeRole(List<Role> excludeRoleList) {
-		return roleMapper.listRoleListByExcludingBatch(excludeRoleList);
+	public List<Role> listRoleNotRoot(Role defRole) {
+		return roleMapper.listRoleNotRoot(defRole);
 	}
 
 	/*
