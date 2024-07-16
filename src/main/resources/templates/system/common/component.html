@@ -43,15 +43,22 @@
 <div id="mymenu">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
 		<div class="container">
-			<a class="navbar-brand disabled" href="#"></i><strong>ePower System</strong></a><button
-				class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown-1"
-				aria-controls="navbarNavDropdown-1" aria-expanded="false" aria-label="Toggle navigation" style=""><span
-					class="navbar-toggler-icon"></span></button>
+
+			<div>
+				<!-- 网站logo -->
+				<img th:src="@{/pic/logo_32.png}" />
+			</div>
+			<!-- 网站名称 -->
+			<div>
+				<a class="navbar-brand disabled" th:href="@{index}">
+					<strong>ePower System</strong>
+				</a>
+			</div>
+
 			<div class="collapse navbar-collapse" id="navbarNavDropdown-1">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><a class="nav-link" th:href="@{/index}">首页<span
 								class="sr-only">(current)</span></a></li>
-
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">切换角色</a>
@@ -76,7 +83,6 @@
 									<a class="dropdown-item disabled" href="#">[[${menu.name}]]</a>
 								</th:block>
 							</div>
-
 						</div>
 					</li>
 				</ul>
@@ -126,7 +132,6 @@
 		<div class="container">
 			<div class="row justify-content-center text-center">
 				<div class="col-md-12">
-					<img th:src="@{/pic/logo/logo_32.png}">
 					<span class="d-block mt-3 text-gray">
 						<small class="d-block mt-3 mb-3 text-muted">© 2024 ePower System & Designed By Xiaodan
 							SHAO.</small>
@@ -146,10 +151,11 @@
 
 	<!-- 设置网站icon图标 -->
 	<link rel="shortcut icon" th:href="@{/pic/favicon.ico}" />
-	
+
 	<!-- 第三方UI库 -->
 	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,800" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/all.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
 	<link rel="stylesheet" th:href="@{/css/aos.css}">
