@@ -41,6 +41,9 @@ public interface UrlMapper {
 	@Select("SELECT * FROM url WHERE id = #{urlId}")
 	public Url findUrl(@Param("urlId") int urlId);
 	
+	@Select("SELECT * FROM url WHERE path = #{path}")
+	public Url findUrlByPath(@Param("path") String path);
+	
 	@Insert("INSERT INTO url(path, static_path, is_entrance, description)"
 			+ " VALUES (#{path}, #{staticPath}, #{isEntrance}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") //返回自增id

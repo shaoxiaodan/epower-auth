@@ -1,19 +1,16 @@
 package edu.nau.epower_auth.interceptor;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.thymeleaf.util.ListUtils;
 
 import edu.nau.epower_auth.common.ConstantUtils;
+import edu.nau.epower_auth.common.HtmlUtils;
 import edu.nau.epower_auth.common.SessionUtils;
 import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.dao.User;
-import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -43,7 +40,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 		if (loginUser == null) {
 			msgStr = "登录超时，请重新登录。";
 			urlStr = "/login";
-			writerPrint(response, msgStr, urlStr);
+//			writerPrint(response, msgStr, urlStr);
+			HtmlUtils.getWebPageAlert(response, msgStr, urlStr);
 			return false;
 		}
 
@@ -85,12 +83,14 @@ public class AuthInterceptor implements HandlerInterceptor {
 			// 4，判断用户操作权限
 			if (!isPermitted) {
 				msgStr = "当前用户角色无[" + reqUri + "]的访问或执行权限。";
-				writerPrint(response, msgStr, null);
+//				writerPrint(response, msgStr, null);
+				HtmlUtils.getWebPageAlert(response, msgStr, null);
 				return false;
 			}
 		} else {
 			msgStr = "当前用户无分配任何角色，请与管理员确认。";
-			writerPrint(response, msgStr, null);
+//			writerPrint(response, msgStr, null);
+			HtmlUtils.getWebPageAlert(response, msgStr, null);
 			return false;
 		}
 
@@ -101,19 +101,19 @@ public class AuthInterceptor implements HandlerInterceptor {
 	/*
 	 * 渲染提示窗口
 	 */
-	private void writerPrint(HttpServletResponse response, String msgStr, String urlStr) throws IOException {
-
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter writer = response.getWriter();
-		writer.println("<script language='javascript'>");
-
-		if (StringUtils.isEmpty(urlStr)) {
-			writer.println("history.go(-1)"); // 返回（历史）上一页
-		} else {
-			writer.println("window.location.href = '" + urlStr + "';"); // 直接跳转url
-		}
-		writer.println("alert('" + msgStr + "');");
-		writer.println("</script>");
-	}
+//	private void writerPrint(HttpServletResponse response, String msgStr, String urlStr) throws IOException {
+//
+//		response.setContentType("text/html; charset=utf-8");
+//		PrintWriter writer = response.getWriter();
+//		writer.println("<script language='javascript'>");
+//
+//		if (StringUtils.isEmpty(urlStr)) {
+//			writer.println("history.go(-1)"); // 返回（历史）上一页
+//		} else {
+//			writer.println("window.location.href = '" + urlStr + "';"); // 直接跳转url
+//		}
+//		writer.println("alert('" + msgStr + "');");
+//		writer.println("</script>");
+//	}
 
 }

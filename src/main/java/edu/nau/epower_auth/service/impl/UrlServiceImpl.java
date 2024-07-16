@@ -42,6 +42,14 @@ public class UrlServiceImpl implements UrlService {
 	}
 
 	/*
+	 * 获取资源路径(by path)
+	 */
+	@Override
+	public Url getUrlByPath(String path) {
+		return urlMapper.findUrlByPath(path);
+	}
+
+	/*
 	 * 获取资源路径 by menu id
 	 */
 	@Override

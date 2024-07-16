@@ -20,6 +20,9 @@ public interface UrlService {
 	// 获取URL
 	public Url getUrl(int urlId);
 
+	// 获取URL(by path)
+	public Url getUrlByPath(String path);
+
 	// 获取URL by menu id
 	public List<Url> findUrlByMenuId(int menuId);
 
