@@ -78,8 +78,7 @@
 								<!-- 如果菜单配置正确，正常显示 -->
 								<th:block th:if="${not #lists.isEmpty(menu.urlList)}">
 									<div th:each="url:${menu.urlList}">
-										<a class="dropdown-item" th:if="${url.isEntrance}" th:href="@{${url.path}}"
-											th:text="${menu.name}">[[${menu.name}]]</a>
+										<a class="dropdown-item" th:if="${url.isEntrance}" th:href="@{${url.path}}">[[${menu.name}]]</a>
 									</div>
 								</th:block>
 								<!-- 如果菜单配置不正确，只显示菜单名字，但无法进入页面 -->
