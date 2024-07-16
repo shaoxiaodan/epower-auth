@@ -25,7 +25,8 @@ public class UserServiceImplTest {
 
 	@Test
 	public void testListUser() {
-		userService.listUser();
+		int loginUserId = 2;
+		userService.listUser(loginUserId);
 	}
 
 	@Test
