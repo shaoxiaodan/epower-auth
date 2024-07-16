@@ -98,22 +98,4 @@ public class AuthInterceptor implements HandlerInterceptor {
 		return true; // 默认放行
 	}
 
-	/*
-	 * 渲染提示窗口
-	 */
-//	private void writerPrint(HttpServletResponse response, String msgStr, String urlStr) throws IOException {
-//
-//		response.setContentType("text/html; charset=utf-8");
-//		PrintWriter writer = response.getWriter();
-//		writer.println("<script language='javascript'>");
-//
-//		if (StringUtils.isEmpty(urlStr)) {
-//			writer.println("history.go(-1)"); // 返回（历史）上一页
-//		} else {
-//			writer.println("window.location.href = '" + urlStr + "';"); // 直接跳转url
-//		}
-//		writer.println("alert('" + msgStr + "');");
-//		writer.println("</script>");
-//	}
-
 }
