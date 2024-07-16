@@ -15,8 +15,8 @@ import edu.nau.epower_auth.dao.UserRole;
  */
 public interface UserService {
 
-	// 用户列表
-	public List<User> listUser();
+	// 用户列表(过滤当前登录用户数据)
+	public List<User> listUser(int userId);
 
 	// 获取用户
 	public User getUser(int userId);

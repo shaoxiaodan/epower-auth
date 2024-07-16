@@ -73,7 +73,7 @@ public class TestController {
 	@GetMapping("testlogin")
 	public String testLogin(ModelMap modelMap) {
 
-		List<User> userList = userService.listUser();
+		List<User> userList = userService.listUser(2);
 		modelMap.addAttribute("userlist", userList);
 		System.out.println("testLogin, userList=" + userList);
 		return "testlogin";

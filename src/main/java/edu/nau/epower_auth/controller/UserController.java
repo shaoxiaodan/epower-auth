@@ -17,11 +17,13 @@ import com.github.pagehelper.PageInfo;
 
 import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.common.EncryptUtils;
+import edu.nau.epower_auth.common.SessionUtils;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.dao.UserRole;
 import edu.nau.epower_auth.service.RoleService;
 import edu.nau.epower_auth.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 用户控制器
@@ -45,11 +47,14 @@ public class UserController {
 	 * 用户列表page
 	 */
 	@GetMapping("list")
-	public String listUser(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
+	public String listUser(HttpServletRequest req, @RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
 
-		// 列表 + 分页
+		// 获取当前登录用户
+		User loginUser = SessionUtils.getLoginUserSession(req);
+		
+		// 列表 + 分页，过滤当前登录用户的数据显示
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
-		List<User> users = userService.listUser();
+		List<User> users = userService.listUser(loginUser.getId());
 		PageInfo<User> pageInfo = new PageInfo<User>(users);
 
 		modelMap.addAttribute("users", users);

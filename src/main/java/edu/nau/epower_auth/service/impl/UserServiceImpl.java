@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 //	@Cacheable(cacheNames = {"userCache"}, key = "#root.method.name")
-	public List<User> listUser() {
-		return userMapper.listUser();
+	public List<User> listUser(int userId) {
+		return userMapper.listUser(userId);
 	}
 
 	/*

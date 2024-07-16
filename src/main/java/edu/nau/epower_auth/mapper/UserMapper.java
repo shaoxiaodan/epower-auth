@@ -30,8 +30,8 @@ public interface UserMapper {
 	@Select("SELECT * FROM user WHERE username = #{userName} AND password = #{pwd}")
 	public User findUserByUserNameAndPwd(@Param("userName") String username, @Param("pwd") String password);
 
-	@Select("SELECT * FROM user")
-	public List<User> listUser();
+	@Select("SELECT * FROM user WHERE id != #{userId}")
+	public List<User> listUser(@Param("userId") int userId);
 
 	@Insert("INSERT INTO user(username, password, description) VALUES (#{username}, #{password}, #{description})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
