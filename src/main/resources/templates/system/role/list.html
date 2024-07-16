@@ -3,7 +3,7 @@
 
 <!-- 头部公共组件 -->
 
-<head th:include="~{system/common/component::myheader('角色管理页面')}"></head>
+<head th:include="~{system/common/component::myheader('角色管理')}"></head>
 
 <body>
 
@@ -35,7 +35,7 @@
 					<td th:text="${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm')}">createTime</td>
 					<td th:text="${#dates.format(role.updateTime, 'yyyy-MM-dd HH:mm')}">updateTime</td>
 					<td>
-						<a class="btn btn-outline-primary" th:href="@{auth(rid=${role.id})}">角色配置</a>
+						<a class="btn btn-outline-primary" th:href="@{auth(rid=${role.id})}">菜单配置</a>
 					</td>
 					<td>
 						<a class="btn btn-outline-primary" th:href="@{update(rid=${role.id})}">更新</a>

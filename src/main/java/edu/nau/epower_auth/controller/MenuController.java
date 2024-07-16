@@ -194,7 +194,7 @@ public class MenuController {
 			int auth = menuService.addMenuUrlAuthBatch(muList);
 		} else {
 			// 5，URL的id数组为空，不做处理
-//			System.out.println("5，URL的id数组为空，不做任何东西。。。");
+			System.out.println("5，URL的id数组为空，不做任何东西。。。");
 		}
 
 		// 6，重定向返回auth列表
