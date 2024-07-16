@@ -66,9 +66,7 @@ public class UserMapperTest {
 
 	@Test
 	public void testListUser() {
-
-		int loginUserId = 2;
-		List<User> userList = userMapper.listUser(loginUserId);
+		List<User> userList = userMapper.listUser();
 		System.out.println("testListUser::userList=" + userList);
 	}
 

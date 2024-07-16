@@ -2,6 +2,7 @@ package edu.nau.epower_auth.service;
 
 import java.util.List;
 
+import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.dao.UserRole;
 
@@ -15,8 +16,14 @@ import edu.nau.epower_auth.dao.UserRole;
  */
 public interface UserService {
 
-	// 用户列表(过滤当前登录用户数据)
-	public List<User> listUser(int userId);
+	// 用户列表(全部)
+	public List<User> listUser();
+
+	// 用户列表(全部：但过滤当前登录用户自己的数据)
+	public List<User> listUserNotMe(int userId);
+
+	// 用户列表(全部：但过滤当前登录用户自己，且level高于自己权限的数据)
+	public List<User> listUserNotMeAndRoot(int userId, Role defRole);
 
 	// 获取用户
 	public User getUser(int userId);

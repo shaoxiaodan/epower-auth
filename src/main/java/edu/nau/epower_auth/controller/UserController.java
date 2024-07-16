@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.util.ListUtils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -51,12 +50,21 @@ public class UserController {
 	public String listUser(HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum,
 			ModelMap modelMap) {
 
+		List<User> users = null;
+
 		// 获取当前登录用户
 		User loginUser = SessionUtils.getLoginUser(request);
 
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
 		// 列表 + 分页，过滤当前登录用户的数据显示
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);
-		List<User> users = userService.listUser(loginUser.getId());
+		if (defRole.isRoot()) {
+			users = userService.listUserNotMe(loginUser.getId());
+		} else {
+			users = userService.listUserNotMeAndRoot(loginUser.getId(), defRole);
+		}
 		PageInfo<User> pageInfo = new PageInfo<User>(users);
 
 		modelMap.addAttribute("users", users);
@@ -142,19 +150,13 @@ public class UserController {
 			roles = roleService.listRole();
 		} else {
 			/*
-			// 获取角色列表 (排除当前用户角色以外的其他角色列表&同等level级别的数据)
-			List<Role> excludingRoleList = SessionUtils.getLoginUserRoleList(request);
-			roles = roleService.listRole4ExcludeRole(excludingRoleList);
-			if (!ListUtils.isEmpty(roles)) {
-				for (int i = 0; i < roles.size(); i++) {
-					if (roles.get(i).getLevel() >= defRole.getLevel()) {
-						break;
-					} else {
-						roles.remove(i);
-					}
-				}
-			}
-			*/
+			 * // 获取角色列表 (排除当前用户角色以外的其他角色列表&同等level级别的数据) List<Role> excludingRoleList =
+			 * SessionUtils.getLoginUserRoleList(request); roles =
+			 * roleService.listRole4ExcludeRole(excludingRoleList); if
+			 * (!ListUtils.isEmpty(roles)) { for (int i = 0; i < roles.size(); i++) { if
+			 * (roles.get(i).getLevel() >= defRole.getLevel()) { break; } else {
+			 * roles.remove(i); } } }
+			 */
 			roles = roleService.listRoleNotRoot(defRole);
 		}
 

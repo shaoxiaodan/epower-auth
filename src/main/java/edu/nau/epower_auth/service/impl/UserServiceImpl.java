@@ -3,11 +3,11 @@ package edu.nau.epower_auth.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
 import edu.nau.epower_auth.dao.UserRole;
 import edu.nau.epower_auth.mapper.UserMapper;
@@ -32,12 +32,28 @@ public class UserServiceImpl implements UserService {
 	private UserRoleMapper userRoleMapper;
 
 	/*
-	 * 用户列表
+	 * 用户列表(全部)
 	 */
 	@Override
 //	@Cacheable(cacheNames = {"userCache"}, key = "#root.method.name")
-	public List<User> listUser(int userId) {
-		return userMapper.listUser(userId);
+	public List<User> listUser() {
+		return userMapper.listUser();
+	}
+
+	/*
+	 * 用户列表(排除自己的数据)
+	 */
+	@Override
+//	@Cacheable(cacheNames = {"userCache"}, key = "#root.method.name")
+	public List<User> listUserNotMe(int userId) {
+		return userMapper.listUserNotMe(userId);
+	}
+
+	/*
+	 * 用户列表 (但过滤当前登录用户自己，且level高于自己权限的数据)
+	 */
+	public List<User> listUserNotMeAndRoot(int userId, Role defRole) {
+		return userMapper.listUserNotMeAndRoot(userId, defRole);
 	}
 
 	/*

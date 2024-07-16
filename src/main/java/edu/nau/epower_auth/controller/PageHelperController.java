@@ -24,7 +24,7 @@ public class PageHelperController {
 	public List<User> testPageHelper(int pageNum, int pageSize) {
 
 		PageHelper.startPage(pageNum, pageSize);
-		List<User> users = userService.listUser(2);
+		List<User> users = userService.listUser();
 		return users;
 	}
 
@@ -32,7 +32,7 @@ public class PageHelperController {
 	public PageInfo<User> testPageHelper2(int pageNum, int pageSize) {
 
 		PageHelper.startPage(pageNum, pageSize);
-		List<User> users = userService.listUser(2);
+		List<User> users = userService.listUser();
 		PageInfo<User> page = new PageInfo<User>(users);
 		return page;
 	}
