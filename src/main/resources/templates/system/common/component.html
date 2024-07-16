@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 
-<!-- 原始用户角色切换功能（备份） -->
+<!-- 原始用户角色切换功能（备份保留） -->
 <div id="myrolechange_bk">
 	<h1>当前角色：</h1>
 	<div>
@@ -18,7 +18,7 @@
 </div>
 
 
-<!-- 原始系统菜单列表（备份） -->
+<!-- 原始系统菜单列表（备份保留） -->
 <div id="mymenu_bk">
 	<h1>用户菜单：</h1>
 	<div>
@@ -72,16 +72,26 @@
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">系统菜单</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+							<!-- 开始显示菜单 -->
 							<div th:each="menu:${session.defrole.menuList}">
+								<!-- 如果菜单配置正确，正常显示 -->
 								<th:block th:if="${not #lists.isEmpty(menu.urlList)}">
 									<div th:each="url:${menu.urlList}">
 										<a class="dropdown-item" th:if="${url.isEntrance}" th:href="@{${url.path}}"
 											th:text="${menu.name}">[[${menu.name}]]</a>
 									</div>
 								</th:block>
+								<!-- 如果菜单配置不正确，只显示菜单名字，但无法进入页面 -->
 								<th:block th:if="${#lists.isEmpty(menu.urlList)}">
 									<a class="dropdown-item disabled" href="#">[[${menu.name}]]</a>
 								</th:block>
+							</div>
+							<!-- 没有分配任何菜单，显示提示信息 -->
+							<div th:if="${#lists.isEmpty(session.defrole.menuList)}">
+							<div>
+									<a class="dropdown-item disabled" href="#">暂无分配任何菜单</a>
+								</div>
 							</div>
 						</div>
 					</li>
