@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,18 +73,25 @@ public class MenuController {
 	 * 添加菜单page
 	 */
 	@GetMapping("add")
-	public String addPage(Model model) {
+	public String addPage(HttpServletRequest request, ModelMap modelMap) {
 
-		model.addAttribute("addmenu", new Menu());
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/menu");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+
+		// 表单绑定对象
+		modelMap.addAttribute("addmenu", new Menu());
 		return "system/menu/add";
 	}
 
 	/*
 	 * 添加菜单
 	 */
-	@PostMapping("addmenu")
+	@PostMapping("add")
 	public String addMenu(Menu menu) {
-
 		int add = menuService.addMenu(menu);
 		return "redirect:list";
 	}
@@ -94,17 +100,26 @@ public class MenuController {
 	 * 更新菜单page
 	 */
 	@GetMapping("update")
-	public String updatePage(@RequestParam("mid") int menuId, Model model) {
+	public String updatePage(HttpServletRequest request, @RequestParam("mid") int menuId, ModelMap modelMap) {
 
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/menu");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+
+		// 表单绑定对象
 		Menu menu = menuService.getMenu(menuId);
-		model.addAttribute("updatemenu", menu);
+		modelMap.addAttribute("updatemenu", menu);
+
 		return "system/menu/update";
 	}
 
 	/*
 	 * 更新菜单
 	 */
-	@PostMapping("updatemenu")
+	@PostMapping("update")
 	public String updateMenu(Menu menu) {
 		int update = menuService.updateMenu(menu);
 		return "redirect:list";
@@ -124,7 +139,14 @@ public class MenuController {
 	 * 菜单授权page
 	 */
 	@GetMapping("auth")
-	public String authPage(@RequestParam("mid") int menuId, Model model) {
+	public String authPage(HttpServletRequest request, @RequestParam("mid") int menuId, ModelMap modelMap) {
+
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/menu");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
 
 		// 根据menu id获取菜单
 		Menu menu = menuService.getMenu(menuId);
@@ -161,9 +183,10 @@ public class MenuController {
 			}
 		}
 
-		model.addAttribute("menu", menu);
-		model.addAttribute("lefturls", leftUrls);
-		model.addAttribute("righturls", rightUrls);
+		// 表单绑定对象
+		modelMap.addAttribute("menu", menu);
+		modelMap.addAttribute("lefturls", leftUrls);
+		modelMap.addAttribute("righturls", rightUrls);
 
 		return "system/menu/auth";
 	}
@@ -171,7 +194,7 @@ public class MenuController {
 	/*
 	 * 菜单授权(URL配置)
 	 */
-	@PostMapping("saveurl")
+	@PostMapping("auth")
 	public String addAuth(@RequestParam("newurls") int[] urlidsArry, @RequestParam("mid") int menuId) {
 
 		// 1，先检查菜单URL是否存在

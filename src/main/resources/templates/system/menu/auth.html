@@ -79,7 +79,7 @@
 
 	<div>
 		<div class="d-md align-items-center justify-content-center">
-			<form class="p-5" th:action="@{saveurl(mid=${menu.id})}" method="post"
+			<form class="p-5" th:action="@{auth(mid=${menu.id})}" method="post"
 				onsubmit="return getUrlOptIds('toselect');">
 				<input type="hidden" id="newurls" name="newurls" value="">
 
@@ -101,7 +101,6 @@
 											[[${lefturl.path}]]</option>
 									</select>
 								</div>
-
 							</td>
 							<td>
 								<div class="form-group">
@@ -130,7 +129,12 @@
 						<tr>
 							<td colspan="3">
 								<a class="btn btn-outline-primary" th:href="@{list}"> &lt;&lt; 返回</a>
-								<button type="submit" class="btn btn-primary">保存URL配置</button>
+
+								<span th:each="url:${verifyurls}">
+									<span th:if="${url.path} == |${verifyreq}/auth|">
+										<button type="submit" class="btn btn-primary">保存URL配置</button>
+									</span>
+								</span>
 							</td>
 						</tr>
 					</tfoot>
