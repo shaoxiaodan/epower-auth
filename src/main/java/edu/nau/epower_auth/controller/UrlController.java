@@ -17,8 +17,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import edu.nau.epower_auth.common.ConstantUtils;
+import edu.nau.epower_auth.common.HtmlUtils;
+import edu.nau.epower_auth.common.SessionUtils;
+import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.Url;
 import edu.nau.epower_auth.service.UrlService;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * URL资源控制器
@@ -39,7 +43,15 @@ public class UrlController {
 	 * URL列表page
 	 */
 	@GetMapping("list")
-	public String listUrl(@RequestParam(defaultValue = "1") int pageNum, ModelMap modelMap) {
+	public String listUrl(HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum,
+			ModelMap modelMap) {
+
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/url");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
 
 		// 列表 + 分页
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);

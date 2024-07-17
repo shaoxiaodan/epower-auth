@@ -28,4 +28,10 @@ public class ConstantUtils {
 	// 分页获取的名称
 	public static final String PAGE_INFO = "pageinfo";
 
+	// 用于页面校验请求的key
+	public static final String PAGE_VERIFY_REQ = "verifyreq";
+
+	// 用于页面校验URL的key
+	public static final String PAGE_VERIFY_URLS = "verifyurls";
+
 }

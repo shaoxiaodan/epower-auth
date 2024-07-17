@@ -11,8 +11,7 @@
 	<div th:insert="~{system/common/component::#mymenu}"></div>
 
 	<!-- 工具栏组件 -->
-	<div th:insert="~{system/common/component::mytoolbar('URL资源')}"></div>
-
+	<div th:insert="~{system/common/component::mytoolbar('URL资源', |${verifyreq}/add|)}"></div>
 
 	<!-- 数据列表 -->
 	<div>
@@ -39,8 +38,16 @@
 					<td th:text="${#dates.format(url.updateTime, 'yyyy-MM-dd HH:mm')}">updateTime</td>
 					<td th:text="${url.description}">description</td>
 					<td>
-						<a class="btn btn-outline-primary" th:href="@{update(id=${url.id})}">更新</a>
-						<a class="btn btn-outline-primary" th:href="@{remove(id=${url.id})}">删除</a>
+						<span th:each="url:${verifyurls}">
+							<span th:if="${url.path} == |${verifyreq}/update|">
+								<a class="btn btn-outline-primary" th:href="@{update(id=${url.id})}">更新</a>
+							</span>
+						</span>
+						<span th:each="url:${verifyurls}">
+							<span th:if="${url.path} == |${verifyreq}/remove|">
+								<a class="btn btn-outline-primary" th:href="@{remove(id=${url.id})}">删除</a>
+							</span>
+						</span>
 					</td>
 				</tr>
 			</tbody>

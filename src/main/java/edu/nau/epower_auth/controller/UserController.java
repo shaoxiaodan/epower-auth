@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 
 import edu.nau.epower_auth.common.ConstantUtils;
 import edu.nau.epower_auth.common.EncryptUtils;
+import edu.nau.epower_auth.common.HtmlUtils;
 import edu.nau.epower_auth.common.SessionUtils;
 import edu.nau.epower_auth.dao.Role;
 import edu.nau.epower_auth.dao.User;
@@ -57,6 +58,10 @@ public class UserController {
 
 		// 获取当前登录用户的默认角色
 		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/user");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
 
 		// 列表 + 分页，过滤当前登录用户的数据显示
 		PageHelper.startPage(pageNum, ConstantUtils.PAGE_SIZE);

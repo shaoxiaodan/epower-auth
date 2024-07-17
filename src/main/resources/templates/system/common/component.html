@@ -78,7 +78,8 @@
 								<!-- 如果菜单配置正确，正常显示 -->
 								<th:block th:if="${not #lists.isEmpty(menu.urlList)}">
 									<div th:each="url:${menu.urlList}">
-										<a class="dropdown-item" th:if="${url.isEntrance}" th:href="@{${url.path}}">[[${menu.name}]]</a>
+										<a class="dropdown-item" th:if="${url.isEntrance}"
+											th:href="@{${url.path}}">[[${menu.name}]]</a>
 									</div>
 								</th:block>
 								<!-- 如果菜单配置不正确，只显示菜单名字，但无法进入页面 -->
@@ -179,8 +180,8 @@
 </head>
 
 
-<!-- 页面tool bar的工具组件 -->
-<div th:fragment="mytoolbar(name)">
+<!-- 页面tool bar的工具组件(备份) -->
+<div th:fragment="mytoolbar_bk(name)">
 	<div align="center">
 		<h1>[[${name}]]管理页面</h1>
 	</div>
@@ -189,6 +190,25 @@
 			<span class="btn-inner--icon"><i class="fas fa-home"></i></span>
 		</button>
 		<button type="button" class="btn btn-primary" onclick="window.location.href='add'">添加[[${name}]]</button>
+	</div>
+</div>
+
+
+<!-- 页面tool bar的工具组件 -->
+<div th:fragment="mytoolbar(name, path)">
+	<div align="center">
+		<h1>[[${name}]]管理页面</h1>
+	</div>
+	<div align="left">
+		<button type="button" class="btn btn-primary btn-icon-only" onclick="window.location.href='/index'">
+			<span class="btn-inner--icon"><i class="fas fa-home"></i></span>
+		</button>
+		<span th:each="url:${verifyurls}">
+			<span th:if="${url.path == path}">
+				<button type="button" class="btn btn-primary"
+					onclick="window.location.href='add'">添加[[${name}]]</button>
+			</span>
+		</span>
 	</div>
 </div>
 

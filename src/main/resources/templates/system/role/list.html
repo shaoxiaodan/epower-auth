@@ -11,7 +11,7 @@
 	<div th:insert="~{system/common/component::#mymenu}"></div>
 
 	<!-- 工具栏组件 -->
-	<div th:insert="~{system/common/component::mytoolbar('角色')}"></div>
+	<div th:insert="~{system/common/component::mytoolbar('角色', |${verifyreq}/add|)}"></div>
 
 	<!-- 数据列表 -->
 	<div>
@@ -35,11 +35,23 @@
 					<td th:text="${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm')}">createTime</td>
 					<td th:text="${#dates.format(role.updateTime, 'yyyy-MM-dd HH:mm')}">updateTime</td>
 					<td>
-						<a class="btn btn-outline-primary" th:href="@{auth(rid=${role.id})}">菜单配置</a>
+						<span th:each="url:${verifyurls}">
+							<span th:if="${url.path} == |${verifyreq}/auth|">
+								<a class="btn btn-outline-primary" th:href="@{auth(rid=${role.id})}">菜单配置</a>
+							</span>
+						</span>
 					</td>
 					<td>
-						<a class="btn btn-outline-primary" th:href="@{update(rid=${role.id})}">更新</a>
-						<a class="btn btn-outline-primary" th:href="@{remove(rid=${role.id})}">删除</a>
+						<span th:each="url:${verifyurls}">
+							<span th:if="${url.path} == |${verifyreq}/update|">
+								<a class="btn btn-outline-primary" th:href="@{update(rid=${role.id})}">更新</a>
+							</span>
+						</span>
+						<span th:each="url:${verifyurls}">
+							<span th:if="${url.path} == |${verifyreq}/remove|">
+								<a class="btn btn-outline-primary" th:href="@{remove(rid=${role.id})}">删除</a>
+							</span>
+						</span>
 					</td>
 				</tr>
 			</tbody>
