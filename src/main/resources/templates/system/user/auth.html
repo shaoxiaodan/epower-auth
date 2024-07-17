@@ -13,24 +13,27 @@
 	<div align="center">
 		<h1>用户授权页面</h1>
 	</div>
-	
+
 	<!-- 角色列表 -->
 	<div>
 		<h5 class="mb-4 text-left">当前授权用户：[[${user.username}]]</h5>
 	</div>
 	<div>
 		<h5 class="mb-4 text-left">
-			<form th:object="${addrole}" th:action="@{addrole}" method="post"
-				onsubmit="return checkOptValue('roleselector', '角色');">
-				<input type="hidden" name="userId" th:value="*{userId}">
-				<!-- 添加角色列表 -->
-				<select class="selectpicker" id="roleselector" name="roleselector" th:field="*{roleId}">
-					<option value="0">---- 请选择授权角色 ----</option>
-					<option th:each="role:${roles}" th:value="${role.id}">[[${role.name}]]</option>
-				</select>
-				<!-- 添加角色btn -->
-				<button type="submit" class="btn btn-primary">添加授权</button>
-			</form>
+			<span th:each="url:${verifyurls}">
+				<span th:if="${url.path} == |${verifyreq}/auth|">
+					<form th:object="${addrole}" th:action="@{auth}" method="post"
+						onsubmit="return checkOptValue('roleselector', '角色');">
+						<input type="hidden" name="userId" th:value="*{userId}">
+						<!-- 添加角色列表 -->
+						<select class="selectpicker" id="roleselector" name="roleselector" th:field="*{roleId}">
+							<option value="0">---- 请选择授权角色 ----</option>
+							<option th:each="role:${roles}" th:value="${role.id}">[[${role.name}]]</option>
+						</select>
+						<button type="submit" class="btn btn-primary">添加授权</button>
+					</form>
+				</span>
+			</span>
 		</h5>
 	</div>
 
@@ -51,8 +54,12 @@
 					<td th:text="${userrole.description}"></td>
 					<td th:text="${userrole.createTime}"></td>
 					<td>
-						<a class="btn btn-outline-primary"
-							th:href="@{removerole(uid=${user.id}, rid=${userrole.id})}">移除授权角色</a>
+						<span th:each="url:${verifyurls}">
+							<span th:if="${url.path} == |${verifyreq}/removeauth|">
+								<a class="btn btn-outline-primary"
+									th:href="@{removeauth(uid=${user.id}, rid=${userrole.id})}">移除授权角色</a>
+							</span>
+						</span>
 					</td>
 				</tr>
 			</tbody>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-
 <!-- 头部公共组件 -->
 
 <head th:include="~{system/common/component::myheader('用户更新')}"></head>
@@ -13,7 +12,7 @@
 
 	<div>
 		<div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
-			<form class="border rounded p-5" th:object="${updateuser}" th:action="@{updateuser}" method="post">
+			<form class="border rounded p-5" th:object="${updateuser}" th:action="@{update}" method="post">
 				<h3 class="mb-4 text-center">更新当前用户</h3>
 				<input type="hidden" name="id" th:value="*{id}">
 
@@ -34,7 +33,11 @@
 
 				<div class="form-group">
 					<a class="btn btn-outline-primary" th:href="@{list}"> &lt;&lt; 返回</a>
-					<button type="submit" class="btn btn-primary">确认更新</button>
+					<span th:each="url:${verifyurls}">
+						<span th:if="${url.path} == |${verifyreq}/update|">
+							<button type="submit" class="btn btn-primary">确认更新</button>
+						</span>
+					</span>
 				</div>
 			</form>
 		</div>

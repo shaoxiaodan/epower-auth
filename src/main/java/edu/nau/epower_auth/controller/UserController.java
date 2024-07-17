@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,22 +81,30 @@ public class UserController {
 	 * 用户添加page
 	 */
 	@GetMapping("add")
-	public String addPage(Model model) {
-		model.addAttribute("adduser", new User());
+	public String addPage(HttpServletRequest request, ModelMap modelMap) {
+
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/user");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+
+		// 绑定新表单对象，返回前端page
+		modelMap.addAttribute("adduser", new User());
 		return "system/user/add";
 	}
 
 	/*
 	 * 用户添加
 	 */
-	@PostMapping("adduser")
+	@PostMapping("add")
 	public String addUser(User user) {
 		if (user != null) {
 			user.setPassword(getMd5UserPwd(user));
 			user.setCreateTime(new Date());
 			int add = userService.addUser(user);
 		}
-
 		return "redirect:list";
 	}
 
@@ -105,25 +112,33 @@ public class UserController {
 	 * 用户更新page
 	 */
 	@GetMapping("update")
-	public String updatePage(@RequestParam("uid") int userId, Model model) {
+	public String updatePage(HttpServletRequest request, @RequestParam("uid") int userId, ModelMap modelMap) {
+
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/user");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+
 		User user = userService.getUser(userId);
 		if (user != null) {
-			user.setPassword(null);
+			user.setPassword(null); // 清空密码的显示
 		}
-		model.addAttribute("updateuser", user);
+		modelMap.addAttribute("updateuser", user);
+
 		return "system/user/update";
 	}
 
 	/*
 	 * 用户更新
 	 */
-	@PostMapping("updateuser")
+	@PostMapping("update")
 	public String updateUser(User user) {
 		if (user != null) {
-			user.setPassword(getMd5UserPwd(user));
+			user.setPassword(getMd5UserPwd(user)); // MD5加密
 			int update = userService.updateUser(user);
 		}
-
 		return "redirect:list";
 	}
 
@@ -140,42 +155,40 @@ public class UserController {
 	 * 用户授权page
 	 */
 	@GetMapping("auth")
-	public String authPage(HttpServletRequest request, @RequestParam("uid") int userId, Model model) {
+	public String authPage(HttpServletRequest request, @RequestParam("uid") int userId, ModelMap modelMap) {
 
 		List<Role> roles = null;
 
 		// 根据user id获取用户
 		User user = userService.getUser(userId);
-		model.addAttribute("user", user);
+		modelMap.addAttribute("user", user);
 
 		// 判断当前登录用户的默认角色，是否为root
 		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/user");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+
+		// 判断当前登录用户的默认角色，是否为root
 		if (defRole.isRoot()) {
 			// 获取所有的角色列表
 			roles = roleService.listRole();
 		} else {
-			/*
-			 * // 获取角色列表 (排除当前用户角色以外的其他角色列表&同等level级别的数据) List<Role> excludingRoleList =
-			 * SessionUtils.getLoginUserRoleList(request); roles =
-			 * roleService.listRole4ExcludeRole(excludingRoleList); if
-			 * (!ListUtils.isEmpty(roles)) { for (int i = 0; i < roles.size(); i++) { if
-			 * (roles.get(i).getLevel() >= defRole.getLevel()) { break; } else {
-			 * roles.remove(i); } } }
-			 */
 			roles = roleService.listRoleNotRoot(defRole);
 		}
 
 		// 返回页面前端的role list
-		model.addAttribute("roles", roles);
+		modelMap.addAttribute("roles", roles);
 
 		// 根据user id获取用户所有角色
 		List<Role> userRoles = roleService.findRoleByUserId(userId);
-		model.addAttribute("userroles", userRoles);
+		modelMap.addAttribute("userroles", userRoles);
 
 		// 用user id创建映射对象，返回前端并绑定表单
 		UserRole userRole = new UserRole();
 		userRole.setUserId(userId);
-		model.addAttribute("addrole", userRole);
+		modelMap.addAttribute("addrole", userRole);
 
 		return "system/user/auth";
 	}
@@ -183,7 +196,7 @@ public class UserController {
 	/*
 	 * 用户授权添加
 	 */
-	@PostMapping("addrole")
+	@PostMapping("auth")
 	public String addAuth(UserRole userRole) {
 
 		// 1，先检查用户角色是否存在
@@ -203,7 +216,7 @@ public class UserController {
 	/*
 	 * 用户授权删除
 	 */
-	@GetMapping("removerole")
+	@GetMapping("removeauth")
 	public String removeAuth(@RequestParam("uid") int userId, @RequestParam("rid") int roleId) {
 		UserRole userRole = new UserRole();
 		userRole.setUserId(userId);
