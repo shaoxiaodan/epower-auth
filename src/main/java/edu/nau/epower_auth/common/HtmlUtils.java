@@ -3,9 +3,13 @@ package edu.nau.epower_auth.common;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.thymeleaf.util.ListUtils;
+import org.thymeleaf.util.MapUtils;
 
 import edu.nau.epower_auth.dao.Menu;
 import edu.nau.epower_auth.dao.Role;
@@ -36,18 +40,29 @@ public class HtmlUtils {
 	 */
 	public static List<Url> getUrlListByDefRole(Role defRole) {
 
-		List<Menu> menuList = null;
 		List<Url> newUrlList = new ArrayList<Url>();
+		Map<String, Url> tempUrlMap = new LinkedHashMap<String, Url>();
 
+		// 1，获取当前用户默认角色下的url，并封装在map中（排除重复path）
 		if (defRole != null) {
-
 			if (!ListUtils.isEmpty(defRole.getMenuList())) {
-				menuList = defRole.getMenuList();
-				for (Menu menu : menuList) {
+				for (Menu menu : defRole.getMenuList()) {
 					if (!ListUtils.isEmpty(menu.getUrlList())) {
-						newUrlList.addAll(menu.getUrlList());
+						for (int i = 0; i < menu.getUrlList().size(); i++) {
+							tempUrlMap.put(menu.getUrlList().get(i).getPath(), menu.getUrlList().get(i));
+						}
 					}
 				}
+			}
+		}
+
+		// 2，从map中再次遍历重来，装入newUrlList后返回
+		if (!MapUtils.isEmpty(tempUrlMap)) {
+			// 3，通过迭代器，获取value（URL对象）
+			Iterator<Map.Entry<String, Url>> itr = tempUrlMap.entrySet().iterator();
+			while (itr.hasNext()) {
+				Map.Entry<String, Url> entry = itr.next();
+				newUrlList.add(entry.getValue());
 			}
 		}
 
