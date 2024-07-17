@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -81,15 +80,25 @@ public class RoleController {
 	 * 角色添加page
 	 */
 	@GetMapping("add")
-	public String addPage(Model model) {
-		model.addAttribute("addrole", new Role());
+	public String addPage(HttpServletRequest request, ModelMap modelMap) {
+
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/role");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+
+		// 返回表单绑定对象
+		modelMap.addAttribute("addrole", new Role());
+
 		return "system/role/add";
 	}
 
 	/*
 	 * 角色添加
 	 */
-	@PostMapping("addrole")
+	@PostMapping("add")
 	public String addRole(HttpServletRequest request, Role role) {
 
 		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
@@ -105,16 +114,26 @@ public class RoleController {
 	 * 角色更新page
 	 */
 	@GetMapping("update")
-	public String updatePage(@RequestParam("rid") int roleId, Model model) {
+	public String updatePage(HttpServletRequest request, @RequestParam("rid") int roleId, ModelMap modelMap) {
+
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/role");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+
+		// 表单绑定对象
 		Role role = roleService.getRole(roleId);
-		model.addAttribute("updaterole", role);
+		modelMap.addAttribute("updaterole", role);
+
 		return "system/role/update";
 	}
 
 	/*
 	 * 角色更新
 	 */
-	@PostMapping("updaterole")
+	@PostMapping("update")
 	public String updateRole(Role role) {
 		int update = roleService.updateRole(role);
 		return "redirect:list";
@@ -134,24 +153,31 @@ public class RoleController {
 	 * 角色授权page
 	 */
 	@GetMapping("auth")
-	public String authPage(@RequestParam("rid") int roleId, Model model) {
+	public String authPage(HttpServletRequest request, @RequestParam("rid") int roleId, ModelMap modelMap) {
+
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/role");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
 
 		// 根据role id获取角色
 		Role role = roleService.getRole(roleId);
-		model.addAttribute("role", role);
+		modelMap.addAttribute("role", role);
 
 		// 获取菜单列表
 		List<Menu> menus = menuService.listMenu();
-		model.addAttribute("menus", menus);
+		modelMap.addAttribute("menus", menus);
 
 		// 根据role id获取角色所有菜单
 		List<Menu> roleMenus = menuService.findMenuByRoleId(roleId);
-		model.addAttribute("rolemenus", roleMenus);
+		modelMap.addAttribute("rolemenus", roleMenus);
 
 		// 用role id创建menu映射对象，返回前端并绑定表单
 		RoleMenu roleMenu = new RoleMenu();
 		roleMenu.setRoleId(roleId);
-		model.addAttribute("addmenu", roleMenu);
+		modelMap.addAttribute("addmenu", roleMenu);
 
 		return "system/role/auth";
 	}
@@ -159,7 +185,7 @@ public class RoleController {
 	/*
 	 * 角色授权添加
 	 */
-	@PostMapping("addmenu")
+	@PostMapping("auth")
 	public String addAuth(RoleMenu roleMenu) {
 
 		// 1，先检查角色菜单是否存在
@@ -179,7 +205,7 @@ public class RoleController {
 	/*
 	 * 角色授权删除
 	 */
-	@GetMapping("removemenu")
+	@GetMapping("removeauth")
 	public String removeAuth(@RequestParam("rid") int roleId, @RequestParam("mid") int menuId) {
 
 		RoleMenu roleMenu = new RoleMenu();

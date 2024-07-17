@@ -21,17 +21,21 @@
 	<!-- 菜单配置到角色 -->
 	<div>
 		<h5 class="mb-4 text-left">
-			<form th:object="${addmenu}" th:action="@{addmenu}" method="post"
-				onsubmit="return checkOptValue('menuselector','菜单');">
-				<input type="hidden" name="roleId" th:value="*{roleId}">
-				<select class="selectpicker" id="menuselector" name="menuId" th:field="*{menuId}">
-					<option value="0">---- 请选择配置菜单 ----</option>
-					<option th:each="menu:${menus}" th:value="${menu.id}" th:text="${menu.name}">
-						菜单名称
-					</option>
-				</select>
-				<button type="submit" class="btn btn-primary">添加到角色</button>
-			</form>
+			<span th:each="url:${verifyurls}">
+				<span th:if="${url.path} == |${verifyreq}/auth|">
+					<form th:object="${addmenu}" th:action="@{auth}" method="post"
+						onsubmit="return checkOptValue('menuselector','菜单');">
+						<input type="hidden" name="roleId" th:value="*{roleId}">
+						<select class="selectpicker" id="menuselector" name="menuId" th:field="*{menuId}">
+							<option value="0">---- 请选择配置菜单 ----</option>
+							<option th:each="menu:${menus}" th:value="${menu.id}" th:text="${menu.name}">
+								菜单名称
+							</option>
+						</select>
+						<button type="submit" class="btn btn-primary">添加到角色</button>
+					</form>
+				</span>
+			</span>
 		</h5>
 	</div>
 
@@ -56,8 +60,11 @@
 					<td th:text="${rolemenu.createTime}"></td>
 					<td th:text="${rolemenu.updateTime}"></td>
 					<td>
-						<a class="btn btn-outline-primary"
-							th:href="@{removemenu(rid=${role.id}, mid=${rolemenu.id})}">删除菜单</a>
+						<span th:each="url:${verifyurls}">
+							<span th:if="${url.path} == |${verifyreq}/removeauth|">
+								<a class="btn btn-outline-primary" th:href="@{removeauth(rid=${role.id}, mid=${rolemenu.id})}">删除菜单</a>
+							</span>
+						</span>
 					</td>
 				</tr>
 			</tbody>
