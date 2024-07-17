@@ -68,15 +68,23 @@ public class UrlController {
 	 * URL添加page
 	 */
 	@GetMapping("add")
-	public String addPage(Model model) {
+	public String addPage(HttpServletRequest request, ModelMap modelMap) {
 
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/url");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+		
 		// 设置boolean值的isEntrance属性
 		Map<String, Object> optMaps = new HashMap<String, Object>();
 		optMaps.put("是", 1);
 		optMaps.put("否", 0);
 
-		model.addAttribute("addurl", new Url());
-		model.addAttribute("optmaps", optMaps);
+		// 返回页面表单的绑定对象
+		modelMap.addAttribute("addurl", new Url());
+		modelMap.addAttribute("optmaps", optMaps);
 
 		return "system/url/add";
 	}
@@ -84,7 +92,7 @@ public class UrlController {
 	/*
 	 * URL添加
 	 */
-	@PostMapping("addurl")
+	@PostMapping("add")
 	public String addUrl(Url url) {
 		int add = urlService.addUrl(url);
 		return "redirect:list";
@@ -94,8 +102,15 @@ public class UrlController {
 	 * URL更新page
 	 */
 	@GetMapping("update")
-	public String updatePage(@RequestParam("id") int urlId, Model model) {
+	public String updatePage(HttpServletRequest request, @RequestParam("id") int urlId, ModelMap modelMap) {
 
+		// 获取当前登录用户的默认角色
+		Role defRole = (Role) SessionUtils.retrieveSession(request, ConstantUtils.SESSION_LOGIN_USER_DEF_ROLE);
+
+		// 添加前端操作按钮的控制对象
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/url");
+		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
+		
 		// 设置boolean值的isEntrance属性
 		Map<String, Object> optMaps = new HashMap<String, Object>();
 		optMaps.put("是", 1);
@@ -104,8 +119,9 @@ public class UrlController {
 		// 获取URL列表
 		Url url = urlService.getUrl(urlId);
 
-		model.addAttribute("updateurl", url);
-		model.addAttribute("optmaps", optMaps);
+		// 表单绑定对象
+		modelMap.addAttribute("updateurl", url);
+		modelMap.addAttribute("optmaps", optMaps);
 
 		return "system/url/update";
 	}
@@ -113,7 +129,7 @@ public class UrlController {
 	/*
 	 * URL更新
 	 */
-	@PostMapping("updateurl")
+	@PostMapping("update")
 	public String updateUrl(Url url) {
 		int update = urlService.updateUrl(url);
 		return "redirect:list";
