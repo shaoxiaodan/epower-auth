@@ -28,11 +28,10 @@ import edu.nau.epower_auth.dao.Role;
  */
 public interface RoleMapper {
 
-	/*
-	 * 根据用户id，查出所有角色，并装配菜单menu
-	 */
-	@Select("SELECT r.id as id, r.name as name, r.description as description, r.create_time as create_time, r.update_time as update_time, r.is_root as is_root, r.level as level"
-			+ " FROM user_role ur" 
+	// 根据用户id，查出所有角色，并装配菜单menu
+	@Select("SELECT r.id as id, r.name as name, r.description as description, "
+			+ " r.create_time as create_time, r.update_time as update_time, "
+			+ " r.is_root as is_root, r.level as level FROM user_role ur" 
 			+ " LEFT JOIN role r on ur.role_id = r.id" 
 			+ " WHERE ur.user_id = #{userId}")
 	@Results(value = { 
@@ -40,25 +39,32 @@ public interface RoleMapper {
 			@Result(property = "name", column = "name"),
 			@Result(property = "description", column = "description"),
 			@Result(property = "menuList", column = "id", 
-			many = @Many(select = "edu.nau.epower_auth.mapper.MenuMapper.findMenuByRoleId", fetchType = FetchType.DEFAULT)) })
+			many = @Many(select = "edu.nau.epower_auth.mapper.MenuMapper.findMenuByRoleId", 
+					fetchType = FetchType.DEFAULT)) })
 	public List<Role> findRoleByUserId(@Param("userId") int userId);
 
+	// 查询所有角色
 	@Select("SELECT * FROM role")
 	public List<Role> listRole();
 
+	// 根据角色id，查询所有排除自己和低于自己角色级别的数据
 	@Select("select * from role where id != #{id} and level >= #{level}")
 	public List<Role> listRoleNotRoot(Role defRole);
 
+	// 根据角色id，查询角色
 	@Select("SELECT * FROM role where id = #{roleId}")
 	public Role findRole(@Param("roleId") int roleId);
 
+	// 添加新的角色
 	@Insert("INSERT INTO role(name, description, level) VALUES (#{name}, #{description}, #{level})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id") // 返回自增id
 	public int addRole(Role role);
 
+	// 更具角色id，更新对应角色
 	@Update("UPDATE role SET name = #{name}, description = #{description}, update_time = CURRENT_TIMESTAMP WHERE id = #{id}")
 	public int updateRole(Role role);
 
+	// 根据角色id，删除对应角色
 	@Delete("DELETE FROM role WHERE id = #{roleId}")
 	public int removeRole(@Param("roleId") int roleId);
 

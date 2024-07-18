@@ -22,18 +22,23 @@ import edu.nau.epower_auth.dao.UserRole;
  */
 public interface UserRoleMapper {
 
+	// 根据用户id和角色id，查询所有用户-角色关联关系
 	@Select("SELECT * FROM user_role WHERE user_id = #{userId} AND role_id = #{roleId}")
 	public UserRole getUserRole(UserRole userRole);
 
+	// 根据用户id和角色id，添加新的用户-角色关联关系
 	@Insert("INSERT INTO user_role(user_id, role_id) VALUES (#{userId}, #{roleId})")
 	public int insertUserRole(UserRole userRole);
 
+	// 根据用户id和角色id，删除对应用户-角色关联关系
 	@Delete("DELETE FROM user_role WHERE user_id = #{userId} AND role_id = #{roleId}")
 	public int deleteUserRole(UserRole userRole);
 
+	// 批量添加新的用户-角色关联关系
 	@InsertProvider(type = SqlProvider.class, method = "insertBatch")
 	public int insertUserRoleBatch(List<UserRole> userRoleList);
 
+	// 批量删除用户-角色关联关系
 	@DeleteProvider(type = SqlProvider.class, method = "deleteBatch")
 	public int deleteUserRoleBatch(List<UserRole> userRoleList);
 

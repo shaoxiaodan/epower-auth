@@ -22,12 +22,15 @@ import edu.nau.epower_auth.dao.UserRole;
  */
 public interface RoleMenuMapper {
 
+	// 根据角色id和菜单id,查询对应的角色-菜单关联关系
 	@Select("SELECT * FROM role_menu WHERE role_id = #{roleId} AND menu_id = #{menuId}")
 	public RoleMenu getRoleMenu(RoleMenu roleMenu);
 
+	// 添加新的角色-菜单关联关系
 	@Insert("INSERT INTO role_menu(role_id, menu_id) VALUES (#{roleId}, #{menuId})")
 	public int insertRoleMenu(RoleMenu roleMenu);
 
+	// 根据角色id和菜单id,删除对应的角色-菜单关联关系
 	@Delete("DELETE FROM role_menu WHERE role_id = #{roleId} AND menu_id = #{menuId}")
 	public int deleteRoleMenu(RoleMenu roleMenu);
 

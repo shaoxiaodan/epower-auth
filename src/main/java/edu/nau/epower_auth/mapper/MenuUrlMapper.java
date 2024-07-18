@@ -22,18 +22,23 @@ import edu.nau.epower_auth.dao.MenuUrl;
  */
 public interface MenuUrlMapper {
 
+	// 根据菜单id,查询所有菜单-资源url映射关系
 	@Select("SELECT * FROM menu_url WHERE menu_id = #{menuId}")
 	public List<MenuUrl> getMenuUrl(int menuId);
 
+	// 添加新的菜单-资源url映射关系
 	@Insert("INSERT INTO menu_url(menu_id, url_id) VALUES (#{menuId}, #{urlId})")
 	public int insertMenuUrl(MenuUrl menuUrl);
 
+	// 根据菜单id,删除菜单-资源的对应映射关系
 	@Delete("DELETE FROM menu_url WHERE menu_id = #{menuId}")
 	public int deleteMenuUrl(MenuUrl menuUrl);
 
+	// 批量添加新的菜单-资源url映射关系
 	@InsertProvider(type = SqlProvider.class, method = "insertBatch")
 	public int insertMenuUrlBatch(List<MenuUrl> menuUrlList);
 
+	// 批量删除对应的菜单-资源url映射关系
 	@DeleteProvider(type = SqlProvider.class, method = "deleteBatch")
 	public int deleteMenuUrlBatch(List<MenuUrl> menuUrlList);
 
