@@ -50,7 +50,7 @@
 						</span>
 						<span th:each="url:${verifyurls}">
 							<span th:if="${url.path} == |${verifyreq}/remove|">
-								<a class="btn btn-outline-primary" th:href="@{remove(uid=${user.id})}">删除</a>
+								<a class="btn btn-outline-primary" th:href="@{remove(uid=${user.id})}" onclick="return delConfirm();">删除</a>
 							</span>
 						</span>
 					</td>

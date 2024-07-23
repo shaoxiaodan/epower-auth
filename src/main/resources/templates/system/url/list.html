@@ -45,7 +45,7 @@
 						</span>
 						<span th:each="chkurl:${verifyurls}">
 							<span th:if="${chkurl.path} == |${verifyreq}/remove|">
-								<a class="btn btn-outline-primary" th:href="@{remove(id=${url.id})}">删除</a>
+								<a class="btn btn-outline-primary" th:href="@{remove(id=${url.id})}" onclick="return delConfirm();">删除</a>
 							</span>
 						</span>
 					</td>

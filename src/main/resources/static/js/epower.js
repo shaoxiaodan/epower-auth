@@ -58,3 +58,15 @@ function checkOptValue(selectorid, msg) {
 	return optVal;
 }
 
+/**
+ * 删除数据的确认提示框
+ */
+function delConfirm() {
+	var result = confirm("是否确认删除当前数据？");
+	//alert("选择结果：" + result);
+	if (result) {
+		return true;
+	} else {
+		return false;
+	}
+}
