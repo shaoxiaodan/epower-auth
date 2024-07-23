@@ -11,7 +11,7 @@
 	<div th:insert="~{system/common/component::#mymenu}"></div>
 
 	<div align="center">
-		<h1>角色配置页面</h1>
+		<h1>菜单配置页面</h1>
 	</div>
 
 	<div>
@@ -32,7 +32,7 @@
 								菜单名称
 							</option>
 						</select>
-						<button type="submit" class="btn btn-primary">添加到角色</button>
+						<button type="submit" class="btn btn-primary">添加配置</button>
 					</form>
 				</span>
 			</span>
@@ -62,7 +62,7 @@
 					<td>
 						<span th:each="url:${verifyurls}">
 							<span th:if="${url.path} == |${verifyreq}/removeauth|">
-								<a class="btn btn-outline-primary" th:href="@{removeauth(rid=${role.id}, mid=${rolemenu.id})}">删除菜单</a>
+								<a class="btn btn-outline-primary" th:href="@{removeauth(rid=${role.id}, mid=${rolemenu.id})}">移除配置菜单</a>
 							</span>
 						</span>
 					</td>
