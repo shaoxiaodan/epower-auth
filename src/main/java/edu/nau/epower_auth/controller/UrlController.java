@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +40,9 @@ public class UrlController {
 
 	@Autowired
 	private UrlService urlService;
+
+	// logback日志
+	private static final Logger logger = LoggerFactory.getLogger(UrlController.class);
 
 	/*
 	 * URL列表page
@@ -76,7 +81,7 @@ public class UrlController {
 		// 添加前端操作按钮的控制对象
 		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/url");
 		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
-		
+
 		// 设置boolean值的isEntrance属性
 		Map<String, Object> optMaps = new HashMap<String, Object>();
 		optMaps.put("是", 1);
@@ -110,7 +115,7 @@ public class UrlController {
 		// 添加前端操作按钮的控制对象
 		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_REQ, "/url");
 		modelMap.addAttribute(ConstantUtils.PAGE_VERIFY_URLS, HtmlUtils.getUrlListByDefRole(defRole));
-		
+
 		// 设置boolean值的isEntrance属性
 		Map<String, Object> optMaps = new HashMap<String, Object>();
 		optMaps.put("是", 1);

@@ -2,6 +2,8 @@ package edu.nau.epower_auth.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,6 +41,9 @@ public class LoginController {
 	@Autowired
 	private RoleService roleService;
 
+	// logback日志
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
 	/**
 	 * 登录页面
 	 * 
@@ -70,10 +75,10 @@ public class LoginController {
 		if (user != null) {
 			// 用户输入都不为空
 			if (StringUtils.isNotEmpty(user.getUsername()) && StringUtils.isNotEmpty(user.getPassword())) {
-				
+
 				// MD5加密转换
 				String md5Pwd = EncryptUtils.getMD5(user.getPassword());
-				
+
 				// 查询登录用户
 //				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), user.getPassword());
 				loginUser = loginService.findUserByUserNameAndPwd(user.getUsername(), md5Pwd); // MD5加密
